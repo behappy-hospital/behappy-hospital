@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.xiaowu.behappy.common.core.config.GlobalSpringConfigure,\
+  org.xiaowu.behappy.common.core.config.SnowflakeConfig,\
+  org.xiaowu.behappy.common.core.util.ResponseConvert,\
+  org.xiaowu.behappy.common.core.config.ThreadConfig

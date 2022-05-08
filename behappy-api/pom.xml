@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.xiaowu</groupId>
+        <artifactId>behappy-hotel</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <artifactId>behappy-api</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>behappy-api-common</module>
+        <module>behappy-api-cmn</module>
+        <module>behappy-api-hosp</module>
+        <module>behappy-api-msm</module>
+        <module>behappy-api-order</module>
+        <module>behappy-api-user</module>
+    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-common-mybatis</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
