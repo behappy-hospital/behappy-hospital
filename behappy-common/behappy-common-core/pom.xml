@@ -9,16 +9,10 @@
     </parent>
     <artifactId>behappy-common-core</artifactId>
     <dependencies>
-        <!--swagger-->
         <dependency>
             <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
+            <artifactId>springfox-boot-starter</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-        </dependency>
-
         <!--server-api-->
         <dependency>
             <groupId>javax.servlet</groupId>

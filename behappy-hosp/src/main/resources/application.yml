@@ -1,6 +1,9 @@
 server:
   port: 8201
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
   application:
     name: behappy-hosp
   datasource:

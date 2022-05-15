@@ -10,6 +10,10 @@
     <artifactId>behappy-api-cmn</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+        </dependency>
     </dependencies>
 
 

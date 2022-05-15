@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.xiaowu</groupId>
-    <artifactId>behappy-hotel</artifactId>
+    <artifactId>behappy-hospital</artifactId>
     <version>1.0.0</version>
-    <name>behappy-hotel</name>
+    <name>behappy-hospital</name>
     <description>尚硅谷-尚医通(改)</description>
     <packaging>pom</packaging>
     <properties>
@@ -18,7 +18,7 @@
         <spring-boot.version>2.6.3</spring-boot.version>
         <spring-cloud.version>2021.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
-        <swagger.version>2.7.0</swagger.version>
+        <swagger.version>3.0.0</swagger.version>
         <fastjson.version>1.2.75</fastjson.version>
         <easyexcel.version>2.1.1</easyexcel.version>
         <hutool.version>5.6.4</hutool.version>
@@ -67,16 +67,9 @@
             <!--swagger-->
             <dependency>
                 <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
+                <artifactId>springfox-boot-starter</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
-            <!--swagger ui-->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>

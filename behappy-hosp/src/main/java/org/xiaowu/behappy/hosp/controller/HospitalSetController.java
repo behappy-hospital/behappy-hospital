@@ -1,16 +1,25 @@
 package org.xiaowu.behappy.hosp.controller;
 
+import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.xiaowu.behappy.api.hosp.model.HospitalSet;
+import org.xiaowu.behappy.api.hosp.vo.HospitalSetQueryVo;
+import org.xiaowu.behappy.common.core.config.SnowflakeConfig;
 import org.xiaowu.behappy.common.core.result.Response;
+import org.xiaowu.behappy.common.core.util.MD5;
 import org.xiaowu.behappy.hosp.service.HospitalSetService;
 
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author xiaowu
@@ -18,6 +27,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/hosp/hospitalSet")
 @RequiredArgsConstructor
+@Api(tags = "医院设置管理")
 public class HospitalSetController {
 
     private final HospitalSetService hospitalSetService;
@@ -36,4 +46,149 @@ public class HospitalSetController {
         return Response.ok(list);
     }
 
+    /**
+     * 逻辑删除医院设置
+     * @apiNote
+     * @author xiaowu
+     * @param id
+     * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
+     */
+    @ApiOperation(value = "逻辑删除医院配置")
+    @DeleteMapping("/{id}")
+    public Response<Boolean> removeById(@PathVariable Long id) {
+        boolean flag = hospitalSetService.removeById(id);
+        return Response.ok(flag);
+    }
+
+    /**
+     * 条件查询带分页
+     * @apiNote
+     * @author xiaowu
+     * @param current
+     * @param limit
+     * @param hospitalSetQueryVo
+     * @return org.xiaowu.behappy.common.core.result.Response<com.baomidou.mybatisplus.extension.plugins.pagination.Page < org.xiaowu.behappy.api.hosp.model.HospitalSet>>
+     */
+    @ApiOperation(value = "条件查询带分页")
+    @PostMapping("/findPageHospSet/{current}/{limit}")
+    public Response<Page<HospitalSet>> info(@PathVariable Integer current,
+                                            @PathVariable Integer limit,
+                                            @RequestBody(required = false) HospitalSetQueryVo hospitalSetQueryVo) {
+        // 创建page对象，传递当前页，每页记录数
+        Page<HospitalSet> page = new Page<>(current, limit);
+        // 构建条件
+        LambdaQueryWrapper<HospitalSet> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(
+                StrUtil.isNotEmpty(hospitalSetQueryVo.getHosname()),
+                HospitalSet::getHosname,
+                hospitalSetQueryVo.getHosname());
+        queryWrapper.eq(
+                StrUtil.isNotEmpty(hospitalSetQueryVo.getHoscode()),
+                HospitalSet::getHoscode,
+                hospitalSetQueryVo.getHoscode());
+        // 调用方法实现分页查询
+        Page<HospitalSet> hospitalSetPage = hospitalSetService.page(page, queryWrapper);
+        // 返回结果
+        return Response.ok(hospitalSetPage);
+    }
+
+    /**
+     * 添加医院设置
+     * @apiNote
+     * @author xiaowu
+     * @param hospitalSet
+     * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
+     */
+    @ApiOperation("添加医院设置")
+    @PostMapping("/saveHospitalSet")
+    public Response<Boolean> saveHospitalSet(@RequestBody HospitalSet hospitalSet) {
+        // 设置状态 1:可使用  2:不可使用
+        hospitalSet.setStatus(1);
+        // 签名密钥
+        int randomInt = RandomUtil.randomInt(1_000);
+        String encrypt = MD5.encrypt(System.currentTimeMillis() + "" + randomInt);
+        hospitalSet.setSignKey(encrypt);
+        // 调用service
+        boolean save = hospitalSetService.save(hospitalSet);
+        return Response.ok(save);
+    }
+
+    /**
+     * 根据id获取医院设置
+     * @apiNote
+     * @author xiaowu
+     * @param id
+     * @return org.xiaowu.behappy.common.core.result.Response<org.xiaowu.behappy.api.hosp.model.HospitalSet>
+     */
+    @ApiOperation("根据id获取医院设置")
+    @GetMapping("/getHospSet/{id}")
+    public Response<HospitalSet> getHospital(@PathVariable Long id) {
+        HospitalSet hospitalSet = hospitalSetService.getById(id);
+        return Response.ok(hospitalSet);
+    }
+
+    /**
+     * 修改医院设置
+     * @apiNote
+     * @author xiaowu
+     * @param hospitalSet
+     * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
+     */
+    @ApiOperation("修改医院设置")
+    @GetMapping("/updateHospitalSet/{id}")
+    public Response<Boolean> updateHospSet(@RequestBody HospitalSet hospitalSet) {
+        boolean update = hospitalSetService.updateById(hospitalSet);
+        return Response.ok(update);
+    }
+
+    /**
+     * 批量删除医院设置
+     * @apiNote
+     * @author xiaowu
+     * @param idList
+     * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
+     */
+    @ApiOperation("批量删除医院设置")
+    @DeleteMapping("/batchRemove")
+    public Response<Boolean> batchRemove(@RequestBody List<Long> idList) {
+        boolean batch = hospitalSetService.removeBatchByIds(idList);
+        return Response.ok(batch);
+    }
+
+    /**
+     * 医院设置锁定和解锁
+     * @apiNote
+     * @author xiaowu
+     * @param id
+     * @param status
+     * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
+     */
+    @ApiOperation("医院设置锁定和解锁")
+    @PutMapping("/lockHospitalSet/{id}/{status}")
+    public Response<Boolean> lockHospitalSet(@PathVariable Long id, @PathVariable Integer status) {
+        // 根据id查询医院设置信息
+        HospitalSet hospitalSet = hospitalSetService.getById(id);
+        // 设置状态
+        hospitalSet.setStatus(status);
+        // 更新
+        boolean update = hospitalSetService.updateById(hospitalSet);
+        return Response.ok(update);
+    }
+
+    /**
+     * 发送签名密钥
+     * @apiNote
+     * @author xiaowu
+     * @param id
+     * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
+     */
+    @ApiOperation("发送签名密钥")
+    @PutMapping("/sendKey/{id}")
+    public Response<Boolean> sendKey(@PathVariable Long id) {
+        HospitalSet hospitalSet = hospitalSetService.getById(id);
+        String signKey = hospitalSet.getSignKey();
+        String hoscode = hospitalSet.getHoscode();
+        // 发送短信
+        return Response.ok();
+    }
 }
