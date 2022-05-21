@@ -2,11 +2,6 @@ server:
   port: 8202
 spring:
   redis:
-    host: localhost
-    timeout: 10000ms
-    port: 6379
-    database: 0
-    password:
     redisson:
       file: classpath:redisson.yaml
   mvc:

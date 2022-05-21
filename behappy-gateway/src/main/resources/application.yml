@@ -1,0 +1,63 @@
+server:
+  port: 8088
+spring:
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    ssl: false
+    timeout: 500ms
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: behappy-product
+          uri: lb://behappy-product
+          predicates:
+            - Path=/api/behappy-product/**
+          filters:
+            # - TokenRelay
+            # - RemoveRequestHeader=Cookie, Set-Cookie
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+            # 限流配置(@Deprecated,使用sentinel)
+            # - name: RequestRateLimiter
+            # args:
+            # key-resolver: '#{@remoteAddrKeyResolver}'
+            # redis-rate-limiter.replenishRate: 100
+            # redis-rate-limiter.burstCapacity: 200
+        - id: behappy-basket
+          uri: lb://behappy-basket
+          predicates:
+            - Path=/api/behappy-basket/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        - id: behappy-member
+          uri: lb://behappy-member
+          predicates:
+            - Path=/api/behappy-member/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        - id: behappy-thirdparty
+          uri: lb://behappy-thirdparty
+          predicates:
+            - Path=/api/behappy-thirdparty/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        - id: behappy-basket
+          uri: lb://behappy-basket
+          predicates:
+            - Path=/api/behappy-basket/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        - id: behappy-system
+          uri: lb://behappy-system
+          predicates:
+            - Path=/api/behappy-system/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}

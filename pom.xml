@@ -30,7 +30,6 @@
         <module>behappy-common</module>
         <module>behappy-gateway</module>
         <module>behappy-hosp</module>
-        <module>behappy-manager</module>
         <module>behappy-msm</module>
         <module>behappy-order</module>
         <module>behappy-oss</module>
