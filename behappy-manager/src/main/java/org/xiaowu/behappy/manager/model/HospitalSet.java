@@ -9,8 +9,6 @@ import lombok.Data;
  * <p>
  * HospitalSet
  * </p>
- *
- * @author qy
  */
 @Data
 @ApiModel(description = "HospitalSet")

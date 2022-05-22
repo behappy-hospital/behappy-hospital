@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/meta :: meta"></head>
+<body class="gray-bg">
+<div id="app-container" style="padding: 10px 10px;">
+
+    <br/>
+    <div class="col-md-2" style="width: 250px">
+        <button type="button" id="loading-example-btn" onclick="javascript:window.location.reload(true);" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+        <button type="button"  class="btn btn-white btn-sm" onclick="javascript:opt.openWin('/hospital/create','添加',550,450);">添加</button>
+        <button type="button"  class="btn btn-white btn-sm" onclick="javascript:opt.openWin('/hospital/createBatch','批量导入测试数据',550,350);">批量导入测试数据</button>
+    </div>
+
+    <br/>
+    <br/>
+    <h4>基本信息</h4>
+    <table class="table table-striped table-condenseda table-bordered" width="100%">
+        <tbody>
+        <tr>
+            <th width="15%">医院名称</th>
+            <td width="35%"><b style="font-size: 14px" th:text="${hospital.hosname}"></b> | <span th:text="'医院等级编号：'+${ hospital.hostype}"></span></td>
+            <th width="15%">医院logo</th>
+            <td width="35%"><img th:src="${'data:image/jpeg;base64,'+(hospital.logoData)}"  width="80"></td>
+        </tr>
+        <tr>
+            <th>医院编码</th>
+            <td th:text="${hospital.hoscode}"></td>
+            <th>地址</th>
+            <td th:text="${hospital.address}"></td>
+        </tr>
+        <tr>
+            <th>坐车路线</th>
+            <td colspan="3" th:text="${hospital.route}"></td>
+        </tr>
+        <tr>
+            <th>医院简介</th>
+            <td colspan="3" th:text="${hospital.intro}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br/>
+    <h4>预约规则信息</h4>
+    <table class="table table-striped table-condenseda table-bordered" width="100%">
+        <tbody>
+        <tr>
+            <th width="15%">预约周期</th>
+            <td width="35%" th:text="${hospital.bookingRule.cycle}">天</td>
+            <th width="15%">放号时间</th>
+            <td width="35%" th:text="${hospital.bookingRule.releaseTime}"></td>
+        </tr>
+        <tr>
+            <th>停挂时间</th>
+            <td th:text="${hospital.bookingRule.stopTime}"></td>
+            <th>退号时间</th>
+            <td ><span th:text="${hospital.bookingRule.quitDay == -1 ? '就诊前一工作日' : '就诊当日'}"></span>&nbsp;<span th:text="${hospital.bookingRule.quitTime}"></span></td>
+        </tr>
+        <tr>
+            <th>预约规则</th>
+            <td colspan="3" th:text="${hospital.bookingRule.rule}"></td>
+        </tr>
+        <br>
+
+        </tbody>
+    </table>
+
+</div>
+<script>
+var app = new Vue({
+    el: '#app-container',
+
+    data() {
+        return {
+            total: [[${total}]], // 数据库中的总记录数
+            pageNum: [[${pageNum}]], // 默认页码
+            pageSize: 10 // 每页记录数
+        }
+    },
+
+    methods: {
+        fetchData(page = 1) {
+            document.forms.ec.pageNum.value=page
+            document.forms.ec.submit();
+        }
+    }
+})
+</script>
+</body>
+</html>

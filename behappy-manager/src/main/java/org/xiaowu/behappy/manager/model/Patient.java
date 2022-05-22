@@ -11,13 +11,11 @@ import lombok.Data;
  * <p>
  * Patient
  * </p>
- *
- * @author qy
  */
 @Data
 @ApiModel(description = "Patient")
 @TableName("patient")
-public class Patient extends BaseEntity {
+public class Patient extends org.xiaowu.behappy.manager.model.BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
 	

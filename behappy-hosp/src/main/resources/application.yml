@@ -13,6 +13,13 @@ spring:
     url: jdbc:mysql://localhost:3306/yygh_hosp?allowMultiQueries=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
   profiles:
     active: dev
+  data:
+    #uri: mongodb://用户名:密码@服务器IP:端口/数据库名
+    # 上方为明确指定某个数据的用户进行连接
+    # 也可以使用admin 数据库中的用户进行连接  统一到admin 数据库进行认证
+    # admin 用户认证 url 写法： mongodb://账户:密码@ip:端口/数据库名?authSource=admin&authMechanism=SCRAM-SHA-1
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/yygh_hosp?authSource=admin&authMechanism=SCRAM-SHA-1
 # 数据源
 # mybaits-plus配置
 mybatis-plus:

@@ -1,4 +1,4 @@
-package org.xiaowu.behappy.manager.utils;
+package org.xiaowu.behappy.manager.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

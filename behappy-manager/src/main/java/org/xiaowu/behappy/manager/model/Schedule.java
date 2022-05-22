@@ -10,13 +10,11 @@ import lombok.Data;
  * <p>
  * Schedule
  * </p>
- *
- * @author qy
  */
 @Data
 @ApiModel(description = "Schedule")
 @TableName("schedule")
-public class Schedule extends BaseNoAutoEntity {
+public class Schedule extends org.xiaowu.behappy.manager.model.BaseNoAutoEntity {
 	
 	private static final long serialVersionUID = 1L;
 

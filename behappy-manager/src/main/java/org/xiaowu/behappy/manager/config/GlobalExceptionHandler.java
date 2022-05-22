@@ -1,6 +1,6 @@
 package org.xiaowu.behappy.manager.config;
 
-import org.xiaowu.behappy.manager.utils.HospitalException;
+import org.xiaowu.behappy.manager.util.YyghException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
  * 全局异常处理类
- *
- * @author qy
  */
 @ControllerAdvice
 @Slf4j
@@ -26,8 +24,8 @@ public class GlobalExceptionHandler {
      * @param e
      * @return
      */
-    @ExceptionHandler(HospitalException.class)
-    public String error(HospitalException e, Model model){
+    @ExceptionHandler(YyghException.class)
+    public String error(YyghException e, Model model){
         model.addAttribute("message", e.getMessage());
         return "error";
     }

@@ -1,10 +1,8 @@
-package org.xiaowu.behappy.manager.utils;
+package org.xiaowu.behappy.manager.util;
 import lombok.Getter;
 
 /**
  * 统一返回结果状态信息类
- *
- * @author qy
  */
 @Getter
 public enum ResultCodeEnum {

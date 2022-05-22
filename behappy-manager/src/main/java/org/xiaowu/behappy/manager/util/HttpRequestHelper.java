@@ -1,4 +1,4 @@
-package org.xiaowu.behappy.manager.utils;
+package org.xiaowu.behappy.manager.util;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;

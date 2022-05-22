@@ -1,8 +1,6 @@
-package org.xiaowu.behappy.manager.utils;
+package org.xiaowu.behappy.manager.util;
 
 import com.alibaba.fastjson.JSONArray;
-
-import java.util.List;
 
 public class PageModel<T> implements java.io.Serializable {
 

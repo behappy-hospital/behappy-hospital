@@ -17,15 +17,4 @@
         <module>behappy-api-order</module>
         <module>behappy-api-user</module>
     </modules>
-    <dependencies>
-        <dependency>
-            <groupId>org.xiaowu</groupId>
-            <artifactId>behappy-common-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.xiaowu</groupId>
-            <artifactId>behappy-common-mybatis</artifactId>
-        </dependency>
-    </dependencies>
-
 </project>

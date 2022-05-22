@@ -1,4 +1,4 @@
-package org.xiaowu.behappy.manager.utils;
+package org.xiaowu.behappy.manager.util;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,8 +6,6 @@ import lombok.Data;
 
 /**
  * 全局统一返回结果类
- *
- * @author qy
  */
 @Data
 @ApiModel(value = "全局统一返回结果")

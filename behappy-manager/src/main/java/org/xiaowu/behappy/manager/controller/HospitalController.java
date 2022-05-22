@@ -1,12 +1,9 @@
 package org.xiaowu.behappy.manager.controller;
 
-import io.swagger.annotations.Api;
 import org.xiaowu.behappy.manager.service.ApiService;
 import org.xiaowu.behappy.manager.service.HospitalService;
-import org.xiaowu.behappy.manager.utils.HttpRequestHelper;
-import org.xiaowu.behappy.manager.utils.Result;
-import org.xiaowu.behappy.manager.utils.ResultCodeEnum;
-import org.xiaowu.behappy.manager.utils.HospitalException;
+import org.xiaowu.behappy.manager.util.*;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
- *
- * @author qy
  *
  */
 @Api(tags = "医院管理接口")
@@ -39,13 +34,13 @@ public class HospitalController {
 	public Result AgreeAccountLendProject(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			Map<String, Object> paramMap = HttpRequestHelper.switchMap(request.getParameterMap());
-//			if(!HttpRequestHelper.isSignEquals(paramMap, apiService.getSignKey())) {
-//				throw new YyghException(ResultCodeEnum.SIGN_ERROR);
-//			}
+			if(!HttpRequestHelper.isSignEquals(paramMap, apiService.getSignKey())) {
+				throw new YyghException(ResultCodeEnum.SIGN_ERROR);
+			}
 
 			Map<String, Object> resultMap = hospitalService.submitOrder(paramMap);
 			return Result.ok(resultMap);
-		} catch (HospitalException e) {
+		} catch (YyghException e) {
 			return Result.fail().message(e.getMessage());
 		}
 	}
@@ -60,12 +55,12 @@ public class HospitalController {
 		try {
 			Map<String, Object> paramMap = HttpRequestHelper.switchMap(request.getParameterMap());
 			if(!HttpRequestHelper.isSignEquals(paramMap, apiService.getSignKey())) {
-				throw new HospitalException(ResultCodeEnum.SIGN_ERROR);
+				throw new YyghException(ResultCodeEnum.SIGN_ERROR);
 			}
 
 			hospitalService.updatePayStatus(paramMap);
 			return Result.ok();
-		} catch (HospitalException e) {
+		} catch (YyghException e) {
 			return Result.fail().message(e.getMessage());
 		}
 	}
@@ -79,13 +74,13 @@ public class HospitalController {
 	public Result updateCancelStatus(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			Map<String, Object> paramMap = HttpRequestHelper.switchMap(request.getParameterMap());
-//			if(!HttpRequestHelper.isSignEquals(paramMap, apiService.getSignKey())) {
-//				throw new YyghException(ResultCodeEnum.SIGN_ERROR);
-//			}
+			if(!HttpRequestHelper.isSignEquals(paramMap, apiService.getSignKey())) {
+				throw new YyghException(ResultCodeEnum.SIGN_ERROR);
+			}
 
 			hospitalService.updateCancelStatus(paramMap);
 			return Result.ok();
-		} catch (HospitalException e) {
+		} catch (YyghException e) {
 			return Result.fail().message(e.getMessage());
 		}
 	}

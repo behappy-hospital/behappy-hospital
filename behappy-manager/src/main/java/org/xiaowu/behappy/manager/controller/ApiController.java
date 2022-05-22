@@ -1,10 +1,11 @@
 package org.xiaowu.behappy.manager.controller;
 
-import io.swagger.annotations.Api;
 import org.xiaowu.behappy.manager.mapper.HospitalSetMapper;
 import org.xiaowu.behappy.manager.model.HospitalSet;
 import org.xiaowu.behappy.manager.service.ApiService;
-import org.xiaowu.behappy.manager.utils.HospitalException;
+import org.xiaowu.behappy.manager.service.HospitalService;
+import org.xiaowu.behappy.manager.util.YyghException;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,44 +20,45 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  *
- * @author qy
- *
  */
 @Api(tags = "医院管理接口")
 @Controller
 @RequestMapping
-public class ApiController extends BaseController {
+public class ApiController extends org.xiaowu.behappy.manager.controller.BaseController {
 
 	@Autowired
 	private ApiService apiService;
 
 	@Autowired
-	private HospitalSetMapper hospitalSetMapper;
+	private HospitalService hospitalService;
 
 	@RequestMapping("/hospitalSet/index")
 	public String getHospitalSet(ModelMap model,RedirectAttributes redirectAttributes) {
-		HospitalSet hospitalSet = hospitalSetMapper.selectById(1);
+		HospitalSet hospitalSet = hospitalService.getFirst();
+		if (hospitalSet == null){
+			hospitalSet = new HospitalSet();
+		}
 		model.addAttribute("hospitalSet", hospitalSet);
 		return "hospitalSet/index";
 	}
 
 	@RequestMapping(value="/hospitalSet/save")
 	public String createHospitalSet(ModelMap model,HospitalSet hospitalSet) {
-		hospitalSetMapper.updateById(hospitalSet);
+		hospitalService.saveOrUpdate(hospitalSet);
 		return "redirect:/hospitalSet/index";
 	}
 
 	@RequestMapping("/hospital/index")
 	public String getHospital(ModelMap model,HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		try {
-			HospitalSet hospitalSet = hospitalSetMapper.selectById(1);
+			HospitalSet hospitalSet = hospitalService.getFirst();
 			if(null == hospitalSet || StringUtils.isEmpty(hospitalSet.getHoscode()) || StringUtils.isEmpty(hospitalSet.getSignKey())) {
 				this.failureMessage("先设置医院code与签名key", redirectAttributes);
 				return "redirect:/hospitalSet/index";
 			}
 
 			model.addAttribute("hospital", apiService.getHospital());
-		} catch (HospitalException e) {
+		} catch (YyghException e) {
 			this.failureMessage(e.getMessage(), request);
 		} catch (Exception e) {
 			this.failureMessage("数据异常", request);
@@ -73,7 +75,7 @@ public class ApiController extends BaseController {
 	public String saveHospital(String data, HttpServletRequest request) {
 		try {
 			apiService.saveHospital(data);
-		} catch (HospitalException e) {
+		} catch (YyghException e) {
 			return this.failurePage(e.getMessage(),request);
 		} catch (Exception e) {
 			return this.failurePage("数据异常",request);
@@ -87,14 +89,14 @@ public class ApiController extends BaseController {
 								 @RequestParam(defaultValue = "10") int pageSize,
 								 HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		try {
-			HospitalSet hospitalSet = hospitalSetMapper.selectById(1);
+			HospitalSet hospitalSet = hospitalService.getFirst();
 			if(null == hospitalSet || StringUtils.isEmpty(hospitalSet.getHoscode()) || StringUtils.isEmpty(hospitalSet.getSignKey())) {
 				this.failureMessage("先设置医院code与签名key", redirectAttributes);
 				return "redirect:/hospitalSet/index";
 			}
 
 			model.addAllAttributes(apiService.findDepartment(pageNum, pageSize));
-		} catch (HospitalException e) {
+		} catch (YyghException e) {
 			this.failureMessage(e.getMessage(), request);
 		} catch (Exception e) {
 			this.failureMessage("数据异常", request);
@@ -111,7 +113,7 @@ public class ApiController extends BaseController {
 	public String save(String data, HttpServletRequest request) {
 		try {
 			apiService.saveDepartment(data);
-		} catch (HospitalException e) {
+		} catch (YyghException e) {
 			return this.failurePage(e.getMessage(),request);
 		} catch (Exception e) {
 			return this.failurePage("数据异常",request);
@@ -125,14 +127,14 @@ public class ApiController extends BaseController {
 								 @RequestParam(defaultValue = "10") int pageSize,
 							   HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		try {
-			HospitalSet hospitalSet = hospitalSetMapper.selectById(1);
+			HospitalSet hospitalSet = hospitalService.getFirst();
 			if(null == hospitalSet || StringUtils.isEmpty(hospitalSet.getHoscode()) || StringUtils.isEmpty(hospitalSet.getSignKey())) {
 				this.failureMessage("先设置医院code与签名key", redirectAttributes);
 				return "redirect:/hospitalSet/index";
 			}
 
 			model.addAllAttributes(apiService.findSchedule(pageNum, pageSize));
-		} catch (HospitalException e) {
+		} catch (YyghException e) {
 			this.failureMessage(e.getMessage(), request);
 		} catch (Exception e) {
 			this.failureMessage("数据异常", request);
@@ -150,7 +152,7 @@ public class ApiController extends BaseController {
 		try {
 			//data = data.replaceAll("\r\n", "").replace(" ", "");
 			apiService.saveSchedule(data);
-		} catch (HospitalException e) {
+		} catch (YyghException e) {
 			return this.failurePage(e.getMessage(),request);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -168,7 +170,7 @@ public class ApiController extends BaseController {
 	public String saveBatchHospital(HttpServletRequest request) {
 		try {
 			apiService.saveBatchHospital();
-		} catch (HospitalException e) {
+		} catch (YyghException e) {
 			return this.failurePage(e.getMessage(),request);
 		} catch (Exception e) {
 			return this.failurePage("数据异常",request);

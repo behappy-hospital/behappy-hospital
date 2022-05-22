@@ -12,6 +12,7 @@
     <modules>
         <module>behappy-common-core</module>
         <module>behappy-common-mybatis</module>
+        <module>behappy-common-mongo</module>
     </modules>
 
 </project>

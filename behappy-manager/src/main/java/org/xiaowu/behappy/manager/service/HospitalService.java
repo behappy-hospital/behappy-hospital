@@ -1,9 +1,13 @@
 package org.xiaowu.behappy.manager.service;
 
-import java.io.IOException;
+import com.baomidou.mybatisplus.extension.service.IService;
+import org.xiaowu.behappy.manager.model.HospitalSet;
+
 import java.util.Map;
 
-public interface HospitalService {
+public interface HospitalService extends IService<HospitalSet> {
+
+    HospitalSet getFirst();
 
     /**
      * 预约下单

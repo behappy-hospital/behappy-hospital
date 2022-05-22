@@ -1,14 +1,19 @@
 package org.xiaowu.behappy.manager.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.xiaowu.behappy.manager.mapper.HospitalSetMapper;
 import org.xiaowu.behappy.manager.mapper.OrderInfoMapper;
 import org.xiaowu.behappy.manager.mapper.ScheduleMapper;
+import org.xiaowu.behappy.manager.model.HospitalSet;
 import org.xiaowu.behappy.manager.model.OrderInfo;
 import org.xiaowu.behappy.manager.model.Patient;
 import org.xiaowu.behappy.manager.model.Schedule;
 import org.xiaowu.behappy.manager.service.HospitalService;
-import org.xiaowu.behappy.manager.utils.ResultCodeEnum;
-import org.xiaowu.behappy.manager.utils.HospitalException;
+import org.xiaowu.behappy.manager.util.ResultCodeEnum;
+import org.xiaowu.behappy.manager.util.YyghException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,13 +26,20 @@ import java.util.Map;
 
 @Service
 @Slf4j
-public class HospitalServiceImpl implements HospitalService {
+public class HospitalServiceImpl extends ServiceImpl<HospitalSetMapper, HospitalSet> implements HospitalService {
 
 	@Autowired
 	private ScheduleMapper hospitalMapper;
 
     @Autowired
     private OrderInfoMapper orderInfoMapper;
+
+    @Override
+    public HospitalSet getFirst() {
+        LambdaQueryWrapper<HospitalSet> queryWrapper = new LambdaQueryWrapper<HospitalSet>()
+                .last("limit 1");
+        return super.getOne(queryWrapper);
+    }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -40,15 +52,15 @@ public class HospitalServiceImpl implements HospitalService {
         String reserveTime = (String)paramMap.get("reserveTime");
         String amount = (String)paramMap.get("amount");
 
-        Schedule schedule = this.getSchedule("1L");
+        Schedule schedule = this.getSchedule(hosScheduleId);
         if(null == schedule) {
-            throw new HospitalException(ResultCodeEnum.DATA_ERROR);
+            throw new YyghException(ResultCodeEnum.DATA_ERROR);
         }
 
         if(!schedule.getHoscode().equals(hoscode)
                 || !schedule.getDepcode().equals(depcode)
                 || !schedule.getAmount().toString().equals(amount)) {
-            throw new HospitalException(ResultCodeEnum.DATA_ERROR);
+            throw new YyghException(ResultCodeEnum.DATA_ERROR);
         }
 
         //就诊人信息
@@ -66,7 +78,7 @@ public class HospitalServiceImpl implements HospitalService {
             //记录预约记录
             OrderInfo orderInfo = new OrderInfo();
             orderInfo.setPatientId(patientId);
-            orderInfo.setScheduleId(1L);
+            orderInfo.setScheduleId(Long.parseLong(hosScheduleId));
             int number = schedule.getReservedNumber().intValue() - schedule.getAvailableNumber().intValue();
             orderInfo.setNumber(number);
             orderInfo.setAmount(new BigDecimal(amount));
@@ -92,7 +104,7 @@ public class HospitalServiceImpl implements HospitalService {
             //排班剩余预约数
             resultMap.put("availableNumber", schedule.getAvailableNumber());
         } else {
-            throw new HospitalException(ResultCodeEnum.DATA_ERROR);
+            throw new YyghException(ResultCodeEnum.DATA_ERROR);
         }
         return resultMap;
     }
@@ -104,7 +116,7 @@ public class HospitalServiceImpl implements HospitalService {
 
         OrderInfo orderInfo = orderInfoMapper.selectById(hosRecordId);
         if(null == orderInfo) {
-            throw new HospitalException(ResultCodeEnum.DATA_ERROR);
+            throw new YyghException(ResultCodeEnum.DATA_ERROR);
         }
         //已支付
         orderInfo.setOrderStatus(1);
@@ -119,7 +131,7 @@ public class HospitalServiceImpl implements HospitalService {
 
         OrderInfo orderInfo = orderInfoMapper.selectById(hosRecordId);
         if(null == orderInfo) {
-            throw new HospitalException(ResultCodeEnum.DATA_ERROR);
+            throw new YyghException(ResultCodeEnum.DATA_ERROR);
         }
         //已取消
         orderInfo.setOrderStatus(-1);
