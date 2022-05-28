@@ -2,6 +2,7 @@ package org.xiaowu.behappy.cmn.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -73,5 +74,44 @@ public class DictService extends ServiceImpl<DictMapper, Dict> implements IServi
                 .excelType(ExcelTypeEnum.XLSX)
                 .sheet()
                 .doRead();
+    }
+
+    public String getNameByParentDictCodeAndValue(String parentDictCode, String value) {
+        // parentDictCode可能为空
+        // 省市区的value值可以确定唯一
+        if (StrUtil.isEmpty(parentDictCode)){
+            LambdaQueryWrapper<Dict> queryWrapper = new LambdaQueryWrapper<Dict>().eq(Dict::getValue, value);
+            Dict dict = baseMapper.selectOne(queryWrapper);
+            if (dict != null){
+                return dict.getName();
+            }
+        }else {
+            // 根据dictCode获取parent id
+            LambdaQueryWrapper<Dict> wrapper = new LambdaQueryWrapper<Dict>()
+                    .select(Dict::getId)
+                    .eq(Dict::getDictCode, parentDictCode);
+            Dict one = baseMapper.selectOne(wrapper);
+            if (one != null){
+                LambdaQueryWrapper<Dict> dictLambdaQueryWrapper = new LambdaQueryWrapper<Dict>()
+                        .eq(Dict::getParentId, one.getId())
+                        .eq(Dict::getValue, value);
+                Dict selectOne = baseMapper.selectOne(dictLambdaQueryWrapper);
+                if (selectOne != null){
+                    return selectOne.getName();
+                }
+            }
+        }
+        return "";
+    }
+
+    public List<Dict> findByDictCode(String dictCode) {
+        LambdaQueryWrapper<Dict> wrapper = new LambdaQueryWrapper<Dict>()
+                .select(Dict::getId)
+                .eq(Dict::getDictCode, dictCode);
+        Dict dict = baseMapper.selectOne(wrapper);
+        if (dict != null){
+            return findChildData(dict.getId());
+        }
+        return null;
     }
 }

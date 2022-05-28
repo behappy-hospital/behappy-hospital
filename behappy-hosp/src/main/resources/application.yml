@@ -1,18 +1,12 @@
-server:
-  port: 8201
 spring:
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
-  application:
-    name: behappy-hosp
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: root
     username: root
     url: jdbc:mysql://localhost:3306/yygh_hosp?allowMultiQueries=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
-  profiles:
-    active: dev
   data:
     #uri: mongodb://用户名:密码@服务器IP:端口/数据库名
     # 上方为明确指定某个数据的用户进行连接
@@ -34,3 +28,6 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     #开启sql日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+feign:
+  sentinel:
+    enabled: true

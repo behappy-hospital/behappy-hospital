@@ -18,6 +18,7 @@
             <groupId>org.xiaowu</groupId>
             <artifactId>behappy-api-common</artifactId>
         </dependency>
+
     </dependencies>
 
 

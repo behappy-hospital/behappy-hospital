@@ -1,0 +1,42 @@
+/*
+ * Copyright (c) 2020 pig4cloud Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.xiaowu.behappy.common.core.constants;
+
+
+/**
+ * @author 小五
+ */
+public interface ServiceConstants {
+    /*-----------------------------------服务名称------------------------------*/
+    /**
+     * 后台模块
+     */
+    String UPMS_SERVICE = "behappy-manager";
+
+    /**
+     * 字典模块
+     */
+    String CMN_SERVICE = "behappy-cmn";
+
+    /**
+     * 医院管理模块
+     */
+    String HOSP_SERVICE = "behappy-hosp";
+
+    /*-----------------------------------服务名称------------------------------*/
+
+}

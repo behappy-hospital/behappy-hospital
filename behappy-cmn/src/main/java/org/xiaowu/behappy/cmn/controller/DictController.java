@@ -70,4 +70,26 @@ public class DictController {
         return Response.ok();
     }
 
+    /**
+     * 数据字典名称
+     * @apiNote
+     * @author xiaowu
+     * @param parentDictCode
+     * @param value
+     * @return org.xiaowu.behappy.common.core.result.Response<java.lang.String>
+     */
+    @ApiOperation("数据字典名称")
+    @GetMapping("/getName")
+    public Response<String> getName(@RequestParam(value = "parentDictCode", required = false) String parentDictCode,
+                                    @RequestParam(value = "value") String value) {
+        String dictName = dictService.getNameByParentDictCodeAndValue(parentDictCode, value);
+        return Response.ok(dictName);
+    }
+
+    @ApiOperation("根据dictCode获取下级节点")
+    @GetMapping("/findByDictCode/{dictCode}")
+    public Response<List<Dict>> findByDictCode(@PathVariable String dictCode) {
+        List<Dict> dictList = dictService.findByDictCode(dictCode);
+        return Response.ok(dictList);
+    }
 }
