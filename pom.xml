@@ -20,6 +20,7 @@
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
         <swagger.version>3.0.0</swagger.version>
         <fastjson.version>1.2.75</fastjson.version>
+        <joda.time.version>2.10.14</joda.time.version>
         <easyexcel.version>2.1.1</easyexcel.version>
         <hutool.version>5.6.4</hutool.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
@@ -74,7 +75,12 @@
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
-
+            <!-- 日期工具栏依赖 -->
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda.time.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>easyexcel</artifactId>

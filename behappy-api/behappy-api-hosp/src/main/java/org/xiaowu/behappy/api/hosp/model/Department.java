@@ -3,6 +3,7 @@ package org.xiaowu.behappy.api.hosp.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.xiaowu.behappy.api.common.model.BaseMongoEntity;
@@ -12,6 +13,7 @@ import org.xiaowu.behappy.api.common.model.BaseMongoEntity;
  * Department
  * </p>
  */
+@Accessors(chain = true)
 @Data
 @ApiModel(description = "Department")
 @Document("Department")

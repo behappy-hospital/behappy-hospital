@@ -4,14 +4,23 @@ import cn.hutool.core.bean.BeanUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+import org.joda.time.DateTime;
 import org.springframework.data.domain.*;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 import org.xiaowu.behappy.api.hosp.model.Department;
+import org.xiaowu.behappy.api.hosp.model.Schedule;
+import org.xiaowu.behappy.api.hosp.vo.BookingScheduleRuleVo;
 import org.xiaowu.behappy.api.hosp.vo.DepartmentQueryVo;
+import org.xiaowu.behappy.api.hosp.vo.DepartmentVo;
+import org.xiaowu.behappy.common.core.util.JodaTimeUtils;
 import org.xiaowu.behappy.hosp.repository.DepartmentRepository;
 
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author xiaowu
@@ -24,6 +33,10 @@ public class DepartmentService {
 
     private final ObjectMapper objectMapper;
 
+    private final MongoTemplate mongoTemplate;
+
+    private final HospitalService hospitalService;
+
     @SneakyThrows
     public void saveDepartment(Map<String, Object> parameterMap) {
         String str = objectMapper.writeValueAsString(parameterMap);
@@ -33,9 +46,9 @@ public class DepartmentService {
         Department targetDepartment = departmentRepository.findDepartmentByHoscodeAndDepcode(hoscode, decode);
         if (targetDepartment != null) {
             // 如果不等于null, 则更新
-            BeanUtil.copyProperties(department,targetDepartment);
+            BeanUtil.copyProperties(department, targetDepartment);
             departmentRepository.save(targetDepartment);
-        }else {
+        } else {
             department.setCreateTime(new Date());
             department.setUpdateTime(new Date());
             department.setIsDeleted(0);
@@ -45,7 +58,7 @@ public class DepartmentService {
 
     public Page<Department> selectPage(int pageInt, int limitInt, DepartmentQueryVo departmentQueryVo) {
         // 0 为第一页
-        PageRequest pageRequest = PageRequest.of(pageInt-1, limitInt, Sort.by(Sort.Direction.DESC, "createTime"));
+        PageRequest pageRequest = PageRequest.of(pageInt - 1, limitInt, Sort.by(Sort.Direction.DESC, "createTime"));
         Department department = BeanUtil.copyProperties(departmentQueryVo, Department.class);
         department.setIsDeleted(0);
         // 创建匹配器
@@ -58,6 +71,43 @@ public class DepartmentService {
     }
 
     public int removeDep(String hoscode, String depcode) {
-        return departmentRepository.deleteDepartmentByHoscodeAndDepcode(hoscode,depcode);
+        return departmentRepository.deleteDepartmentByHoscodeAndDepcode(hoscode, depcode);
     }
+
+    public List<DepartmentVo> findDeptTree(String hoscode) {
+        // 用于最终数据封装
+        List<DepartmentVo> departmentVoResults = new LinkedList<>();
+        // 根据医院编号查询医院所有科室信息
+        Example<Department> exampleQuery = Example.of(new Department()
+                .setHoscode(hoscode));
+        List<Department> departmentListByHoscode = departmentRepository.findAll(exampleQuery);
+        // 根据大科室编号bigcode分组, 获取每个大科室下的下级子科室
+        Map<String, List<Department>> departmentMap = departmentListByHoscode.stream()
+                .collect(Collectors.groupingBy(Department::getBigcode));
+        for (Map.Entry<String, List<Department>> departmentEntry : departmentMap.entrySet()) {
+            // 大科室编号
+            String bigcode = departmentEntry.getKey();
+            // 大科室编号对应的全局数据
+            List<Department> departmentList = departmentEntry.getValue();
+            // 封装大科室
+            DepartmentVo departmentVo = new DepartmentVo();
+            departmentVo.setDepcode(bigcode);
+            departmentVo.setDepname(departmentList.get(0).getDepname());
+            // 封装小科室
+            List<DepartmentVo> childList = new LinkedList<>();
+            for (Department department : departmentList) {
+                DepartmentVo childDepartment = new DepartmentVo();
+                childDepartment.setDepcode(department.getDepcode());
+                childDepartment.setDepname(department.getDepname());
+                // 封装childList
+                childList.add(childDepartment);
+            }
+            // 把小科室list放在大科室的children里面
+            departmentVo.setChildren(childList);
+            // 在放在最终的result里面
+            departmentVoResults.add(departmentVo);
+        }
+        return departmentVoResults;
+    }
+
 }

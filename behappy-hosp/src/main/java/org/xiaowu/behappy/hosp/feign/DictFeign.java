@@ -11,10 +11,12 @@ import static org.xiaowu.behappy.common.core.constants.ServiceConstants.CMN_SERV
 /**
  * @author xiaowu
  */
-@FeignClient(value = CMN_SERVICE,fallbackFactory = DictFeignFactory.class)
+@FeignClient(value = CMN_SERVICE,
+        path = "/admin/cmn/dict",
+        fallbackFactory = DictFeignFactory.class)
 public interface DictFeign {
 
-    @GetMapping("/admin/cmn/dict/getName")
+    @GetMapping("/getName")
     Response<String> getName(@RequestParam(value = "parentDictCode") String parentDictCode,
                              @RequestParam(value = "value") String value);
 }
