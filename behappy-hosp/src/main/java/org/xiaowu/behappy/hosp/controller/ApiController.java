@@ -2,11 +2,10 @@ package org.xiaowu.behappy.hosp.controller;
 
 import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.xiaowu.behappy.api.hosp.model.Department;
 import org.xiaowu.behappy.api.hosp.model.Hospital;
 import org.xiaowu.behappy.api.hosp.model.Schedule;
@@ -22,6 +21,7 @@ import org.xiaowu.behappy.hosp.service.HospitalSetService;
 import org.xiaowu.behappy.hosp.service.ScheduleService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -151,7 +151,6 @@ public class ApiController {
     @PostMapping("/saveDepartment")
     public Response<Boolean> saveDepartment(HttpServletRequest request) {
         Map<String, Object> parameterMap = getParameterMap(request);
-        String hoscode = (String) parameterMap.get("hoscode");
         // 签名校验
         checkSign(parameterMap);
         departmentService.saveDepartment(parameterMap);

@@ -20,6 +20,7 @@ import org.xiaowu.behappy.hosp.repository.HospitalRepository;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -130,5 +131,28 @@ public class HospitalService {
                     hospital.setBookingRule(null);
                 });
         return results;
+    }
+
+    public List<Hospital> findByHosname(String hosname) {
+        Hospital hospital = new Hospital();
+        hospital.setHosname(hosname);
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+                .withIgnoreCase();
+        Example<Hospital> example = Example.of(hospital,exampleMatcher);
+        return hospitalRepository.findAll(example);
+    }
+
+    public Map<String, Object> item(String hoscode) {
+        Map<String, Object> map = new HashMap<>();
+        // 医院详情
+        Hospital hospital = this.findHospitalByHoscode(hoscode);
+        this.packHospital(hospital);
+        map.put("hospital",hospital);
+        // 预约规则
+        map.put("bookingRule",hospital.getBookingRule());
+        // 不需要重复返回
+        hospital.setBookingRule(null);
+        return map;
     }
 }
