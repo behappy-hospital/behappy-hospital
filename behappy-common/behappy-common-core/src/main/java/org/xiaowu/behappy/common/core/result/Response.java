@@ -85,9 +85,6 @@ public class Response<T> implements Serializable {
         return Response.restResult(data, ResultCodeEnum.FAIL.getCode(), msg);
     }
 
-    public static <T> Response<T> failed(int code, String msg) {
-        return Response.restResult(null, code, msg);
-    }
 
     public static <T> Response<T> failed(Throwable throwable) {
         return Response.restResult(null, ResultCodeEnum.FAIL.getCode(), throwable.getMessage());
@@ -107,7 +104,7 @@ public class Response<T> implements Serializable {
         return Response.restResult(null, ResultCodeEnum.FAIL.getCode(), "未授权");
     }
 
-    private static <T> Response<T> restResult(T data, int code, String msg) {
+    public static <T> Response<T> restResult(T data, int code, String msg) {
         Response<T> apiResult = new Response<>();
         apiResult.setCode(code);
         apiResult.setData(data);

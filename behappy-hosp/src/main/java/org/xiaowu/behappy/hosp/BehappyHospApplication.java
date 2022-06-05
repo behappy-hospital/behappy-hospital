@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component;
 
 @EnableFeignClients
 @EnableDiscoveryClient
-@ComponentScan(basePackages = "org.xiaowu.behappy")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "org.xiaowu.behappy")
 public class BehappyHospApplication {
 
     public static void main(String[] args) {

@@ -10,6 +10,11 @@
     <artifactId>behappy-api-user</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-api-common</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
