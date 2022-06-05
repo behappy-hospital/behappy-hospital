@@ -10,7 +10,7 @@ feign:
     enabled: true
 aliyun:
   sms:
-    access-key-id: LTAI4G2h6DW4DCwJN4TWJNbH
-    access-key-secret: OJD6uoCm5Rfn0ZLw9zcBbhzSi6e7jF
-    sign-name: ABC商城
-    template-code: SMS_206546316
+    access-key-id: xxx
+    access-key-secret: xxx
+    sign-name: xxx
+    template-code: xxx
