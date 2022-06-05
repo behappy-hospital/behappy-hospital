@@ -12,5 +12,5 @@ aliyun:
   sms:
     access-key-id: xxx
     access-key-secret: xxx
-    sign-name: xxx
-    template-code: xxx
+    sign-name: ABC商城
+    template-code: SMS_206546316
