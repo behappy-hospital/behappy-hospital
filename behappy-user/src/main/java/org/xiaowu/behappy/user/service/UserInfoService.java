@@ -2,6 +2,7 @@ package org.xiaowu.behappy.user.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,11 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserInfoService extends ServiceImpl<UserInfoMapper, UserInfo> implements IService<UserInfo> {
 
-    private final RedisTemplate<String,String> redisTemplate;
+    private final RedisTemplate<String, String> redisTemplate;
+
+    public UserInfo getByOpenid(String openid) {
+        return baseMapper.selectOne(new QueryWrapper<UserInfo>().eq("openid", openid));
+    }
 
     public Map<String, Object> login(LoginVo loginVo) {
         // 手机号
@@ -40,18 +45,31 @@ public class UserInfoService extends ServiceImpl<UserInfoMapper, UserInfo> imple
         if (!code.equals(redisCode)) {
             throw new HospitalException(ResultCodeEnum.CODE_ERROR);
         }
-        // 手机号已被使用
-        LambdaQueryWrapper<UserInfo> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserInfo::getPhone, phone);
-        // 查询会员
-        UserInfo userInfo = this.getOne(queryWrapper);
-        // 如果为空则先保存
+        //绑定手机号码
+        UserInfo userInfo = null;
+        if (StrUtil.isNotEmpty(loginVo.getOpenid())) {
+            userInfo = this.getByOpenid(loginVo.getOpenid());
+            if (null != userInfo) {
+                userInfo.setPhone(loginVo.getPhone());
+                this.updateById(userInfo);
+            } else {
+                throw new HospitalException(ResultCodeEnum.DATA_ERROR);
+            }
+        }
         if (userInfo == null) {
-            userInfo = new UserInfo();
-            userInfo.setName("");
-            userInfo.setPhone(phone);
-            userInfo.setStatus(1);
-            this.save(userInfo);
+            // 手机号已被使用
+            LambdaQueryWrapper<UserInfo> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(UserInfo::getPhone, phone);
+            // 查询会员
+            userInfo = this.getOne(queryWrapper);
+            // 如果为空则先保存
+            if (userInfo == null) {
+                userInfo = new UserInfo();
+                userInfo.setName("");
+                userInfo.setPhone(phone);
+                userInfo.setStatus(1);
+                this.save(userInfo);
+            }
         }
         // 校验是否被禁用
         if (userInfo.getStatus() == 0) {
@@ -61,10 +79,10 @@ public class UserInfoService extends ServiceImpl<UserInfoMapper, UserInfo> imple
         // 返回页面显示名称
         Map<String, Object> info = new HashMap<>();
         String name = userInfo.getName();
-        if (StrUtil.isEmpty(name)){
+        if (StrUtil.isEmpty(name)) {
             name = userInfo.getNickName();
         }
-        if(StrUtil.isEmpty(name)) {
+        if (StrUtil.isEmpty(name)) {
             name = userInfo.getPhone();
         }
         info.put("name", name);

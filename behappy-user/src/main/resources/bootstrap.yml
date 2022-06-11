@@ -1,5 +1,6 @@
 server:
-  port: 8203
+  # wx.open.redirect-url回调会跳转到此端口
+  port: 8150
 spring:
   profiles:
     active: @profiles.active@

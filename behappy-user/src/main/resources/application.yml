@@ -27,3 +27,9 @@ mybatis-plus:
 feign:
   sentinel:
     enabled: true
+wx:
+  open:
+    app-id: wxed9954c01bb89b47
+    app-secret: a7482517235173ddb4083788de60b90e
+    redirect-url: https://guli.shop/api/ucenter/wx/callback
+    yygh-base-url: http://localhost:3000

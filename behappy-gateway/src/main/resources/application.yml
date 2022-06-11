@@ -24,6 +24,12 @@ spring:
             - Path=/api/*/user/**
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
+        - id: behappy-user
+          uri: lb://behappy-user
+          predicates:
+            - Path=/api/*/ucenter/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
         - id: behappy-msm
           uri: lb://behappy-msm
           predicates:
