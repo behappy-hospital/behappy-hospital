@@ -1,0 +1,18 @@
+server:
+  port: 8205
+spring:
+  profiles:
+    active: @profiles.active@
+  application:
+    name: @project.artifactId@
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      #      config:
+      #        file-extension: yml
+      #        namespace: 96d736a4-1fa4-407a-af7a-f5e9009c5075
+      discovery:
+        namespace: d83c21cc-2614-41ea-ad2b-17a4ef3d596f
+        group: behappy
+      username: nacos
+      password: nacos

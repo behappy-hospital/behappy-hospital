@@ -45,7 +45,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         if (antPathMatcher.match("/**/inner/**", path)) {
             return output(serverHttpResponse, ResultCodeEnum.PERMISSION);
         }
-        Long userId = this.getUserId(request);
+        //Long userId = this.getUserId(request);
         // api接口, 用户必须登录, 除开登录接口
         // todo 这里需要对不需要验证的接口做下统计
         //if (antPathMatcher.match("/api/api/**", path)) {

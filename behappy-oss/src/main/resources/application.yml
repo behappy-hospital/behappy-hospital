@@ -1,0 +1,10 @@
+aliyun:
+  oss:
+    access-key-id: xxx
+    bucket: behappy-xiaowu
+    endpoint: oss-cn-beijing.aliyuncs.com
+    access-key-secret: xxx
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
