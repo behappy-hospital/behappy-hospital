@@ -8,9 +8,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.xiaowu.behappy.api.user.model.Patient;
 import org.xiaowu.behappy.common.core.enums.DictEnum;
-import org.xiaowu.behappy.common.core.result.Response;
+import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.util.ResponseConvert;
-import org.xiaowu.behappy.user.feign.DictFeign;
+import org.xiaowu.behappy.api.cmn.feign.DictFeign;
 import org.xiaowu.behappy.user.mapper.PatientMapper;
 
 import java.util.List;
@@ -48,23 +48,23 @@ public class PatientService extends ServiceImpl<PatientMapper, Patient> implemen
     //Patient对象里面其他参数封装
     private Patient packPatient(Patient patient) {
         //根据证件类型编码，获取证件类型具体指
-        Response<String> certificatesTypeRes = dictFeign.getName(DictEnum.CERTIFICATES_TYPE.getDictCode(), patient.getCertificatesType());
+        Result<String> certificatesTypeRes = dictFeign.getName(DictEnum.CERTIFICATES_TYPE.getDictCode(), patient.getCertificatesType());
         String certificatesTypeString = responseConvert.convert(certificatesTypeRes, new TypeReference<String>() {
         });
         //联系人证件类型
-        Response<String> contactsCertificatesTypeRes = dictFeign.getName(DictEnum.CERTIFICATES_TYPE.getDictCode(), patient.getContactsCertificatesType());
+        Result<String> contactsCertificatesTypeRes = dictFeign.getName(DictEnum.CERTIFICATES_TYPE.getDictCode(), patient.getContactsCertificatesType());
         String contactsCertificatesTypeString = responseConvert.convert(contactsCertificatesTypeRes, new TypeReference<String>() {
         });
         //省
-        Response<String> provinceRes = dictFeign.getName(null, patient.getProvinceCode());
+        Result<String> provinceRes = dictFeign.getName(null, patient.getProvinceCode());
         String provinceString = responseConvert.convert(provinceRes, new TypeReference<String>() {
         });
         //市
-        Response<String> cityRes = dictFeign.getName(null, patient.getCityCode());
+        Result<String> cityRes = dictFeign.getName(null, patient.getCityCode());
         String cityString = responseConvert.convert(cityRes, new TypeReference<String>() {
         });
         //区
-        Response<String> districtRes = dictFeign.getName(null, patient.getDistrictCode());
+        Result<String> districtRes = dictFeign.getName(null, patient.getDistrictCode());
         String districtString = responseConvert.convert(districtRes, new TypeReference<String>() {
         });
         patient.getParam().put("certificatesTypeString", certificatesTypeString);

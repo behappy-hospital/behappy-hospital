@@ -3,6 +3,9 @@ package org.xiaowu.behappy.common.core.util;
 import lombok.experimental.UtilityClass;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
+import org.joda.time.format.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * @author xiaowu
@@ -41,6 +44,16 @@ public class JodaTimeUtils {
                 break;
         }
         return dayOfWeek;
+    }
+
+
+    /**
+     * 将Date日期（yyyy-MM-dd HH:mm）转换为DateTime
+     */
+    public DateTime getDateTime(Date date, String timeString) {
+        String dateTimeString = new DateTime(date).toString("yyyy-MM-dd") + " "+ timeString;
+        DateTime dateTime = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm").parseDateTime(dateTimeString);
+        return dateTime;
     }
 
 }

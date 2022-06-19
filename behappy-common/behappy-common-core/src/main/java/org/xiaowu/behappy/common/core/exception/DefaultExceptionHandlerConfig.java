@@ -1,11 +1,9 @@
 package org.xiaowu.behappy.common.core.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.xiaowu.behappy.common.core.result.Response;
+import org.xiaowu.behappy.common.core.result.Result;
 
 /**
  * @author 小五
@@ -15,15 +13,15 @@ import org.xiaowu.behappy.common.core.result.Response;
 public class DefaultExceptionHandlerConfig {
 
     @ExceptionHandler(HospitalException.class)
-    public Response beHappyExceptionHandler(HospitalException e) {
+    public Result beHappyExceptionHandler(HospitalException e) {
         log.error("DefaultExceptionHandlerConfig - beHappyExceptionHandler: {}", e.getMessage());
-        return Response.failed(e.getCode(), e.getMessage());
+        return Result.failed(e.getCode(), e.getMessage());
     }
 
 
     @ExceptionHandler(Exception.class)
-    public Response exceptionHandler(Exception e) {
+    public Result exceptionHandler(Exception e) {
         log.error("DefaultExceptionHandlerConfig - exceptionHandler: {}", e.getLocalizedMessage());
-        return Response.failed(e);
+        return Result.failed(e);
     }
 }

@@ -13,6 +13,7 @@
         <module>behappy-common-core</module>
         <module>behappy-common-mybatis</module>
         <module>behappy-common-mongo</module>
+        <module>behappy-common-rmq</module>
     </modules>
 
 </project>

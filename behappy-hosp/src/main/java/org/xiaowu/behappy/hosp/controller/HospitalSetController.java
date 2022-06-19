@@ -3,23 +3,18 @@ package org.xiaowu.behappy.hosp.controller;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.xiaowu.behappy.api.hosp.model.HospitalSet;
 import org.xiaowu.behappy.api.hosp.vo.HospitalSetQueryVo;
-import org.xiaowu.behappy.common.core.config.SnowflakeConfig;
-import org.xiaowu.behappy.common.core.result.Response;
+import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.util.MD5;
 import org.xiaowu.behappy.hosp.service.HospitalSetService;
 
 import java.util.List;
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author xiaowu
@@ -40,10 +35,10 @@ public class HospitalSetController {
      */
     @ApiOperation(value = "获取所有医院设置")
     @GetMapping("/findAll")
-    public Response<List<HospitalSet>> findAllHospSet() {
+    public Result<List<HospitalSet>> findAllHospSet() {
         // 调用service的方法
         List<HospitalSet> list = hospitalSetService.list();
-        return Response.ok(list);
+        return Result.ok(list);
     }
 
     /**
@@ -55,9 +50,9 @@ public class HospitalSetController {
      */
     @ApiOperation(value = "逻辑删除医院配置")
     @DeleteMapping("/{id}")
-    public Response<Boolean> removeById(@PathVariable Long id) {
+    public Result<Boolean> removeById(@PathVariable Long id) {
         boolean flag = hospitalSetService.removeById(id);
-        return Response.ok(flag);
+        return Result.ok(flag);
     }
 
     /**
@@ -71,9 +66,9 @@ public class HospitalSetController {
      */
     @ApiOperation(value = "条件查询带分页")
     @PostMapping("/findPageHospSet/{current}/{limit}")
-    public Response<Page<HospitalSet>> info(@PathVariable Integer current,
-                                            @PathVariable Integer limit,
-                                            @RequestBody(required = false) HospitalSetQueryVo hospitalSetQueryVo) {
+    public Result<Page<HospitalSet>> info(@PathVariable Integer current,
+                                          @PathVariable Integer limit,
+                                          @RequestBody(required = false) HospitalSetQueryVo hospitalSetQueryVo) {
         // 创建page对象，传递当前页，每页记录数
         Page<HospitalSet> page = new Page<>(current, limit);
         // 构建条件
@@ -89,7 +84,7 @@ public class HospitalSetController {
         // 调用方法实现分页查询
         Page<HospitalSet> hospitalSetPage = hospitalSetService.page(page, queryWrapper);
         // 返回结果
-        return Response.ok(hospitalSetPage);
+        return Result.ok(hospitalSetPage);
     }
 
     /**
@@ -101,7 +96,7 @@ public class HospitalSetController {
      */
     @ApiOperation("添加医院设置")
     @PostMapping("/saveHospitalSet")
-    public Response<Boolean> saveHospitalSet(@RequestBody HospitalSet hospitalSet) {
+    public Result<Boolean> saveHospitalSet(@RequestBody HospitalSet hospitalSet) {
         // 设置状态 1:可使用  2:不可使用
         hospitalSet.setStatus(1);
         // 签名密钥
@@ -110,7 +105,7 @@ public class HospitalSetController {
         hospitalSet.setSignKey(encrypt);
         // 调用service
         boolean save = hospitalSetService.save(hospitalSet);
-        return Response.ok(save);
+        return Result.ok(save);
     }
 
     /**
@@ -122,9 +117,9 @@ public class HospitalSetController {
      */
     @ApiOperation("根据id获取医院设置")
     @GetMapping("/getHospSet/{id}")
-    public Response<HospitalSet> getHospital(@PathVariable Long id) {
+    public Result<HospitalSet> getHospital(@PathVariable Long id) {
         HospitalSet hospitalSet = hospitalSetService.getById(id);
-        return Response.ok(hospitalSet);
+        return Result.ok(hospitalSet);
     }
 
     /**
@@ -136,9 +131,9 @@ public class HospitalSetController {
      */
     @ApiOperation("修改医院设置")
     @GetMapping("/updateHospitalSet/{id}")
-    public Response<Boolean> updateHospSet(@RequestBody HospitalSet hospitalSet) {
+    public Result<Boolean> updateHospSet(@RequestBody HospitalSet hospitalSet) {
         boolean update = hospitalSetService.updateById(hospitalSet);
-        return Response.ok(update);
+        return Result.ok(update);
     }
 
     /**
@@ -150,9 +145,9 @@ public class HospitalSetController {
      */
     @ApiOperation("批量删除医院设置")
     @DeleteMapping("/batchRemove")
-    public Response<Boolean> batchRemove(@RequestBody List<Long> idList) {
+    public Result<Boolean> batchRemove(@RequestBody List<Long> idList) {
         boolean batch = hospitalSetService.removeBatchByIds(idList);
-        return Response.ok(batch);
+        return Result.ok(batch);
     }
 
     /**
@@ -165,14 +160,14 @@ public class HospitalSetController {
      */
     @ApiOperation("医院设置锁定和解锁")
     @PutMapping("/lockHospitalSet/{id}/{status}")
-    public Response<Boolean> lockHospitalSet(@PathVariable Long id, @PathVariable Integer status) {
+    public Result<Boolean> lockHospitalSet(@PathVariable Long id, @PathVariable Integer status) {
         // 根据id查询医院设置信息
         HospitalSet hospitalSet = hospitalSetService.getById(id);
         // 设置状态
         hospitalSet.setStatus(status);
         // 更新
         boolean update = hospitalSetService.updateById(hospitalSet);
-        return Response.ok(update);
+        return Result.ok(update);
     }
 
     /**
@@ -184,11 +179,11 @@ public class HospitalSetController {
      */
     @ApiOperation("发送签名密钥")
     @PutMapping("/sendKey/{id}")
-    public Response<Boolean> sendKey(@PathVariable Long id) {
+    public Result<Boolean> sendKey(@PathVariable Long id) {
         HospitalSet hospitalSet = hospitalSetService.getById(id);
         String signKey = hospitalSet.getSignKey();
         String hoscode = hospitalSet.getHoscode();
         // 发送短信
-        return Response.ok();
+        return Result.ok();
     }
 }

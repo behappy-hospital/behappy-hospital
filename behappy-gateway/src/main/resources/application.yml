@@ -42,3 +42,9 @@ spring:
             - Path=/api/*/oss/**
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
+        - id: behappy-order
+          uri: lb://behappy-order
+          predicates:
+            - Path=/api/*/order/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}

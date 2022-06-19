@@ -4,22 +4,18 @@ import cn.hutool.core.bean.BeanUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
-import org.joda.time.DateTime;
 import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 import org.xiaowu.behappy.api.hosp.model.Department;
-import org.xiaowu.behappy.api.hosp.model.Schedule;
-import org.xiaowu.behappy.api.hosp.vo.BookingScheduleRuleVo;
 import org.xiaowu.behappy.api.hosp.vo.DepartmentQueryVo;
 import org.xiaowu.behappy.api.hosp.vo.DepartmentVo;
-import org.xiaowu.behappy.common.core.util.JodaTimeUtils;
 import org.xiaowu.behappy.hosp.repository.DepartmentRepository;
 
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -43,7 +39,7 @@ public class DepartmentService {
         Department department = objectMapper.readValue(str, Department.class);
         String hoscode = (String) parameterMap.get("hoscode");
         String decode = (String) parameterMap.get("depcode");
-        Department targetDepartment = departmentRepository.findDepartmentByHoscodeAndDepcode(hoscode, decode);
+        Department targetDepartment = getDepartmentByHoscodeAndDepcode(hoscode, decode);
         if (targetDepartment != null) {
             // 如果不等于null, 则更新
             BeanUtil.copyProperties(department, targetDepartment);
@@ -54,6 +50,10 @@ public class DepartmentService {
             department.setIsDeleted(0);
             departmentRepository.save(department);
         }
+    }
+
+    public Department getDepartmentByHoscodeAndDepcode(String hoscode, String decode) {
+        return departmentRepository.findDepartmentByHoscodeAndDepcode(hoscode, decode);
     }
 
     public Page<Department> selectPage(int pageInt, int limitInt, DepartmentQueryVo departmentQueryVo) {

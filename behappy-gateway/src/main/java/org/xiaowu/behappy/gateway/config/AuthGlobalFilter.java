@@ -1,10 +1,7 @@
 package org.xiaowu.behappy.gateway.config;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.tokenizer.Result;
-import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -17,12 +14,11 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
-import org.xiaowu.behappy.common.core.result.Response;
+import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
 import org.xiaowu.behappy.common.core.util.JwtHelper;
 import reactor.core.publisher.Mono;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -70,7 +66,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
     @SneakyThrows
     private Mono<Void> output(ServerHttpResponse response, ResultCodeEnum resultCodeEnum) {
-        Response<Object> res = Response.restResult(null, resultCodeEnum.getCode(), resultCodeEnum.getMessage());
+        Result<Object> res = Result.restResult(null, resultCodeEnum.getCode(), resultCodeEnum.getMessage());
         byte[] bytes = objectMapper.writeValueAsBytes(res);
         DataBuffer buffer = response.bufferFactory().wrap(bytes);
         // 指定编码, 否则浏览器中会出现乱码

@@ -26,6 +26,7 @@
         <aliyun-java-sdk.version>4.6.0</aliyun-java-sdk.version>
         <aliyun-dysmsapi-sdk.version>2.2.1</aliyun-dysmsapi-sdk.version>
         <behappy-redis.version>0.0.2</behappy-redis.version>
+        <wx-pay.version>0.0.3</wx-pay.version>
         <hutool.version>5.6.4</hutool.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <alipay.sdk.oss.version>3.8.0</alipay.sdk.oss.version>
@@ -42,6 +43,7 @@
         <module>behappy-statistics</module>
         <module>behappy-task</module>
         <module>behappy-user</module>
+        <module>behappy-manager</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -118,6 +120,11 @@
                 <version>${behappy-redis.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.github.wxpay</groupId>
+                <artifactId>wxpay-sdk</artifactId>
+                <version>${wx-pay.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.xiaowu</groupId>
                 <artifactId>behappy-common-mongo</artifactId>
                 <version>${behappy.version}</version>
@@ -134,7 +141,17 @@
             </dependency>
             <dependency>
                 <groupId>org.xiaowu</groupId>
+                <artifactId>behappy-common-rmq</artifactId>
+                <version>${behappy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xiaowu</groupId>
                 <artifactId>behappy-api-cmn</artifactId>
+                <version>${behappy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xiaowu</groupId>
+                <artifactId>behappy-api-manager</artifactId>
                 <version>${behappy.version}</version>
             </dependency>
             <dependency>

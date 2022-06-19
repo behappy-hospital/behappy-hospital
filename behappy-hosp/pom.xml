@@ -11,11 +11,19 @@
     <dependencies>
         <dependency>
             <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-common-rmq</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.xiaowu</groupId>
             <artifactId>behappy-api-hosp</artifactId>
         </dependency>
         <dependency>
             <groupId>org.xiaowu</groupId>
             <artifactId>behappy-api-cmn</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-api-order</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -27,24 +35,6 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
 
-        <!--feign 依赖-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!--alibaba-sentinel-->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
-        <!-- LB 扩展
-         必须包含此依赖, 否则报错
-         No Feign Client for loadBalancing defined. Did you forget to include spring-cloud-starter-loadbalancer?
-         -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-        </dependency>
     </dependencies>
 
     <build>

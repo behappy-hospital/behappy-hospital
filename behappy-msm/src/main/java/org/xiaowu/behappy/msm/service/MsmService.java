@@ -1,5 +1,6 @@
 package org.xiaowu.behappy.msm.service;
 
+import cn.hutool.core.util.StrUtil;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
@@ -10,8 +11,8 @@ import com.aliyuncs.profile.IClientProfile;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
+import org.xiaowu.behappy.api.common.vo.MsmVo;
 import org.xiaowu.behappy.msm.config.AliSmsProperties;
-import org.xiaowu.behappy.redis.exception.BeHappyException;
 
 /**
  * @author xiaowu
@@ -29,7 +30,7 @@ public class MsmService {
     private final AliSmsProperties aliSmsProperties;
 
     @SneakyThrows
-    public boolean sendSms(String phone,String code) {
+    public boolean sendSms(String phone, String code) {
 
         //设置超时时间-可自行调整
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -66,4 +67,13 @@ public class MsmService {
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
         return sendSmsResponse.getCode() == null || !sendSmsResponse.getCode().equals("OK");
     }
+
+    public boolean send(MsmVo msmVo) {
+        if (StrUtil.isNotBlank(msmVo.getPhone())) {
+            String code = (String) msmVo.getParam().get("code");
+            return this.sendSms(msmVo.getPhone(), code);
+        }
+        return false;
+    }
+
 }

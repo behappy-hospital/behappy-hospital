@@ -10,6 +10,11 @@
     <artifactId>behappy-msm</artifactId>
     <dependencies>
         <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-api-msm</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>
         </dependency>
@@ -33,6 +38,10 @@
         <dependency>
             <groupId>org.xiaowu</groupId>
             <artifactId>behappy-common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-common-rmq</artifactId>
         </dependency>
     </dependencies>
 

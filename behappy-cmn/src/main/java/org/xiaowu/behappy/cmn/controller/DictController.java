@@ -1,20 +1,15 @@
 package org.xiaowu.behappy.cmn.controller;
 
-import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.support.ExcelTypeEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.xiaowu.behappy.api.cmn.entity.Dict;
-import org.xiaowu.behappy.api.cmn.vo.DictEeVo;
 import org.xiaowu.behappy.cmn.service.DictService;
-import org.xiaowu.behappy.common.core.result.Response;
+import org.xiaowu.behappy.common.core.result.Result;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
-import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -38,9 +33,9 @@ public class DictController {
      */
     @ApiOperation(value = "根据数据id查询子数据列表")
     @GetMapping("/findChildData/{id}")
-    public Response<List<Dict>> findChildData(@PathVariable Long id) {
+    public Result<List<Dict>> findChildData(@PathVariable Long id) {
         List<Dict> dictList = dictService.findChildData(id);
-        return Response.ok(dictList);
+        return Result.ok(dictList);
     }
 
     /**
@@ -51,9 +46,9 @@ public class DictController {
      */
     @ApiOperation(value = "导出数据字典")
     @GetMapping("/exportData")
-    public Response<Boolean> exportData(HttpServletResponse response) {
+    public Result<Boolean> exportData(HttpServletResponse response) {
         dictService.exportData(response);
-        return Response.ok();
+        return Result.ok();
     }
 
     /**
@@ -65,9 +60,9 @@ public class DictController {
      */
     @ApiOperation(value = "导入数据字典")
     @PostMapping("/importData")
-    public Response<Boolean> importData(@RequestParam("file") MultipartFile multipartFile) {
+    public Result<Boolean> importData(@RequestParam("file") MultipartFile multipartFile) {
         dictService.importData(multipartFile);
-        return Response.ok();
+        return Result.ok();
     }
 
     /**
@@ -80,17 +75,17 @@ public class DictController {
      */
     @ApiOperation("数据字典名称")
     @GetMapping("/getName")
-    public Response<String> getName(@RequestParam(value = "parentDictCode", required = false) String parentDictCode,
-                                    @RequestParam(value = "value") String value) {
+    public Result<String> getName(@RequestParam(value = "parentDictCode", required = false) String parentDictCode,
+                                  @RequestParam(value = "value") String value) {
         String dictName = dictService.getNameByParentDictCodeAndValue(parentDictCode, value);
-        return Response.ok(dictName);
+        return Result.ok(dictName);
     }
 
     @ApiOperation("根据dictCode获取下级节点")
     @GetMapping("/findByDictCode/{dictCode}")
-    public Response<List<Dict>> findByDictCode(@PathVariable String dictCode) {
+    public Result<List<Dict>> findByDictCode(@PathVariable String dictCode) {
         List<Dict> dictList = dictService.findByDictCode(dictCode);
-        return Response.ok(dictList);
+        return Result.ok(dictList);
     }
 
 }

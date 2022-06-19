@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.xiaowu.behappy.api.hosp.model.Schedule;
-import org.xiaowu.behappy.api.hosp.vo.DepartmentVo;
-import org.xiaowu.behappy.common.core.result.Response;
-import org.xiaowu.behappy.hosp.service.DepartmentService;
+import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.hosp.service.ScheduleService;
 
 import java.util.List;
@@ -40,12 +38,12 @@ public class ScheduleController {
      */
     @ApiOperation(value = "根据医院编号和科室编号，查询排班规则数据")
     @GetMapping("/getScheduleRule/{page}/{limit}/{hoscode}/{depcode}")
-    public Response<Map<String, Object>> getScheduleRule(@PathVariable Long page,
-                                                         @PathVariable Long limit,
-                                                         @PathVariable String hoscode,
-                                                         @PathVariable String depcode) {
+    public Result<Map<String, Object>> getScheduleRule(@PathVariable Long page,
+                                                       @PathVariable Long limit,
+                                                       @PathVariable String hoscode,
+                                                       @PathVariable String depcode) {
         Map<String, Object> map = scheduleService.getScheduleRule(page, limit, hoscode, depcode);
-        return Response.ok(map);
+        return Result.ok(map);
     }
 
     /**
@@ -59,11 +57,13 @@ public class ScheduleController {
      */
     @ApiOperation(value = "根据医院编号 、科室编号和工作日期，查询排班详细信息")
     @GetMapping("/getScheduleDetail/{hoscode}/{depcode}/{workDate}")
-    public Response<List<Schedule>> getScheduleDetail(@PathVariable String hoscode,
-                                                      @PathVariable String depcode,
-                                                      @PathVariable String workDate) {
+    public Result<List<Schedule>> getScheduleDetail(@PathVariable String hoscode,
+                                                    @PathVariable String depcode,
+                                                    @PathVariable String workDate) {
         List<Schedule> list = scheduleService.getDetailSchedule(hoscode, depcode, workDate);
-        return Response.ok(list);
+        return Result.ok(list);
     }
 
+
+    
 }

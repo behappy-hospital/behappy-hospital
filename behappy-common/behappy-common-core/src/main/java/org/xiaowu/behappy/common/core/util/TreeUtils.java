@@ -159,7 +159,7 @@ public class TreeUtils {
         boolean flag = false;
         if (parentId == null) {
             flag = true;
-        } else if (parentId instanceof String && (StringUtils.isEmpty(parentId) || parentId.equals("0"))) {
+        } else if (parentId instanceof String && (StrUtil.isEmpty((String)parentId) || parentId.equals("0"))) {
             flag = true;
         } else if (parentId instanceof Long && Long.valueOf(0).equals(parentId)) {
             flag = true;

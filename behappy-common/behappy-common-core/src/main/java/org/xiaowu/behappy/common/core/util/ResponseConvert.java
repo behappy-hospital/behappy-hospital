@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.xiaowu.behappy.common.core.exception.HospitalException;
-import org.xiaowu.behappy.common.core.result.Response;
+import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
 
 /**
@@ -20,19 +20,19 @@ public class ResponseConvert {
 
     private final ObjectMapper objectMapper;
 
-    private static void assertResponse(Response response) {
+    private static void assertResponse(Result result) {
         try {
-            assert response.getCode() == 0;
+            assert result.getCode() == 0;
         } catch (Exception e) {
-            log.error("assert response error -> code:{},msg:{}", response.getCode(), response.getMessage());
-            throw new HospitalException(response.getMessage(), response.getCode());
+            log.error("assert response error -> code:{},msg:{}", result.getCode(), result.getMessage());
+            throw new HospitalException(result.getMessage(), result.getCode());
         }
     }
 
-    public <T> T convert(Response response, TypeReference<T> type) {
+    public <T> T convert(Result result, TypeReference<T> type) {
         try {
-            ResponseConvert.assertResponse(response);
-            return objectMapper.readValue(objectMapper.writeValueAsString(response.getData()), type);
+            ResponseConvert.assertResponse(result);
+            return objectMapper.readValue(objectMapper.writeValueAsString(result.getData()), type);
         } catch (JsonProcessingException e) {
             log.error("Response转换：序列化错误");
             throw new HospitalException(e.getMessage(), ResultCodeEnum.FAIL.getCode());

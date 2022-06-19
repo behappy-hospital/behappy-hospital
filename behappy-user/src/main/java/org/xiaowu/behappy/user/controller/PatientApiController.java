@@ -1,10 +1,11 @@
 package org.xiaowu.behappy.user.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.xiaowu.behappy.api.user.model.Patient;
-import org.xiaowu.behappy.common.core.result.Response;
+import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.util.AuthContextHolder;
 import org.xiaowu.behappy.user.service.PatientService;
 
@@ -20,37 +21,50 @@ public class PatientApiController {
 
     //获取就诊人列表
     @GetMapping("/auth/findAll")
-    public Response<List<Patient>> findAll(HttpServletRequest request) {
+    public Result<List<Patient>> findAll(HttpServletRequest request) {
         //获取当前登录用户id
         Long userId = AuthContextHolder.getUserId(request);
         List<Patient> list = patientService.findAllUserId(userId);
-        return Response.ok(list);
+        return Result.ok(list);
     }
     //添加就诊人
     @PostMapping("/auth/save")
-    public Response savePatient(@RequestBody Patient patient,HttpServletRequest request) {
+    public Result savePatient(@RequestBody Patient patient, HttpServletRequest request) {
         //获取当前登录用户id
         Long userId = AuthContextHolder.getUserId(request);
         patient.setUserId(userId);
         patientService.save(patient);
-        return Response.ok();
+        return Result.ok();
     }
     //根据id获取就诊人信息
     @GetMapping("/auth/get/{id}")
-    public Response<Patient> getPatient(@PathVariable Long id) {
+    public Result<Patient> getPatient(@PathVariable Long id) {
         Patient patient = patientService.getPatientId(id);
-        return Response.ok(patient);
+        return Result.ok(patient);
     }
     //修改就诊人
     @PostMapping("/auth/update")
-    public Response updatePatient(@RequestBody Patient patient) {
+    public Result updatePatient(@RequestBody Patient patient) {
         patientService.updateById(patient);
-        return Response.ok();
+        return Result.ok();
     }
     //删除就诊人
     @DeleteMapping("/auth/remove/{id}")
-    public Response removePatient(@PathVariable Long id) {
+    public Result removePatient(@PathVariable Long id) {
         patientService.removeById(id);
-        return Response.ok();
+        return Result.ok();
+    }
+
+    /**
+     * 获取就诊人
+     * @param id
+     * @return
+     */
+    @ApiOperation(value = "获取就诊人")
+    @GetMapping("/inner/get/{id}")
+    public Patient getPatientOrder(
+            @ApiParam(name = "id", value = "就诊人id", required = true)
+            @PathVariable("id") Long id) {
+        return patientService.getById(id);
     }
 }

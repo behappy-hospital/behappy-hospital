@@ -16,5 +16,6 @@
         <module>behappy-api-msm</module>
         <module>behappy-api-order</module>
         <module>behappy-api-user</module>
+        <module>behappy-api-manager</module>
     </modules>
 </project>

@@ -9,6 +9,21 @@
     </parent>
     <artifactId>behappy-statistics</artifactId>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--注册中心客户端-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-api-order</artifactId>
+        </dependency>
+
+
     </dependencies>
 
     <build>

@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
-@EnableFeignClients
+@EnableFeignClients(basePackages = {"org.xiaowu.behappy"})
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = "org.xiaowu.behappy")
 public class BehappyHospApplication {

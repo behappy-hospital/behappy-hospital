@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.xiaowu.behappy.api.hosp.model.Hospital;
 import org.xiaowu.behappy.api.hosp.vo.HospitalQueryVo;
-import org.xiaowu.behappy.common.core.result.Response;
+import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.hosp.service.HospitalService;
 
 import java.util.Map;
@@ -39,11 +39,11 @@ public class HospitalController {
      */
     @ApiOperation("获取分页列表")
     @GetMapping("/list/{page}/{limit}")
-    public Response<Page<Hospital>> listPage(@ApiParam(value = "当前页码", required = true) @PathVariable Integer page,
-                                             @ApiParam(value = "每页记录数", required = true) @PathVariable Integer limit,
-                                             HospitalQueryVo hospitalQueryVo) {
+    public Result<Page<Hospital>> listPage(@ApiParam(value = "当前页码", required = true) @PathVariable Integer page,
+                                           @ApiParam(value = "每页记录数", required = true) @PathVariable Integer limit,
+                                           HospitalQueryVo hospitalQueryVo) {
         Page<Hospital> pageRes = hospitalService.listPage(page, limit, hospitalQueryVo);
-        return Response.ok(pageRes);
+        return Result.ok(pageRes);
     }
 
     /**
@@ -56,13 +56,13 @@ public class HospitalController {
      */
     @ApiOperation(value = "更新上线状态")
     @GetMapping("/updateStatus/{id}/{status}")
-    public Response<Boolean> lock(
+    public Result<Boolean> lock(
             @ApiParam(name = "id", value = "医院id", required = true)
             @PathVariable("id") String id,
             @ApiParam(name = "status", value = "状态（0：未上线 1：已上线）", required = true)
             @PathVariable("status") Integer status) {
         hospitalService.updateStatus(id, status);
-        return Response.ok(true);
+        return Result.ok(true);
     }
 
     /**
@@ -74,11 +74,11 @@ public class HospitalController {
      */
     @ApiOperation(value = "获取医院详情")
     @GetMapping("/showHospDetail/{id}")
-    public Response<Map<String, Object>> show(
+    public Result<Map<String, Object>> show(
             @ApiParam(name = "id", value = "医院id", required = true)
             @PathVariable String id) {
         Map<String, Object> objectMap = hospitalService.show(id);
-        return Response.ok(objectMap);
+        return Result.ok(objectMap);
     }
 
 

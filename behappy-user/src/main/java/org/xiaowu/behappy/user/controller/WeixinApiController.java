@@ -3,26 +3,22 @@ package org.xiaowu.behappy.user.controller;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.alibaba.nacos.common.http.HttpUtils;
-import io.netty.util.internal.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xiaowu.behappy.api.user.model.UserInfo;
 import org.xiaowu.behappy.common.core.exception.HospitalException;
-import org.xiaowu.behappy.common.core.result.Response;
+import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
 import org.xiaowu.behappy.common.core.util.HttpUtil;
 import org.xiaowu.behappy.common.core.util.JwtHelper;
 import org.xiaowu.behappy.user.config.WxConfigProperties;
 import org.xiaowu.behappy.user.service.UserInfoService;
 
-import java.lang.reflect.MalformedParameterizedTypeException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,13 +45,13 @@ public class WeixinApiController {
     @SneakyThrows
     @GetMapping("/getLoginParam")
     @ResponseBody
-    public Response<Map<String, Object>> getQrConnect() {
+    public Result<Map<String, Object>> getQrConnect() {
         Map<String, Object> map = new HashMap<>();
         map.put("appid", wxConfigProperties.getAppId());
         map.put("redirectUri", URLEncoder.encode(wxConfigProperties.getRedirectUrl(), "UTF-8"));
         map.put("scope", "snsapi_login");
         map.put("state", System.currentTimeMillis());
-        return Response.ok(map);
+        return Result.ok(map);
     }
 
     @SneakyThrows

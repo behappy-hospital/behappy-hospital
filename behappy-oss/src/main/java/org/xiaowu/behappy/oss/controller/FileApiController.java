@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.xiaowu.behappy.common.core.result.Response;
+import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.oss.service.FileUploadService;
 
 @RestController
@@ -23,9 +23,9 @@ public class FileApiController {
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.String>
      */
     @PostMapping("/fileUpload")
-    public Response<String> fileUpload(MultipartFile file) {
+    public Result<String> fileUpload(MultipartFile file) {
         //获取上传文件
         String url = fileUploadService.upload(file);
-        return Response.ok(url);
+        return Result.ok(url);
     }
 }

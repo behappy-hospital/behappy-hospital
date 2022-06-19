@@ -9,6 +9,39 @@
     </parent>
     <artifactId>behappy-order</artifactId>
     <dependencies>
+        <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-api-cmn</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-api-hosp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-api-order</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-api-user</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-common-rmq</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.wang-xiaowu</groupId>
+            <artifactId>behappy-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.wxpay</groupId>
+            <artifactId>wxpay-sdk</artifactId>
+        </dependency>
+
     </dependencies>
 
 

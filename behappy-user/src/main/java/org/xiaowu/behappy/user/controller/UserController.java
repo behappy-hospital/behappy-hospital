@@ -4,14 +4,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.xiaowu.behappy.api.user.model.UserInfo;
 import org.xiaowu.behappy.api.user.vo.UserInfoQueryVo;
-import org.xiaowu.behappy.common.core.result.Response;
+import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.user.service.UserInfoService;
 
 import java.util.Map;
@@ -25,22 +24,22 @@ public class UserController {
 
     //用户列表（条件查询带分页）
     @GetMapping("/{page}/{limit}")
-    public Response<IPage<UserInfo>> list(@PathVariable Long page,
-                                          @PathVariable Long limit,
-                                          UserInfoQueryVo userInfoQueryVo) {
+    public Result<IPage<UserInfo>> list(@PathVariable Long page,
+                                        @PathVariable Long limit,
+                                        UserInfoQueryVo userInfoQueryVo) {
         Page<UserInfo> pageParam = new Page<>(page, limit);
         IPage<UserInfo> pageModel =
                 userInfoService.selectPage(pageParam, userInfoQueryVo);
-        return Response.ok(pageModel);
+        return Result.ok(pageModel);
     }
 
     @ApiOperation(value = "锁定")
     @GetMapping("/lock/{userId}/{status}")
-    public Response<Boolean> lock(
+    public Result<Boolean> lock(
             @PathVariable("userId") Long userId,
             @PathVariable("status") Integer status) {
         userInfoService.lock(userId, status);
-        return Response.ok();
+        return Result.ok();
     }
 
     /**
@@ -51,9 +50,9 @@ public class UserController {
      * @return org.xiaowu.behappy.common.core.result.Response<java.util.Map < java.lang.String, java.lang.Object>>
      */
     @GetMapping("/show/{userId}")
-    public Response<Map<String, Object>> show(@PathVariable Long userId) {
+    public Result<Map<String, Object>> show(@PathVariable Long userId) {
         Map<String, Object> map = userInfoService.show(userId);
-        return Response.ok(map);
+        return Result.ok(map);
     }
 
     /**
@@ -65,9 +64,9 @@ public class UserController {
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
      */
     @GetMapping("/approval/{userId}/{authStatus}")
-    public Response<Boolean> approval(@PathVariable Long userId, @PathVariable Integer authStatus) {
+    public Result<Boolean> approval(@PathVariable Long userId, @PathVariable Integer authStatus) {
         userInfoService.approval(userId, authStatus);
-        return Response.ok(true);
+        return Result.ok(true);
     }
 
 

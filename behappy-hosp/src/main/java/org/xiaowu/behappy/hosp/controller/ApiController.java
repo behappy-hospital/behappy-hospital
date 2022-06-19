@@ -2,7 +2,6 @@ package org.xiaowu.behappy.hosp.controller;
 
 import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,7 @@ import org.xiaowu.behappy.api.hosp.model.Schedule;
 import org.xiaowu.behappy.api.hosp.vo.DepartmentQueryVo;
 import org.xiaowu.behappy.api.hosp.vo.ScheduleQueryVo;
 import org.xiaowu.behappy.common.core.exception.HospitalException;
-import org.xiaowu.behappy.common.core.result.Response;
+import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
 import org.xiaowu.behappy.common.core.util.HttpRequestHelper;
 import org.xiaowu.behappy.hosp.service.DepartmentService;
@@ -21,7 +20,6 @@ import org.xiaowu.behappy.hosp.service.HospitalSetService;
 import org.xiaowu.behappy.hosp.service.ScheduleService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,11 +46,11 @@ public class ApiController {
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
      */
     @PostMapping("/schedule/remove")
-    public Response<Boolean> removeSchedule(HttpServletRequest request) {
+    public Result<Boolean> removeSchedule(HttpServletRequest request) {
         Map<String, Object> parameterMap = getParameterMap(request);
         // 签名校验
         checkSign(parameterMap);
-        return Response.ok(scheduleService.removeSchedule(parameterMap) > 0);
+        return Result.ok(scheduleService.removeSchedule(parameterMap) > 0);
     }
 
 
@@ -64,7 +62,7 @@ public class ApiController {
      * @return org.xiaowu.behappy.common.core.result.Response<org.springframework.data.domain.Page < org.xiaowu.behappy.api.hosp.model.Schedule>>
      */
     @PostMapping("/schedule/list")
-    public Response<Page<Schedule>> scheduleList(HttpServletRequest request) {
+    public Result<Page<Schedule>> scheduleList(HttpServletRequest request) {
         Map<String, Object> parameterMap = getParameterMap(request);
         // 签名校验
         checkSign(parameterMap);
@@ -79,7 +77,7 @@ public class ApiController {
         scheduleQueryVo.setHoscode(hoscode);
         scheduleQueryVo.setDepcode(depcode);
         Page<Schedule> schedulePage = scheduleService.selectPage(pageInt, limitInt, scheduleQueryVo);
-        return Response.ok(schedulePage);
+        return Result.ok(schedulePage);
     }
 
     /**
@@ -90,12 +88,12 @@ public class ApiController {
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
      */
     @PostMapping("/saveSchedule")
-    public Response<Boolean> saveSchedule(HttpServletRequest request) {
+    public Result<Boolean> saveSchedule(HttpServletRequest request) {
         Map<String, Object> parameterMap = getParameterMap(request);
         // 签名校验
         checkSign(parameterMap);
         scheduleService.saveSchedule(parameterMap);
-        return Response.ok(Boolean.TRUE);
+        return Result.ok(Boolean.TRUE);
     }
 
     /**
@@ -106,13 +104,13 @@ public class ApiController {
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
      */
     @PostMapping("/department/remove")
-    public Response<Boolean> removeDep(HttpServletRequest request) {
+    public Result<Boolean> removeDep(HttpServletRequest request) {
         Map<String, Object> parameterMap = getParameterMap(request);
         // 签名校验
         checkSign(parameterMap);
         String hoscode = (String) parameterMap.get("hoscode");
         String depcode = (String) parameterMap.get("depcode");
-        return Response.ok(departmentService.removeDep(hoscode, depcode) > 0);
+        return Result.ok(departmentService.removeDep(hoscode, depcode) > 0);
     }
 
     /**
@@ -123,7 +121,7 @@ public class ApiController {
      * @return org.xiaowu.behappy.common.core.result.Response<org.springframework.data.domain.Page < org.xiaowu.behappy.api.hosp.model.Department>>
      */
     @PostMapping("/department/list")
-    public Response<Page<Department>> departmentListPage(HttpServletRequest request) {
+    public Result<Page<Department>> departmentListPage(HttpServletRequest request) {
         Map<String, Object> parameterMap = getParameterMap(request);
         String hoscode = (String) parameterMap.get("hoscode");
         // 签名校验
@@ -138,7 +136,7 @@ public class ApiController {
         departmentQueryVo.setHoscode(hoscode);
         departmentQueryVo.setDepcode(depcode);
         Page<Department> depPage = departmentService.selectPage(pageInt, limitInt, departmentQueryVo);
-        return Response.ok(depPage);
+        return Result.ok(depPage);
     }
 
     /**
@@ -149,12 +147,12 @@ public class ApiController {
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
      */
     @PostMapping("/saveDepartment")
-    public Response<Boolean> saveDepartment(HttpServletRequest request) {
+    public Result<Boolean> saveDepartment(HttpServletRequest request) {
         Map<String, Object> parameterMap = getParameterMap(request);
         // 签名校验
         checkSign(parameterMap);
         departmentService.saveDepartment(parameterMap);
-        return Response.ok(Boolean.TRUE);
+        return Result.ok(Boolean.TRUE);
     }
 
     /**
@@ -165,12 +163,12 @@ public class ApiController {
      * @return org.xiaowu.behappy.common.core.result.Response<org.xiaowu.behappy.api.hosp.model.Hospital>
      */
     @PostMapping("/hospital/show")
-    public Response<Hospital> hospital(HttpServletRequest request) {
+    public Result<Hospital> hospital(HttpServletRequest request) {
         Map<String, Object> parameterMap = getParameterMap(request);
         String hoscode = (String) parameterMap.get("hoscode");
         // 签名校验
         checkSign(parameterMap);
-        return Response.ok(hospitalService.findHospitalByHoscode(hoscode));
+        return Result.ok(hospitalService.findHospitalByHoscode(hoscode));
     }
 
     /**
@@ -181,13 +179,13 @@ public class ApiController {
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
      */
     @PostMapping("/saveHospital")
-    public Response<Boolean> saveHosp(HttpServletRequest request) {
+    public Result<Boolean> saveHosp(HttpServletRequest request) {
         Map<String, Object> parameterMap = getParameterMap(request);
         String hoscode = (String) parameterMap.get("hoscode");
         // 签名校验
         checkSign(parameterMap);
         hospitalService.saveHosp(parameterMap);
-        return Response.ok(true);
+        return Result.ok(true);
     }
 
     private Map<String, Object> getParameterMap(HttpServletRequest request) {

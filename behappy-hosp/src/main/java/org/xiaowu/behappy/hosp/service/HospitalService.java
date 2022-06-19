@@ -1,8 +1,6 @@
 package org.xiaowu.behappy.hosp.service;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
@@ -10,12 +8,12 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.xiaowu.behappy.api.cmn.feign.DictFeign;
 import org.xiaowu.behappy.api.hosp.model.Hospital;
 import org.xiaowu.behappy.api.hosp.vo.HospitalQueryVo;
 import org.xiaowu.behappy.common.core.enums.DictEnum;
-import org.xiaowu.behappy.common.core.result.Response;
+import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.util.ResponseConvert;
-import org.xiaowu.behappy.hosp.feign.DictFeign;
 import org.xiaowu.behappy.hosp.repository.HospitalRepository;
 
 import java.util.Date;
@@ -86,22 +84,22 @@ public class HospitalService {
     @SneakyThrows
     private void packHospital(Hospital hosp) {
         CompletableFuture<String> hospTypeFuture = CompletableFuture.supplyAsync(() -> {
-            Response<String> hospTypeRes = dictFeign.getName(DictEnum.HOSTYPE.getDictCode(), hosp.getHostype());
+            Result<String> hospTypeRes = dictFeign.getName(DictEnum.HOSTYPE.getDictCode(), hosp.getHostype());
             return responseConvert.convert(hospTypeRes, new TypeReference<String>() {
             });
         }, executor);
         CompletableFuture<String> provinceCodeFuture = CompletableFuture.supplyAsync(() -> {
-            Response<String> provinceCodeRes = dictFeign.getName(null, hosp.getProvinceCode());
+            Result<String> provinceCodeRes = dictFeign.getName(null, hosp.getProvinceCode());
             return responseConvert.convert(provinceCodeRes, new TypeReference<String>() {
             });
         }, executor);
         CompletableFuture<String> cityCodeFuture = CompletableFuture.supplyAsync(() -> {
-            Response<String> cityCodeRes = dictFeign.getName(null, hosp.getCityCode());
+            Result<String> cityCodeRes = dictFeign.getName(null, hosp.getCityCode());
             return responseConvert.convert(cityCodeRes, new TypeReference<String>() {
             });
         }, executor);
         CompletableFuture<String> districtCodeFuture = CompletableFuture.supplyAsync(() -> {
-            Response<String> districtCodeRes = dictFeign.getName(null, hosp.getDistrictCode());
+            Result<String> districtCodeRes = dictFeign.getName(null, hosp.getDistrictCode());
             return responseConvert.convert(districtCodeRes, new TypeReference<String>() {
             });
         }, executor);

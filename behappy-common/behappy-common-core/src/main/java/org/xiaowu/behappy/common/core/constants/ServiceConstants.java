@@ -23,9 +23,9 @@ package org.xiaowu.behappy.common.core.constants;
 public interface ServiceConstants {
     /*-----------------------------------服务名称------------------------------*/
     /**
-     * 后台模块
+     * 管理模块
      */
-    String UPMS_SERVICE = "behappy-manager";
+    String MANAGER_SERVICE = "behappy-manager";
 
     /**
      * 字典模块
@@ -36,6 +36,16 @@ public interface ServiceConstants {
      * 医院管理模块
      */
     String HOSP_SERVICE = "behappy-hosp";
+
+    /**
+     * 用户管理模块
+     */
+    String USER_SERVICE = "behappy-user";
+
+    /**
+     * 订单模块
+     */
+    String ORDER_SERVICE = "behappy-order";
 
     /*-----------------------------------服务名称------------------------------*/
 
