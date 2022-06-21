@@ -2,20 +2,20 @@ package org.xiaowu.behappy.manager.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.xiaowu.behappy.manager.mapper.ScheduleMapper;
-import org.xiaowu.behappy.api.manager.model.HospitalSet;
-import org.xiaowu.behappy.api.manager.model.Schedule;
-import org.xiaowu.behappy.manager.service.ApiService;
-import org.xiaowu.behappy.manager.service.HospitalService;
-import org.xiaowu.behappy.manager.util.BeanUtils;
-import org.xiaowu.behappy.common.core.util.HttpRequestHelper;
-import org.xiaowu.behappy.common.core.exception.HospitalException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.xiaowu.behappy.common.core.exception.HospitalException;
+import org.xiaowu.behappy.common.core.util.HttpRequestHelper;
+import org.xiaowu.behappy.manager.entity.HospitalSet;
+import org.xiaowu.behappy.manager.entity.Schedule;
+import org.xiaowu.behappy.manager.mapper.ScheduleMapper;
+import org.xiaowu.behappy.manager.service.ApiService;
+import org.xiaowu.behappy.manager.service.HospitalService;
+import org.xiaowu.behappy.manager.util.BeanUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

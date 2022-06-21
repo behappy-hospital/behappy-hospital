@@ -7,9 +7,9 @@ import lombok.SneakyThrows;
 import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
-import org.xiaowu.behappy.api.hosp.model.Department;
 import org.xiaowu.behappy.api.hosp.vo.DepartmentQueryVo;
 import org.xiaowu.behappy.api.hosp.vo.DepartmentVo;
+import org.xiaowu.behappy.hosp.entity.Department;
 import org.xiaowu.behappy.hosp.repository.DepartmentRepository;
 
 import java.util.Date;

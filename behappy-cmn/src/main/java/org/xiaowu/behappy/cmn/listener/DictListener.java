@@ -4,8 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import org.xiaowu.behappy.api.cmn.entity.Dict;
 import org.xiaowu.behappy.api.cmn.vo.DictEeVo;
+import org.xiaowu.behappy.cmn.entity.Dict;
 import org.xiaowu.behappy.cmn.service.DictService;
 
 /**
@@ -28,6 +28,5 @@ public class DictListener extends AnalysisEventListener<DictEeVo> {
 
     @Override
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
-
     }
 }

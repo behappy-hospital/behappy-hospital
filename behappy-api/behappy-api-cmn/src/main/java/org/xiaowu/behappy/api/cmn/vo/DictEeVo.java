@@ -5,6 +5,7 @@ import lombok.Data;
 
 /**
  * Dict
+ * excel导入导出
  */
 @Data
 public class DictEeVo {

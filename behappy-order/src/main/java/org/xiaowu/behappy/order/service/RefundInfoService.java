@@ -4,11 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xiaowu.behappy.api.order.enums.RefundStatusEnum;
-import org.xiaowu.behappy.api.order.model.PaymentInfo;
-import org.xiaowu.behappy.api.order.model.RefundInfo;
+import org.xiaowu.behappy.order.entity.PaymentInfo;
+import org.xiaowu.behappy.order.entity.RefundInfo;
 import org.xiaowu.behappy.order.mapper.RefundInfoMapper;
 
 import java.util.Date;

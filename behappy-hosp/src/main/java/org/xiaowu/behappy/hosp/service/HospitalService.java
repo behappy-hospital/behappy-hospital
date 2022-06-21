@@ -9,11 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.xiaowu.behappy.api.cmn.feign.DictFeign;
-import org.xiaowu.behappy.api.hosp.model.Hospital;
 import org.xiaowu.behappy.api.hosp.vo.HospitalQueryVo;
 import org.xiaowu.behappy.common.core.enums.DictEnum;
 import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.util.ResponseConvert;
+import org.xiaowu.behappy.hosp.entity.Hospital;
 import org.xiaowu.behappy.hosp.repository.HospitalRepository;
 
 import java.util.Date;

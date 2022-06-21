@@ -1,9 +1,5 @@
 package org.xiaowu.behappy.manager.controller;
 
-import org.xiaowu.behappy.api.manager.model.HospitalSet;
-import org.xiaowu.behappy.manager.service.ApiService;
-import org.xiaowu.behappy.manager.service.HospitalService;
-import org.xiaowu.behappy.common.core.exception.HospitalException;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.xiaowu.behappy.common.core.exception.HospitalException;
+import org.xiaowu.behappy.manager.entity.HospitalSet;
+import org.xiaowu.behappy.manager.service.ApiService;
+import org.xiaowu.behappy.manager.service.HospitalService;
 
 import javax.servlet.http.HttpServletRequest;
 

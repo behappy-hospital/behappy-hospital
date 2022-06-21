@@ -9,13 +9,14 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.xiaowu.behappy.api.order.enums.PaymentTypeEnum;
 import org.xiaowu.behappy.api.order.enums.RefundStatusEnum;
-import org.xiaowu.behappy.api.order.model.OrderInfo;
-import org.xiaowu.behappy.api.order.model.PaymentInfo;
-import org.xiaowu.behappy.api.order.model.RefundInfo;
+import org.xiaowu.behappy.common.core.util.IpUtil;
 import org.xiaowu.behappy.order.config.WxConfigProperties;
+import org.xiaowu.behappy.order.entity.OrderInfo;
+import org.xiaowu.behappy.order.entity.PaymentInfo;
+import org.xiaowu.behappy.order.entity.RefundInfo;
 import org.xiaowu.behappy.order.util.HttpClient;
 
-import java.math.BigDecimal;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +35,8 @@ public class WeixinService {
     private final WxConfigProperties wxConfigProperties;
 
     private final RefundInfoService refundInfoService;
+
+    private final HttpServletRequest httpServletRequest;
 
     /**
      * 根据订单号下单，生成支付链接
@@ -57,7 +60,7 @@ public class WeixinService {
             paramMap.put("body", body);
             paramMap.put("out_trade_no", order.getOutTradeNo());
             paramMap.put("total_fee", NumberUtil.round(order.getAmount(), 2).toString());
-            paramMap.put("spbill_create_ip", "127.0.0.1");
+            paramMap.put("spbill_create_ip", IpUtil.getIpAddr(httpServletRequest));
             paramMap.put("notify_url", "http://guli.shop/api/order/weixinPay/weixinNotify");
             paramMap.put("trade_type", "NATIVE");
             //2、HTTPClient来根据URL访问第三方接口并且传递参数

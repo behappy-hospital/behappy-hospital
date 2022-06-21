@@ -1,7 +1,7 @@
 package org.xiaowu.behappy.manager.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.xiaowu.behappy.api.manager.model.HospitalSet;
+import org.xiaowu.behappy.manager.entity.HospitalSet;
 
 import java.util.Map;
 

@@ -1,15 +1,15 @@
 package org.xiaowu.behappy.manager.controller;
 
-import org.xiaowu.behappy.common.core.exception.HospitalException;
-import org.xiaowu.behappy.common.core.result.Result;
-import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
-import org.xiaowu.behappy.manager.service.ApiService;
-import org.xiaowu.behappy.manager.service.HospitalService;
-import org.xiaowu.behappy.common.core.util.*;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.xiaowu.behappy.common.core.exception.HospitalException;
+import org.xiaowu.behappy.common.core.result.Result;
+import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
+import org.xiaowu.behappy.common.core.util.HttpRequestHelper;
+import org.xiaowu.behappy.manager.service.ApiService;
+import org.xiaowu.behappy.manager.service.HospitalService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

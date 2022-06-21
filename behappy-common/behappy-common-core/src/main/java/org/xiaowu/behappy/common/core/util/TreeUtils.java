@@ -1,7 +1,6 @@
 package org.xiaowu.behappy.common.core.util;
 
 import cn.hutool.core.util.StrUtil;
-import org.springframework.util.StringUtils;
 
 import javax.validation.constraints.NotNull;
 import java.lang.reflect.Field;

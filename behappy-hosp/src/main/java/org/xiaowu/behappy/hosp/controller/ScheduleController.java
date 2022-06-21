@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.xiaowu.behappy.api.hosp.model.Schedule;
 import org.xiaowu.behappy.common.core.result.Result;
+import org.xiaowu.behappy.hosp.entity.Schedule;
 import org.xiaowu.behappy.hosp.service.ScheduleService;
 
 import java.util.List;
@@ -53,7 +53,7 @@ public class ScheduleController {
      * @param hoscode
      * @param depcode
      * @param workDate
-     * @return org.xiaowu.behappy.common.core.result.Response<java.util.List < org.xiaowu.behappy.api.hosp.model.Schedule>>
+     * @return org.xiaowu.behappy.common.core.result.Response<java.util.List < org.xiaowu.behappy.hosp.entity.Schedule>>
      */
     @ApiOperation(value = "根据医院编号 、科室编号和工作日期，查询排班详细信息")
     @GetMapping("/getScheduleDetail/{hoscode}/{depcode}/{workDate}")

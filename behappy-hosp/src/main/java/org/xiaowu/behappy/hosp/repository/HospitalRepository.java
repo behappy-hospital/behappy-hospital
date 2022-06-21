@@ -2,7 +2,7 @@ package org.xiaowu.behappy.hosp.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import org.xiaowu.behappy.api.hosp.model.Hospital;
+import org.xiaowu.behappy.hosp.entity.Hospital;
 
 /**
  * @author xiaowu

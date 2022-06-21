@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.xiaowu.behappy.api.user.feign.PatientFeign;
-import org.xiaowu.behappy.api.user.model.Patient;
+import org.xiaowu.behappy.api.user.vo.PatientVo;
 import org.xiaowu.behappy.common.core.result.Result;
 
 /**
@@ -18,7 +18,7 @@ public class PatientFeignFallBack implements PatientFeign {
     Throwable cause;
 
     @Override
-    public Result<Patient> getPatient(Long id) {
+    public Result<PatientVo> getPatient(Long id) {
         log.error("PatientFeignFallBack - getPatient: {}", id);
         return Result.failed();
     }

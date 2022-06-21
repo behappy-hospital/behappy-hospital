@@ -2,7 +2,6 @@ package org.xiaowu.behappy.order;
 
 import cn.hutool.core.util.NumberUtil;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 

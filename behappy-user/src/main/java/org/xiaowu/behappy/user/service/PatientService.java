@@ -6,11 +6,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.xiaowu.behappy.api.user.model.Patient;
+import org.xiaowu.behappy.api.cmn.feign.DictFeign;
 import org.xiaowu.behappy.common.core.enums.DictEnum;
 import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.util.ResponseConvert;
-import org.xiaowu.behappy.api.cmn.feign.DictFeign;
+import org.xiaowu.behappy.user.entity.Patient;
 import org.xiaowu.behappy.user.mapper.PatientMapper;
 
 import java.util.List;

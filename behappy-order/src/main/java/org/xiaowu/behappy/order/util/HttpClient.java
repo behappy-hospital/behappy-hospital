@@ -16,11 +16,9 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
-import org.springframework.beans.factory.InitializingBean;
 import org.xiaowu.behappy.order.config.WxConfigProperties;
 
 import javax.net.ssl.SSLContext;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.KeyStore;

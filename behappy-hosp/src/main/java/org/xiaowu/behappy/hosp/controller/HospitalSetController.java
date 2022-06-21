@@ -8,10 +8,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.xiaowu.behappy.api.hosp.model.HospitalSet;
 import org.xiaowu.behappy.api.hosp.vo.HospitalSetQueryVo;
 import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.util.MD5;
+import org.xiaowu.behappy.hosp.entity.HospitalSet;
 import org.xiaowu.behappy.hosp.service.HospitalSetService;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class HospitalSetController {
      * 查询医院设置表所有信息
      * @apiNote
      * @author xiaowu
-     * @return org.xiaowu.behappy.common.core.result.Response<org.xiaowu.behappy.api.hosp.model.HospitalSet>
+     * @return org.xiaowu.behappy.common.core.result.Response<org.xiaowu.behappy.hosp.entity.HospitalSet>
      */
     @ApiOperation(value = "获取所有医院设置")
     @GetMapping("/findAll")
@@ -62,7 +62,7 @@ public class HospitalSetController {
      * @param current
      * @param limit
      * @param hospitalSetQueryVo
-     * @return org.xiaowu.behappy.common.core.result.Response<com.baomidou.mybatisplus.extension.plugins.pagination.Page < org.xiaowu.behappy.api.hosp.model.HospitalSet>>
+     * @return org.xiaowu.behappy.common.core.result.Response<com.baomidou.mybatisplus.extension.plugins.pagination.Page < org.xiaowu.behappy.hosp.entity.HospitalSet>>
      */
     @ApiOperation(value = "条件查询带分页")
     @PostMapping("/findPageHospSet/{current}/{limit}")
@@ -113,7 +113,7 @@ public class HospitalSetController {
      * @apiNote
      * @author xiaowu
      * @param id
-     * @return org.xiaowu.behappy.common.core.result.Response<org.xiaowu.behappy.api.hosp.model.HospitalSet>
+     * @return org.xiaowu.behappy.common.core.result.Response<org.xiaowu.behappy.hosp.entity.HospitalSet>
      */
     @ApiOperation("根据id获取医院设置")
     @GetMapping("/getHospSet/{id}")

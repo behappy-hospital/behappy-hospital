@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.xiaowu.behappy.api.user.model.UserInfo;
 import org.xiaowu.behappy.api.user.vo.UserInfoQueryVo;
 import org.xiaowu.behappy.common.core.result.Result;
+import org.xiaowu.behappy.user.entity.UserInfo;
 import org.xiaowu.behappy.user.service.UserInfoService;
 
 import java.util.Map;

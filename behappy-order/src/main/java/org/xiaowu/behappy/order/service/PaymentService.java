@@ -13,13 +13,13 @@ import org.xiaowu.behappy.api.common.vo.SignInfoVo;
 import org.xiaowu.behappy.api.hosp.feign.HospitalFeign;
 import org.xiaowu.behappy.api.order.enums.OrderStatusEnum;
 import org.xiaowu.behappy.api.order.enums.PaymentStatusEnum;
-import org.xiaowu.behappy.api.order.model.OrderInfo;
-import org.xiaowu.behappy.api.order.model.PaymentInfo;
 import org.xiaowu.behappy.common.core.exception.HospitalException;
 import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
 import org.xiaowu.behappy.common.core.util.HttpRequestHelper;
 import org.xiaowu.behappy.common.core.util.ResponseConvert;
+import org.xiaowu.behappy.order.entity.OrderInfo;
+import org.xiaowu.behappy.order.entity.PaymentInfo;
 import org.xiaowu.behappy.order.mapper.PaymentInfoMapper;
 
 import java.util.Date;

@@ -3,8 +3,6 @@ package org.xiaowu.behappy.order.service;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.github.wxpay.sdk.WXPayConstants;
-import com.github.wxpay.sdk.WXPayUtil;
 import lombok.AllArgsConstructor;
 import org.joda.time.DateTime;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -16,21 +14,17 @@ import org.xiaowu.behappy.api.hosp.feign.HospitalFeign;
 import org.xiaowu.behappy.api.hosp.vo.OrderMqVo;
 import org.xiaowu.behappy.api.hosp.vo.ScheduleOrderVo;
 import org.xiaowu.behappy.api.order.enums.OrderStatusEnum;
-import org.xiaowu.behappy.api.order.enums.PaymentTypeEnum;
-import org.xiaowu.behappy.api.order.enums.RefundStatusEnum;
-import org.xiaowu.behappy.api.order.model.OrderInfo;
-import org.xiaowu.behappy.api.order.model.PaymentInfo;
-import org.xiaowu.behappy.api.order.model.RefundInfo;
 import org.xiaowu.behappy.api.order.vo.OrderCountQueryVo;
 import org.xiaowu.behappy.api.order.vo.OrderCountVo;
 import org.xiaowu.behappy.api.user.feign.PatientFeign;
-import org.xiaowu.behappy.api.user.model.Patient;
+import org.xiaowu.behappy.api.user.vo.PatientVo;
 import org.xiaowu.behappy.common.core.exception.HospitalException;
 import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
 import org.xiaowu.behappy.common.core.util.HttpRequestHelper;
 import org.xiaowu.behappy.common.core.util.ResponseConvert;
 import org.xiaowu.behappy.common.rmq.contant.MqConst;
+import org.xiaowu.behappy.order.entity.OrderInfo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -60,8 +54,8 @@ public class OrderService {
 
     //保存订单
     public Long saveOrder(String scheduleId, Long patientId) {
-        Result<Patient> patientResult = patientFeign.getPatient(patientId);
-        Patient patient = responseConvert.convert(patientResult, new TypeReference<Patient>() {
+        Result<PatientVo> patientResult = patientFeign.getPatient(patientId);
+        PatientVo patient = responseConvert.convert(patientResult, new TypeReference<PatientVo>() {
         });
         if (null == patient) {
             throw new HospitalException(ResultCodeEnum.PARAM_ERROR);

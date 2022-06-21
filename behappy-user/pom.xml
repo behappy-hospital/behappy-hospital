@@ -32,6 +32,10 @@
             <groupId>io.github.wang-xiaowu</groupId>
             <artifactId>behappy-redis</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-common-mybatis</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

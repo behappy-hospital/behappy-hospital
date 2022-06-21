@@ -8,10 +8,10 @@ import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.xiaowu.behappy.api.order.enums.OrderStatusEnum;
-import org.xiaowu.behappy.api.order.model.OrderInfo;
 import org.xiaowu.behappy.api.order.vo.OrderCountQueryVo;
 import org.xiaowu.behappy.api.order.vo.OrderQueryVo;
 import org.xiaowu.behappy.common.core.result.Result;
+import org.xiaowu.behappy.order.entity.OrderInfo;
 import org.xiaowu.behappy.order.service.OrderInfoService;
 import org.xiaowu.behappy.order.service.OrderService;
 

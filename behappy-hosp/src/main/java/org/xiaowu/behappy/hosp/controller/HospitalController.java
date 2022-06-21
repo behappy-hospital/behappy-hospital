@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.xiaowu.behappy.api.hosp.model.Hospital;
 import org.xiaowu.behappy.api.hosp.vo.HospitalQueryVo;
 import org.xiaowu.behappy.common.core.result.Result;
+import org.xiaowu.behappy.hosp.entity.Hospital;
 import org.xiaowu.behappy.hosp.service.HospitalService;
 
 import java.util.Map;
@@ -35,7 +35,7 @@ public class HospitalController {
      * @param page
      * @param limit
      * @param hospitalQueryVo
-     * @return org.xiaowu.behappy.common.core.result.Response<org.springframework.data.domain.Page < org.xiaowu.behappy.api.hosp.model.Hospital>>
+     * @return org.xiaowu.behappy.common.core.result.Response<org.springframework.data.domain.Page < org.xiaowu.behappy.hosp.entity.Hospital>>
      */
     @ApiOperation("获取分页列表")
     @GetMapping("/list/{page}/{limit}")
@@ -70,7 +70,7 @@ public class HospitalController {
      * @apiNote
      * @author xiaowu
      * @param id
-     * @return org.xiaowu.behappy.common.core.result.Response<org.xiaowu.behappy.api.hosp.model.Hospital>
+     * @return org.xiaowu.behappy.common.core.result.Response<org.xiaowu.behappy.hosp.entity.Hospital>
      */
     @ApiOperation(value = "获取医院详情")
     @GetMapping("/showHospDetail/{id}")

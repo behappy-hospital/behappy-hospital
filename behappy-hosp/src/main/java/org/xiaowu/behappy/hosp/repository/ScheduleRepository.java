@@ -3,7 +3,7 @@ package org.xiaowu.behappy.hosp.repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.xiaowu.behappy.api.hosp.model.Schedule;
+import org.xiaowu.behappy.hosp.entity.Schedule;
 
 import java.util.Date;
 import java.util.List;

@@ -1,16 +1,12 @@
 package org.xiaowu.behappy.oss.service;
 
-import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClient;
-import com.aliyun.oss.OSSClientBuilder;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.xiaowu.behappy.oss.config.AliOssProperties;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;

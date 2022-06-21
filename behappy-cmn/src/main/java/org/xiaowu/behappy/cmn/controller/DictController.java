@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.xiaowu.behappy.api.cmn.entity.Dict;
+import org.xiaowu.behappy.cmn.entity.Dict;
 import org.xiaowu.behappy.cmn.service.DictService;
 import org.xiaowu.behappy.common.core.result.Result;
 
@@ -29,7 +29,7 @@ public class DictController {
      * @apiNote
      * @author xiaowu
      * @param id
-     * @return org.xiaowu.behappy.common.core.result.Response<java.util.List < org.xiaowu.behappy.api.cmn.entity.Dict>>
+     * @return org.xiaowu.behappy.common.core.result.Response<java.util.List < org.xiaowu.behappy.cmn.entity.Dict>>
      */
     @ApiOperation(value = "根据数据id查询子数据列表")
     @GetMapping("/findChildData/{id}")

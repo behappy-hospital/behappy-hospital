@@ -10,14 +10,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.xiaowu.behappy.api.order.enums.OrderStatusEnum;
-import org.xiaowu.behappy.api.order.model.OrderInfo;
 import org.xiaowu.behappy.api.order.vo.OrderCountQueryVo;
 import org.xiaowu.behappy.api.order.vo.OrderCountVo;
 import org.xiaowu.behappy.api.order.vo.OrderQueryVo;
 import org.xiaowu.behappy.api.user.feign.PatientFeign;
-import org.xiaowu.behappy.api.user.model.Patient;
+import org.xiaowu.behappy.api.user.vo.PatientVo;
 import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.util.ResponseConvert;
+import org.xiaowu.behappy.order.entity.OrderInfo;
 import org.xiaowu.behappy.order.mapper.OrderInfoMapper;
 
 import java.util.HashMap;
@@ -84,8 +84,8 @@ public class OrderInfoService extends ServiceImpl<OrderInfoMapper, OrderInfo> im
         Map<String, Object> map = new HashMap<>();
         OrderInfo orderInfo = this.packOrderInfo(this.getById(orderId));
         map.put("orderInfo", orderInfo);
-        Result<Patient> patientResult = patientFeign.getPatient(orderInfo.getPatientId());
-        Patient patient = responseConvert.convert(patientResult, new TypeReference<Patient>() {
+        Result<PatientVo> patientResult = patientFeign.getPatient(orderInfo.getPatientId());
+        PatientVo patient = responseConvert.convert(patientResult, new TypeReference<PatientVo>() {
         });
         map.put("patient", patient);
         return map;

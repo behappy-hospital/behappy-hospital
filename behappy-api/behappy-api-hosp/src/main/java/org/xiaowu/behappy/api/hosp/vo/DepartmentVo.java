@@ -1,6 +1,5 @@
 package org.xiaowu.behappy.api.hosp.vo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

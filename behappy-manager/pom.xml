@@ -27,6 +27,10 @@
         </dependency>
 
         <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-common-mybatis</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.7</version>

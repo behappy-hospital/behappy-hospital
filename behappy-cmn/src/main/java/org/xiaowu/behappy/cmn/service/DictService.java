@@ -9,14 +9,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.SneakyThrows;
-import org.aspectj.lang.annotation.After;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.xiaowu.behappy.api.cmn.entity.Dict;
 import org.xiaowu.behappy.api.cmn.vo.DictEeVo;
+import org.xiaowu.behappy.cmn.entity.Dict;
 import org.xiaowu.behappy.cmn.listener.DictListener;
 import org.xiaowu.behappy.cmn.mapper.DictMapper;
 
@@ -34,7 +32,7 @@ import static org.xiaowu.behappy.api.cmn.constants.CmnConstant.DICT_CACHE;
 @Service
 public class DictService extends ServiceImpl<DictMapper, Dict> implements IService<Dict> {
 
-    @Cacheable(cacheNames = DICT_CACHE)
+    @Cacheable(cacheNames = DICT_CACHE,key = "#id")
     public List<Dict> findChildData(Long id) {
         LambdaQueryWrapper<Dict> dictLambdaQueryWrapper = new LambdaQueryWrapper<>();
         dictLambdaQueryWrapper.eq(Dict::getParentId,id);

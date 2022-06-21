@@ -5,7 +5,7 @@ spring:
         # 例: 单节点设置
         singleServerConfig:
           # （节点地址）redis://-非ssl,rediss://-ssl
-          address: redis://127.0.0.1:6379
+          address: redis://192.168.56.103:6379
           database: 0
           password: null
           # 如果当前连接池里的连接数量超过了`最小空闲连接数`，而同时有连接空闲时间超过了该数值，那么这些连接将会自动被关闭，并从连接池里去掉。时间单位是毫秒。
@@ -41,7 +41,7 @@ spring:
         codec: !<org.xiaowu.behappy.redis.serializer.FstCodec> {}
         transportMode: NIO
   rabbitmq:
-    host: 127.0.0.1
+    host: 192.168.56.103
     port: 5672
     # 指定虚拟主机
     virtual-host: /
@@ -65,14 +65,14 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: root
     username: root
-    url: jdbc:mysql://localhost:3306/yygh_user?allowMultiQueries=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+    url: jdbc:mysql://192.168.56.103:3306/yygh_user?allowMultiQueries=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
   data:
     #uri: mongodb://用户名:密码@服务器IP:端口/数据库名
     # 上方为明确指定某个数据的用户进行连接
     # 也可以使用admin 数据库中的用户进行连接  统一到admin 数据库进行认证
     # admin 用户认证 url 写法： mongodb://账户:密码@ip:端口/数据库名?authSource=admin&authMechanism=SCRAM-SHA-1
     mongodb:
-      uri: mongodb://root:root@localhost:27017/yygh_hosp?authSource=admin&authMechanism=SCRAM-SHA-1
+      uri: mongodb://root:root@192.168.56.103:27017/yygh_hosp?authSource=admin&authMechanism=SCRAM-SHA-1
 # 数据源
 # mybaits-plus配置
 mybatis-plus:
