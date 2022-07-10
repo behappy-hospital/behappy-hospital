@@ -1,5 +1,5 @@
 server:
-  port: 8201
+  port: 9998
 spring:
   profiles:
     active: @profiles.active@
@@ -7,7 +7,7 @@ spring:
     name: @project.artifactId@
   cloud:
     nacos:
-      server-addr: 192.168.56.103:8848
+      server-addr: 127.0.0.1:8848
       #      config:
       #        file-extension: yml
       #        namespace: 96d736a4-1fa4-407a-af7a-f5e9009c5075

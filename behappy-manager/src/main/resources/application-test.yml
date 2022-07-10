@@ -1,5 +1,3 @@
-server:
-  port: 9999
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

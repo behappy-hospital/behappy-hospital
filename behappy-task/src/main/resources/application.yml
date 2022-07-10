@@ -1,4 +1,7 @@
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
   rabbitmq:
     host: 127.0.0.1
     port: 5672
@@ -17,18 +20,6 @@ spring:
     listener:
       simple:
         acknowledge-mode: manual
-  redis:
-    redisson:
-      file: classpath:redisson.yaml
-  mvc:
-    pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
 feign:
   sentinel:
     enabled: true
-aliyun:
-  sms:
-    access-key-id: xxx
-    access-key-secret: xxx
-    sign-name: ABC商城
-    template-code: SMS_206546316
