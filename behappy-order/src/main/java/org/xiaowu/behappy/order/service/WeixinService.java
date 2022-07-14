@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.xiaowu.behappy.api.order.enums.PaymentTypeEnum;
@@ -30,7 +31,7 @@ public class WeixinService {
 
     private final PaymentService paymentService;
 
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String,Object> redisTemplate;
 
     private final WxConfigProperties wxConfigProperties;
 

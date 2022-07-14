@@ -25,11 +25,12 @@
         <jsonwebtoken.version>0.9.1</jsonwebtoken.version>
         <aliyun-java-sdk.version>4.6.0</aliyun-java-sdk.version>
         <aliyun-dysmsapi-sdk.version>2.2.1</aliyun-dysmsapi-sdk.version>
-        <behappy-redis.version>0.0.2</behappy-redis.version>
+        <behappy-redis.version>0.0.3</behappy-redis.version>
         <wx-pay.version>0.0.3</wx-pay.version>
         <hutool.version>5.6.4</hutool.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <alipay.sdk.oss.version>3.8.0</alipay.sdk.oss.version>
+        <logstash.logback.version>7.2</logstash.logback.version>
     </properties>
     <modules>
         <module>behappy-api</module>
@@ -113,6 +114,12 @@
                 <groupId>com.aliyun</groupId>
                 <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
                 <version>${aliyun-dysmsapi-sdk.version}</version>
+            </dependency>
+            <!--日志以json格式输出所需-->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash.logback.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.wang-xiaowu</groupId>

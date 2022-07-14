@@ -183,9 +183,6 @@ public class ApiController {
     @PostMapping("/saveHospital")
     public Result<Boolean> saveHosp(HttpServletRequest request) {
         Map<String, Object> parameterMap = getParameterMap(request);
-        String hoscode = (String) parameterMap.get("hoscode");
-        // 签名校验
-        checkSign(parameterMap);
         hospitalService.saveHosp(parameterMap);
         return Result.ok(true);
     }
