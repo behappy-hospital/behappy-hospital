@@ -2,6 +2,7 @@ package org.xiaowu.behappy.hosp.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
@@ -275,7 +276,8 @@ public class ScheduleService {
     }
 
     public Schedule getById(String scheduleId) {
-        Schedule schedule = scheduleRepository.findById(scheduleId).get();
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new HospitalException(ResultCodeEnum.DATA_ERROR));
         packageSchedule(schedule);
         return schedule;
     }

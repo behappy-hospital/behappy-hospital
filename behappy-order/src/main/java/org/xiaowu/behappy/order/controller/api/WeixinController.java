@@ -47,7 +47,7 @@ public class WeixinController {
             paymentService.paySuccess(out_trade_no, PaymentTypeEnum.WEIXIN.getStatus(), resultMap);
             return Result.ok();
         }
-        return Result.ok();
+        return Result.ok().setMessage("支付中");
     }
 
 }

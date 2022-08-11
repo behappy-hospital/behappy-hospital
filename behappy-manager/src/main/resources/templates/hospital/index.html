@@ -18,23 +18,23 @@
         <tbody>
         <tr>
             <th width="15%">医院名称</th>
-            <td width="35%"><b style="font-size: 14px" th:text="${hospital.hosname}"></b> | <span th:text="'医院等级编号：'+${ hospital.hostype}"></span></td>
+            <td width="35%"><b style="font-size: 14px" th:text="${hospital?.hosname}"></b> | <span th:text="'医院等级编号：'+${ hospital?.hostype}"></span></td>
             <th width="15%">医院logo</th>
-            <td width="35%"><img th:src="${'data:image/jpeg;base64,'+(hospital.logoData)}"  width="80"></td>
+            <td width="35%"><img th:src="${'data:image/jpeg;base64,'+(hospital?.logoData)}"  width="80"></td>
         </tr>
         <tr>
             <th>医院编码</th>
-            <td th:text="${hospital.hoscode}"></td>
+            <td th:text="${hospital?.hoscode}"></td>
             <th>地址</th>
-            <td th:text="${hospital.address}"></td>
+            <td th:text="${hospital?.address}"></td>
         </tr>
         <tr>
             <th>坐车路线</th>
-            <td colspan="3" th:text="${hospital.route}"></td>
+            <td colspan="3" th:text="${hospital?.route}"></td>
         </tr>
         <tr>
             <th>医院简介</th>
-            <td colspan="3" th:text="${hospital.intro}"></td>
+            <td colspan="3" th:text="${hospital?.intro}"></td>
         </tr>
         </tbody>
     </table>
@@ -45,19 +45,19 @@
         <tbody>
         <tr>
             <th width="15%">预约周期</th>
-            <td width="35%" th:text="${hospital.bookingRule.cycle}">天</td>
+            <td width="35%" th:text="${hospital?.bookingRule?.cycle}">天</td>
             <th width="15%">放号时间</th>
-            <td width="35%" th:text="${hospital.bookingRule.releaseTime}"></td>
+            <td width="35%" th:text="${hospital?.bookingRule?.releaseTime}"></td>
         </tr>
         <tr>
             <th>停挂时间</th>
-            <td th:text="${hospital.bookingRule.stopTime}"></td>
+            <td th:text="${hospital?.bookingRule?.stopTime}"></td>
             <th>退号时间</th>
-            <td ><span th:text="${hospital.bookingRule.quitDay == -1 ? '就诊前一工作日' : '就诊当日'}"></span>&nbsp;<span th:text="${hospital.bookingRule.quitTime}"></span></td>
+            <td ><span th:text="${hospital?.bookingRule?.quitDay == -1 ? '就诊前一工作日' : '就诊当日'}"></span>&nbsp;<span th:text="${hospital?.bookingRule?.quitTime}"></span></td>
         </tr>
         <tr>
             <th>预约规则</th>
-            <td colspan="3" th:text="${hospital.bookingRule.rule}"></td>
+            <td colspan="3" th:text="${hospital?.bookingRule?.rule}"></td>
         </tr>
         <br>
 

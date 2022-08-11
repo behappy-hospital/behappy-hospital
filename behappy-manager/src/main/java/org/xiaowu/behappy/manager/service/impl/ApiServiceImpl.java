@@ -4,12 +4,14 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.xiaowu.behappy.common.core.exception.HospitalException;
 import org.xiaowu.behappy.common.core.util.HttpRequestHelper;
+import org.xiaowu.behappy.common.core.util.JodaTimeUtils;
 import org.xiaowu.behappy.manager.entity.HospitalSet;
 import org.xiaowu.behappy.manager.entity.Schedule;
 import org.xiaowu.behappy.manager.mapper.ScheduleMapper;
@@ -25,6 +27,8 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -66,7 +70,6 @@ public class ApiServiceImpl implements ApiService {
         paramMap.put("timestamp", HttpRequestHelper.getTimestamp());
         paramMap.put("sign", HttpRequestHelper.getSign(paramMap, this.getSignKey()));
         JSONObject respone = HttpRequestHelper.sendRequest(paramMap,this.getApiUrl()+"/api/hosp/hospital/show");
-        System.out.println(respone.toJSONString());
         if(null != respone && 200 == respone.getIntValue("code")) {
             JSONObject jsonObject = respone.getJSONObject("data");
             return jsonObject;
@@ -206,6 +209,7 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     public boolean saveSchedule(String data) {
+        DateTime now = new DateTime().minusDays(7);
         JSONArray jsonArray = new JSONArray();
         if(!data.startsWith("[")) {
             JSONObject jsonObject = JSONObject.parseObject(data);
@@ -225,7 +229,10 @@ public class ApiServiceImpl implements ApiService {
             schedule.setTitle(jsonObject.getString("title"));
             schedule.setDocname(jsonObject.getString("docname"));
             schedule.setSkill(jsonObject.getString("skill"));
-            schedule.setWorkDate(jsonObject.getString("workDate"));
+            // 设置workDate为当天前7天递增
+            //schedule.setWorkDate(jsonObject.getString("workDate"));
+            now = now.plusDays(1);
+            schedule.setWorkDate(now.toString("yyyy-MM-dd"));
             schedule.setWorkTime(jsonObject.getInteger("workTime"));
             schedule.setReservedNumber(jsonObject.getInteger("reservedNumber"));
             schedule.setAvailableNumber(jsonObject.getInteger("availableNumber"));
@@ -242,6 +249,7 @@ public class ApiServiceImpl implements ApiService {
             }
 
             Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("id",schedule.getId());
             paramMap.put("hoscode",schedule.getHoscode());
             paramMap.put("depcode",schedule.getDepcode());
             paramMap.put("title",schedule.getTitle());
@@ -298,6 +306,7 @@ public class ApiServiceImpl implements ApiService {
             paramMap.put("cityCode", jsonObject.getString("cityCode"));
             paramMap.put("districtCode",jsonObject.getString("districtCode"));
             paramMap.put("address",jsonObject.getString("address"));
+            paramMap.put("logoData",jsonObject.getString("logoData"));
             String intro = jsonObject.getString("intro");
             paramMap.put("intro",intro);
             String route = jsonObject.getString("route");

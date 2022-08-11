@@ -69,6 +69,7 @@ USE `yygh_order`;
 CREATE TABLE `order_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `user_id` bigint(20) DEFAULT NULL,
+  `schedule_id` varchar(256) DEFAULT NULL COMMENT '排班id',
   `out_trade_no` varchar(300) DEFAULT NULL COMMENT '订单交易号',
   `hoscode` varchar(30) DEFAULT NULL COMMENT '医院编号',
   `hosname` varchar(100) DEFAULT NULL COMMENT '医院名称',

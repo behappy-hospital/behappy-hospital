@@ -237,12 +237,24 @@
 
     <build>
         <finalName>${project.name}</finalName>
-        <plugins>
-        </plugins>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>${project.basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
+                <excludes>
+                    <exclude>
+                        ${project.basedir}/src/main/resources/**.p12
+                    </exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>
+                        ${project.basedir}/src/main/resources/**.p12
+                    </include>
+                </includes>
             </resource>
         </resources>
         <pluginManagement>
@@ -264,6 +276,17 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                        <!-- 过滤后缀为pkcs12、jks的证书文件 -->
+                        <nonFilteredFileExtensions>
+                            <nonFilteredFileExtension>p12</nonFilteredFileExtension>
+                        </nonFilteredFileExtensions>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

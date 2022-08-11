@@ -2,6 +2,7 @@ package org.xiaowu.behappy.order.config;
 
 import com.rabbitmq.client.Channel;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
@@ -13,6 +14,7 @@ import org.xiaowu.behappy.order.service.OrderService;
 
 import java.io.IOException;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class OrderReceiver {
@@ -25,6 +27,14 @@ public class OrderReceiver {
             key = {MqConst.ROUTING_TASK_8}
     ))
     public void patientTips(Message message, Channel channel) throws IOException {
-        orderService.patientTips();
+
+        try {
+            log.info("{} 队列收到消息, 内容为: {}",MqConst.QUEUE_TASK_8);
+            orderService.patientTips();
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        } catch (Exception e) {
+            log.error("队列: {}, 定时任务模块报错: {}",MqConst.QUEUE_TASK_8,e.getMessage());
+            channel.basicReject(message.getMessageProperties().getDeliveryTag(), true);
+        }
     }
 }
