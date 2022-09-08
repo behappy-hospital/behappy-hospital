@@ -28,3 +28,6 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+thread:
+  pool:
+    name-prefix: @project.artifactId@
