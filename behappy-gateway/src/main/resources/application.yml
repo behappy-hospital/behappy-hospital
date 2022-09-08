@@ -48,3 +48,6 @@ spring:
             - Path=/api/*/order/**
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
+thread:
+  pool:
+    name-prefix: @project.artifactId@

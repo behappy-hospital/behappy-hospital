@@ -1,3 +1,4 @@
+
 spring:
   redis:
     redisson:
@@ -78,3 +79,6 @@ behappy:
           # ??????
           maxIdleTime: 0
           maxSize: 0
+thread:
+  pool:
+    name-prefix: @project.artifactId@

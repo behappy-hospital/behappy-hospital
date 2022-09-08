@@ -8,3 +8,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
+thread:
+  pool:
+    name-prefix: @project.artifactId@

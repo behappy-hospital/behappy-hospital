@@ -32,3 +32,6 @@ aliyun:
     access-key-secret: xxx
     sign-name: ABC商城
     template-code: SMS_206546316
+thread:
+  pool:
+    name-prefix: @project.artifactId@

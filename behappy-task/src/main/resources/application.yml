@@ -23,3 +23,6 @@ spring:
 feign:
   sentinel:
     enabled: true
+thread:
+  pool:
+    name-prefix: @project.artifactId@

@@ -96,3 +96,6 @@ wx:
     partner: 1558950191
     partner-key: T6m9iK73b0kn9g5v426MKfHQH7X8rKwb
     cert: classpath:s
+thread:
+  pool:
+    name-prefix: @project.artifactId@
