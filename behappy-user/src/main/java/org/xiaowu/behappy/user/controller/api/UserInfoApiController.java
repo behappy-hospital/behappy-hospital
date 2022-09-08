@@ -57,7 +57,7 @@ public class UserInfoApiController {
      * @return org.xiaowu.behappy.common.core.result.Response
      */
     @GetMapping("/auth/getUserInfo")
-    public Result getUserInfo(HttpServletRequest request) {
+    public Result<UserInfo> getUserInfo(HttpServletRequest request) {
         Long userId = AuthContextHolder.getUserId(request);
         UserInfo userInfo = userInfoService.getById(userId);
         return Result.ok(userInfo);

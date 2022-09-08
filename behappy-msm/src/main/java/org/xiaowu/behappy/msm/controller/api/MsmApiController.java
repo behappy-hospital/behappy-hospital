@@ -37,12 +37,12 @@ public class MsmApiController {
         // 如果从redis获取不到, 则生成验证码
         code = RandomUtil.randomNumbers(6);
         // 通过阿里云sms发送短信
-        boolean notSend = msmService.sendSms(phone,code);
-        if (notSend) {
+        boolean successSend = msmService.sendSms(phone,code);
+        if (!successSend) {
             return Result.failed("发送短信失败");
         }
         // 将验证码设置2分钟的有效期
-        redisTemplate.opsForValue().set(phone,code,2, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(phone,code,1, TimeUnit.DAYS);
         return Result.ok();
     }
 }

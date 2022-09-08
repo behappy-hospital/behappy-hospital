@@ -24,6 +24,7 @@ import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
 import org.xiaowu.behappy.common.core.util.HttpRequestHelper;
 import org.xiaowu.behappy.common.core.util.ResponseConvert;
 import org.xiaowu.behappy.common.rmq.contant.MqConst;
+import org.xiaowu.behappy.order.config.AliSmsProperties;
 import org.xiaowu.behappy.order.entity.OrderInfo;
 
 import java.util.HashMap;
@@ -51,6 +52,8 @@ public class OrderService {
     private final RabbitTemplate rabbitTemplate;
 
     private final WeixinService weixinService;
+
+    private final AliSmsProperties aliSmsProperties;
 
     //保存订单
     public Long saveOrder(String scheduleId, Long patientId) {
@@ -151,7 +154,7 @@ public class OrderService {
             //短信提示
             MsmVo msmVo = new MsmVo();
             msmVo.setPhone(orderInfo.getPatientPhone());
-            msmVo.setTemplateCode("SMS_206546316");
+            msmVo.setTemplateCode(aliSmsProperties.getTemplateCode());
             String reserveDate =
                     new DateTime(orderInfo.getReserveDate()).toString("yyyy-MM-dd")
                             + (orderInfo.getReserveTime() == 0 ? "上午" : "下午");
@@ -175,11 +178,12 @@ public class OrderService {
 
     public Boolean cancelOrder(Long orderId) {
         OrderInfo orderInfo = orderInfoService.getById(orderId);
-        //当前时间大约退号时间，不能取消预约
-        DateTime quitTime = new DateTime(orderInfo.getQuitTime());
-        if (quitTime.isBeforeNow()) {
-            throw new HospitalException(ResultCodeEnum.CANCEL_ORDER_NO);
-        }
+        // 当前时间大约退号时间，不能取消预约
+        // todo,测试
+        //DateTime quitTime = new DateTime(orderInfo.getQuitTime());
+        //if (quitTime.isBeforeNow()) {
+        //    throw new HospitalException(ResultCodeEnum.CANCEL_ORDER_NO);
+        //}
         Result<SignInfoVo> signInfoVoResult = hospitalFeign.getSignInfoVo(orderInfo.getHoscode());
         SignInfoVo signInfoVo = responseConvert.convert(signInfoVoResult, new TypeReference<SignInfoVo>() {
         });
@@ -215,7 +219,7 @@ public class OrderService {
             //短信提示
             MsmVo msmVo = new MsmVo();
             msmVo.setPhone(orderInfo.getPatientPhone());
-            msmVo.setTemplateCode("SMS_194640722");
+            msmVo.setTemplateCode(aliSmsProperties.getTemplateCode());
             String reserveDate = new DateTime(orderInfo.getReserveDate()).toString("yyyy-MM-dd") + (orderInfo.getReserveTime() == 0 ? "上午" : "下午");
             Map<String, Object> param = new HashMap<String, Object>() {{
                 put("title", orderInfo.getHosname() + "|" + orderInfo.getDepname() + "|" + orderInfo.getTitle());

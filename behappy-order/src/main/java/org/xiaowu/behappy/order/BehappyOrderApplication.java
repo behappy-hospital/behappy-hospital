@@ -4,6 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import java.util.Arrays;
 
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = "org.xiaowu.behappy")
@@ -11,7 +14,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class BehappyOrderApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BehappyOrderApplication.class, args);
+        ConfigurableApplicationContext run = SpringApplication.run(BehappyOrderApplication.class, args);
+        System.out.println(Arrays.asList(run.getBeanDefinitionNames()));
     }
 
 }

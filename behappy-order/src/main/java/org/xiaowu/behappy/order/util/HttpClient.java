@@ -16,11 +16,14 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.xiaowu.behappy.order.config.WxConfigProperties;
 
 import javax.net.ssl.SSLContext;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -57,6 +60,7 @@ public class HttpClient {
    public void setCert(boolean cert) {
       isCert = cert;
    }
+
    public String getXmlParam() {
       return xmlParam;
    }
@@ -133,11 +137,12 @@ public class HttpClient {
       try {
          if (isHttps) {
             if(isCert) {
-               WxConfigProperties wxConfigProperties = SpringUtil.getBean(WxConfigProperties.class);
-               FileInputStream inputStream = new FileInputStream(wxConfigProperties.getCert());
                KeyStore keystore = KeyStore.getInstance("PKCS12");
                char[] partnerId2charArray = certPassword.toCharArray();
-               keystore.load(inputStream, partnerId2charArray);
+               WxConfigProperties wxConfigProperties = SpringUtil.getBean(WxConfigProperties.class);
+               // 这里取得classpath
+               Resource certResource = new ClassPathResource(wxConfigProperties.getCert());
+               keystore.load(certResource.getInputStream(), partnerId2charArray);
                SSLContext sslContext = SSLContexts.custom().loadKeyMaterial(keystore, partnerId2charArray).build();
                SSLConnectionSocketFactory sslsf =
                      new SSLConnectionSocketFactory(sslContext,

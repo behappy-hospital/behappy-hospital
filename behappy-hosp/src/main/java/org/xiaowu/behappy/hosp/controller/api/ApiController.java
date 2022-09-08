@@ -183,9 +183,8 @@ public class ApiController {
     @PostMapping("/saveHospital")
     public Result<Boolean> saveHosp(HttpServletRequest request) {
         Map<String, Object> parameterMap = getParameterMap(request);
-        String hoscode = (String) parameterMap.get("hoscode");
-        // 签名校验
-        checkSign(parameterMap);
+        // base64 空格转换
+        extractLogData(parameterMap);
         hospitalService.saveHosp(parameterMap);
         return Result.ok(true);
     }
@@ -201,16 +200,20 @@ public class ApiController {
     }
 
     private void checkSign(Map<String, Object> parameterMap) {
+        extractLogData(parameterMap);
+        // 签名校验
+        String hoscode = (String) parameterMap.get("hoscode");
+        if (!HttpRequestHelper.isSignEquals(parameterMap, hospitalSetService.getSignKey(hoscode))) {
+            throw new HospitalException(ResultCodeEnum.SIGN_ERROR);
+        }
+    }
+
+    private void extractLogData(Map<String, Object> parameterMap) {
         // base64码通过http传输 +号变 空格
         String logoData = (String) parameterMap.get("logoData");
         if (StrUtil.isNotEmpty(logoData)) {
             logoData = logoData.replaceAll(" ", "+");
             parameterMap.put("logoData", logoData);
-        }
-        // 签名校验
-        String hoscode = (String) parameterMap.get("hoscode");
-        if (!HttpRequestHelper.isSignEquals(parameterMap, hospitalSetService.getSignKey(hoscode))) {
-            throw new HospitalException(ResultCodeEnum.SIGN_ERROR);
         }
     }
 }
