@@ -1,5 +1,6 @@
 package org.xiaowu.behappy.user.service;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -10,7 +11,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.xiaowu.behappy.api.user.enums.AuthStatusEnum;
 import org.xiaowu.behappy.api.user.vo.LoginVo;
 import org.xiaowu.behappy.api.user.vo.UserAuthVo;
@@ -125,19 +125,19 @@ public class UserInfoService extends ServiceImpl<UserInfoMapper, UserInfo> imple
         String createTimeEnd = userInfoQueryVo.getCreateTimeEnd(); //结束时间
         //对条件值进行非空判断
         QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
-        if(!StringUtils.isEmpty(name)) {
+        if(!StrUtil.isEmpty(name)) {
             wrapper.like("name",name);
         }
-        if(!StringUtils.isEmpty(status)) {
+        if(!ObjectUtil.isEmpty(status)) {
             wrapper.eq("status",status);
         }
-        if(!StringUtils.isEmpty(authStatus)) {
+        if(!ObjectUtil.isEmpty(authStatus)) {
             wrapper.eq("auth_status",authStatus);
         }
-        if(!StringUtils.isEmpty(createTimeBegin)) {
+        if(!StrUtil.isEmpty(createTimeBegin)) {
             wrapper.ge("create_time",createTimeBegin);
         }
-        if(!StringUtils.isEmpty(createTimeEnd)) {
+        if(!StrUtil.isEmpty(createTimeEnd)) {
             wrapper.le("create_time",createTimeEnd);
         }
         //调用mapper的方法

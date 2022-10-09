@@ -8,7 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @author xiaowu
  */
 @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "org.xiaowu.behappy")
 public class BehappyGatewayApplication {
 
     public static void main(String[] args) {

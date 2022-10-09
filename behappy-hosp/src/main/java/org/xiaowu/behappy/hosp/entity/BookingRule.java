@@ -1,11 +1,11 @@
 package org.xiaowu.behappy.hosp.entity;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONArray;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class BookingRule {
 	 * @param rule
 	 */
 	public void setRule(String rule) {
-		if(!StringUtils.isEmpty(rule)) {
+		if(StrUtil.isNotEmpty(rule)) {
 			this.rule = JSONArray.parseArray(rule, String.class);
 		}
 	}

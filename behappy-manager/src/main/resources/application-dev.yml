@@ -1,3 +1,5 @@
+server:
+  port: 9998
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -34,3 +36,11 @@ spring:
 thread:
   pool:
     name-prefix: @project.artifactId@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

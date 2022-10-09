@@ -2,7 +2,6 @@ package org.xiaowu.behappy.hosp.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
@@ -270,7 +269,7 @@ public class ScheduleService {
         for (int i = start; i < end; i++) {
             pageDateList.add(dateList.get(i));
         }
-        IPage<Date> iPage = new com.baomidou.mybatisplus.extension.plugins.pagination.Page(page, 7, dateList.size());
+        IPage<Date> iPage = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(page, 7, dateList.size());
         iPage.setRecords(pageDateList);
         return iPage;
     }

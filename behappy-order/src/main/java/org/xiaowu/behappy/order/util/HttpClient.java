@@ -21,9 +21,7 @@ import org.springframework.core.io.Resource;
 import org.xiaowu.behappy.order.config.WxConfigProperties;
 
 import javax.net.ssl.SSLContext;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;

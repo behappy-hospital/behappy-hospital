@@ -1,3 +1,6 @@
+server:
+  port: 8088
+
 spring:
   cloud:
     gateway:
@@ -9,45 +12,41 @@ spring:
         - id: behappy-hosp
           uri: lb://behappy-hosp
           predicates:
-            - Path=/api/*/hosp/**
-          filters:
-            - RewritePath=/api/(?<segment>.*),/$\{segment}
+            - Path=/*/hosp/**
+#          filters:
+#            - RewritePath=/api/(?<segment>.*),/$\{segment}
         - id: behappy-cmn
           uri: lb://behappy-cmn
           predicates:
-            - Path=/api/*/cmn/**
-          filters:
-            - RewritePath=/api/(?<segment>.*),/$\{segment}
+            - Path=/*/cmn/**
         - id: behappy-user
           uri: lb://behappy-user
           predicates:
-            - Path=/api/*/user/**
-          filters:
-            - RewritePath=/api/(?<segment>.*),/$\{segment}
+            - Path=/*/user/**
         - id: behappy-user
           uri: lb://behappy-user
           predicates:
-            - Path=/api/*/ucenter/**
-          filters:
-            - RewritePath=/api/(?<segment>.*),/$\{segment}
+            - Path=/*/ucenter/**
         - id: behappy-msm
           uri: lb://behappy-msm
           predicates:
-            - Path=/api/*/msm/**
-          filters:
-            - RewritePath=/api/(?<segment>.*),/$\{segment}
+            - Path=*/msm/**
         - id: behappy-oss
           uri: lb://behappy-oss
           predicates:
-            - Path=/api/*/oss/**
-          filters:
-            - RewritePath=/api/(?<segment>.*),/$\{segment}
+            - Path=/*/oss/**
         - id: behappy-order
           uri: lb://behappy-order
           predicates:
-            - Path=/api/*/order/**
-          filters:
-            - RewritePath=/api/(?<segment>.*),/$\{segment}
+            - Path=/*/order/**
 thread:
   pool:
     name-prefix: @project.artifactId@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

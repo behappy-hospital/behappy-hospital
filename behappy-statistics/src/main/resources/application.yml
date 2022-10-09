@@ -1,10 +1,37 @@
+server:
+  port: 8207
 spring:
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
-feign:
-  sentinel:
-    enabled: true
 thread:
   pool:
     name-prefix: @project.artifactId@
+feign:
+  okhttp:
+    enabled: false
+  httpclient:
+    enabled: true
+    max-connections: 200 # 最大的连接数
+    max-connections-per-route: 50 # 每个路径的最大连接数
+  sentinel:
+    enabled: true
+  client:
+    config:
+      default: # default全局的配置
+        loggerLevel: basic # 日志级别，BASIC就是基本的请求和响应信息
+        connectTimeout: 10000
+        readTimeout: 10000
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

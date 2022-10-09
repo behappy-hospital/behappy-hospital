@@ -1,0 +1,24 @@
+server:
+  port: 8203
+spring:
+  security:
+    user:
+      name: root
+      password: root
+  boot:
+    admin:
+      context-path: '/monitor'
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+thread:
+  pool:
+    name-prefix: @project.artifactId@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

@@ -1,3 +1,5 @@
+server:
+  port: 8204
 spring:
   redis:
     redisson:
@@ -61,9 +63,11 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
-feign:
-  sentinel:
-    enabled: true
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
 aliyun:
   sms:
     access-key-id:
@@ -73,3 +77,11 @@ aliyun:
 thread:
   pool:
     name-prefix: @project.artifactId@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

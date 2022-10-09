@@ -15,11 +15,12 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <!-- alibaba,cloud,springboot,最佳实践版本:https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E-->
-        <spring-boot.version>2.6.3</spring-boot.version>
-        <spring-cloud.version>2021.0.1</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
+        <spring-boot.version>2.6.11</spring-boot.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
+        <spring-boot-admin.version>2.6.9</spring-boot-admin.version>
         <swagger.version>3.0.0</swagger.version>
-        <fastjson.version>1.2.75</fastjson.version>
+        <fastjson.version>2.0.13</fastjson.version>
         <joda.time.version>2.10.14</joda.time.version>
         <easyexcel.version>2.1.1</easyexcel.version>
         <jsonwebtoken.version>0.9.1</jsonwebtoken.version>
@@ -28,9 +29,15 @@
         <behappy-redis.version>0.0.3</behappy-redis.version>
         <wx-pay.version>0.0.3</wx-pay.version>
         <hutool.version>5.6.4</hutool.version>
-        <mybatis-plus.version>3.5.1</mybatis-plus.version>
+        <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <alipay.sdk.oss.version>3.8.0</alipay.sdk.oss.version>
         <logstash.logback.version>7.2</logstash.logback.version>
+        <swagger-annotations.version>1.6.6</swagger-annotations.version>
+        <jackson-annotations.version>2.13.4</jackson-annotations.version>
+        <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
+        <commons-codec.version>1.15</commons-codec.version>
+        <xxl-job.version>2.3.1</xxl-job.version>
+        <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
     </properties>
     <modules>
         <module>behappy-api</module>
@@ -42,9 +49,10 @@
         <module>behappy-order</module>
         <module>behappy-oss</module>
         <module>behappy-statistics</module>
-        <module>behappy-task</module>
         <module>behappy-user</module>
         <module>behappy-manager</module>
+        <module>behappy-xxl-admin</module>
+        <module>behappy-executor-task</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -72,6 +80,26 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!--web 模块-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+                <exclusions>
+                    <!--排除tomcat依赖-->
+                    <exclusion>
+                        <artifactId>spring-boot-starter-tomcat</artifactId>
+                        <groupId>org.springframework.boot</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!--监控服务端
+            springboot admin client端相对简单,因为nacos自动帮我们整合了与admin的关联工作,只需要注册进nacos,并且与服务端保持在同一命名空间和分组下即可-->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
             <!--swagger-->
             <dependency>
                 <groupId>io.springfox</groupId>
@@ -82,6 +110,30 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <!-- aspectj -->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectjweaver.version}</version>
+            </dependency>
+            <!-- xxl-job-core -->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job.version}</version>
+            </dependency>
+            <!-- mybatis-starter：mybatis + mybatis-spring + hikari（default） -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot-starter.version}</version>
+            </dependency>
+            <!-- commons-codec -->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
             </dependency>
             <!-- 阿里云oss依赖 -->
             <dependency>
@@ -121,6 +173,29 @@
                 <artifactId>logstash-logback-encoder</artifactId>
                 <version>${logstash.logback.version}</version>
             </dependency>
+            <!--swagger注解支持-->
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-annotations.version}</version>
+            </dependency>
+            <!--mybatis-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!--mybatis plus extension,包含了mybatis plus core-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson-annotations.version}</version>
+            </dependency>
             <dependency>
                 <groupId>io.github.wang-xiaowu</groupId>
                 <artifactId>behappy-redis</artifactId>
@@ -134,6 +209,11 @@
             <dependency>
                 <groupId>org.xiaowu</groupId>
                 <artifactId>behappy-common-mongo</artifactId>
+                <version>${behappy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xiaowu</groupId>
+                <artifactId>behappy-common-sentinel</artifactId>
                 <version>${behappy.version}</version>
             </dependency>
             <dependency>
@@ -238,22 +318,27 @@
     <build>
         <finalName>${project.name}</finalName>
         <resources>
+            <!--开启过滤, 但排除fonts文件,.p12文件-->
             <resource>
                 <directory>${project.basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
                 <excludes>
-                    <exclude>
-                        ${project.basedir}/src/main/resources/**.p12
-                    </exclude>
+                    <exclude>${project.basedir}/src/main/resources/**.p12</exclude>
+                    <exclude>${project.basedir}/src/main/resources/**.jks</exclude>
+                    <exclude>${project.basedir}/src/main/resources/**.woff</exclude>
+                    <exclude>${project.basedir}/src/main/resources/**.woff2</exclude>
+                    <exclude>${project.basedir}/src/main/resources/**.ttf</exclude>
                 </excludes>
             </resource>
             <resource>
                 <directory>${project.basedir}/src/main/resources</directory>
                 <filtering>false</filtering>
                 <includes>
-                    <include>
-                        ${project.basedir}/src/main/resources/**.p12
-                    </include>
+                    <include>${project.basedir}/src/main/resources/**.p12</include>
+                    <include>${project.basedir}/src/main/resources/**.jks</include>
+                    <include>${project.basedir}/src/main/resources/**.woff</include>
+                    <include>${project.basedir}/src/main/resources/**.woff2</include>
+                    <include>${project.basedir}/src/main/resources/**.ttf</include>
                 </includes>
             </resource>
         </resources>

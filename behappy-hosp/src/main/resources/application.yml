@@ -1,3 +1,5 @@
+server:
+  port: 8201
 spring:
   rabbitmq:
     host: 192.168.56.103
@@ -32,6 +34,15 @@ spring:
     # admin 用户认证 url 写法： mongodb://账户:密码@ip:端口/数据库名?authSource=admin&authMechanism=SCRAM-SHA-1
     mongodb:
       uri: mongodb://root:root@192.168.56.103:27017/yygh_hosp?authSource=admin&authMechanism=SCRAM-SHA-1
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  
+  endpoint:
+    health:
+      show-details: ALWAYS
 # 数据源
 # mybaits-plus配置
 mybatis-plus:
@@ -46,9 +57,26 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     #开启sql日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-feign:
-  sentinel:
-    enabled: true
 thread:
   pool:
     name-prefix: @project.artifactId@
+feign:
+  okhttp:
+    enabled: false
+  httpclient:
+    enabled: true
+    max-connections: 200 # 最大的连接数
+    max-connections-per-route: 50 # 每个路径的最大连接数
+  sentinel:
+    enabled: true
+  client:
+    config:
+      default: # default全局的配置
+        loggerLevel: basic # 日志级别，BASIC就是基本的请求和响应信息
+        connectTimeout: 10000
+        readTimeout: 10000
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true

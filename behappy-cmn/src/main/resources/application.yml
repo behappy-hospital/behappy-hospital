@@ -1,4 +1,5 @@
-
+server:
+  port: 8202
 spring:
   redis:
     redisson:
@@ -49,8 +50,7 @@ spring:
     password: root
     username: root
     url: jdbc:mysql://192.168.56.103:3306/yygh_cmn?allowMultiQueries=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
-# ???
-# mybaits-plus??
+# mybatis-plus配置
 mybatis-plus:
   mapper-locations: classpath:/mapper/*.xml
   global-config:
@@ -61,7 +61,7 @@ mybatis-plus:
       logic-not-delete-value: 0
   configuration:
     map-underscore-to-camel-case: true
-    #??sql??
+    # sql日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 # redis
 behappy:
@@ -82,3 +82,31 @@ behappy:
 thread:
   pool:
     name-prefix: @project.artifactId@
+feign:
+  okhttp:
+    enabled: false
+  httpclient:
+    enabled: true
+    max-connections: 200 # 最大的连接数
+    max-connections-per-route: 50 # 每个路径的最大连接数
+  sentinel:
+    enabled: true
+  client:
+    config:
+      default: # default全局的配置
+        loggerLevel: basic # 日志级别，BASIC就是基本的请求和响应信息
+        connectTimeout: 10000
+        readTimeout: 10000
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

@@ -86,17 +86,9 @@ public class HttpRequestHelper {
     public static JSONObject sendRequest(Map<String, Object> paramMap, String url){
         String result = "";
         try {
-            //封装post参数
-            StringBuilder postdata = new StringBuilder();
-            for (Map.Entry<String, Object> param : paramMap.entrySet()) {
-                postdata.append(param.getKey()).append("=")
-                        .append(param.getValue()).append("&");
-            }
-            log.info(String.format("--> 发送请求：post data %1s", postdata));
-            byte[] reqData = postdata.toString().getBytes("utf-8");
-            byte[] respdata = HttpUtil.doPost(url,reqData);
-            result = new String(respdata);
-            log.info(String.format("--> 应答结果：result data %1s", result));
+            log.info(String.format("--> 发送请求 %s：post data %s", url,paramMap.toString()));
+            JSONObject jsonObject = HttpClientUtil.doHttpPost(url, paramMap);
+            log.info(String.format("--> 应答结果：result data %s", jsonObject.toString()));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

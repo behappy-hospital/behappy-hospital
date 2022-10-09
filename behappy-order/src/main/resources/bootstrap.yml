@@ -1,5 +1,3 @@
-server:
-  port: 8206
 spring:
   profiles:
     active: @profiles.active@

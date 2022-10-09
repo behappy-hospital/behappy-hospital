@@ -1,5 +1,3 @@
-server:
-  port: 8088
 spring:
   profiles:
     active: @profiles.active@

@@ -11,7 +11,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.xiaowu.behappy.common.core.exception.HospitalException;
 import org.xiaowu.behappy.common.core.util.HttpRequestHelper;
-import org.xiaowu.behappy.common.core.util.JodaTimeUtils;
 import org.xiaowu.behappy.manager.entity.HospitalSet;
 import org.xiaowu.behappy.manager.entity.Schedule;
 import org.xiaowu.behappy.manager.mapper.ScheduleMapper;
@@ -27,8 +26,6 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -112,7 +109,7 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     public Map<String, Object> findDepartment(int pageNum, int pageSize) {
-        Map<String, Object> result = new HashMap();
+        Map<String, Object> result = new HashMap<>();
 
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("hoscode",this.getHoscode());
@@ -185,7 +182,7 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     public Map<String, Object> findSchedule(int pageNum, int pageSize) {
-        Map<String, Object> result = new HashMap();
+        Map<String, Object> result = new HashMap<>();
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("hoscode",this.getHoscode());
         //paramMap.put("depcode",depcode);

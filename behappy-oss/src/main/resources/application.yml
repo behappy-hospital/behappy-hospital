@@ -1,3 +1,5 @@
+server:
+  port: 8205
 aliyun:
   oss:
     access-key-id:
@@ -11,3 +13,11 @@ spring:
 thread:
   pool:
     name-prefix: @project.artifactId@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

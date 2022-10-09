@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.xiaowu.behappy.api.cmn.feign.DictFeign;
 import org.xiaowu.behappy.api.hosp.vo.HospitalQueryVo;
@@ -37,7 +38,7 @@ public class HospitalService {
 
     private final DictFeign dictFeign;
 
-    private final ThreadPoolExecutor executor;
+    private final ThreadPoolTaskExecutor executor;
 
     private final ResponseConvert responseConvert;
 

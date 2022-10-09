@@ -1,5 +1,3 @@
-server:
-  port: 9998
 spring:
   profiles:
     active: @profiles.active@

@@ -1,7 +1,7 @@
 package org.xiaowu.behappy.manager.controller;
 
 
-import org.springframework.util.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
@@ -22,7 +22,7 @@ public class BaseController {
      * @param redirectAttributes
      */
     protected void successMessage(String message, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("message", StringUtils.isEmpty(message) ? MESSAGE_SUCCESS : message);
+        redirectAttributes.addFlashAttribute("message", StrUtil.isEmpty(message) ? MESSAGE_SUCCESS : message);
         redirectAttributes.addFlashAttribute("messageType", 1);
     }
 
@@ -33,12 +33,12 @@ public class BaseController {
      * @param redirectAttributes
      */
     protected void failureMessage(String message, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("message", StringUtils.isEmpty(message) ? MESSAGE_FAILURE : message);
+        redirectAttributes.addFlashAttribute("message", StrUtil.isEmpty(message) ? MESSAGE_FAILURE : message);
         redirectAttributes.addFlashAttribute("messageType", 0);
     }
 
     protected void failureMessage(String message, HttpServletRequest request) {
-        request.setAttribute("message", StringUtils.isEmpty(message) ? MESSAGE_SUCCESS : message);
+        request.setAttribute("message", StrUtil.isEmpty(message) ? MESSAGE_SUCCESS : message);
         request.setAttribute("messageType", 0);
     }
 
@@ -49,7 +49,7 @@ public class BaseController {
      * @param request
      */
     protected String successPage(String message, HttpServletRequest request) {
-        request.setAttribute("messagePage", StringUtils.isEmpty(message) ? MESSAGE_SUCCESS : message);
+        request.setAttribute("messagePage", StrUtil.isEmpty(message) ? MESSAGE_SUCCESS : message);
         return "common/successPage";
     }
 
@@ -61,7 +61,7 @@ public class BaseController {
      * @return
      */
     protected String failurePage(String message, HttpServletRequest request) {
-        request.setAttribute("messagePage", StringUtils.isEmpty(message) ? MESSAGE_FAILURE : message);
+        request.setAttribute("messagePage", StrUtil.isEmpty(message) ? MESSAGE_FAILURE : message);
         return "common/failurePage";
     }
 

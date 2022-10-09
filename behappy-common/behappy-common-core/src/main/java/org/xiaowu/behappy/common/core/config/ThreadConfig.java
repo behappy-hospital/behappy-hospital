@@ -1,61 +1,78 @@
 package org.xiaowu.behappy.common.core.config;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.scheduling.annotation.AsyncConfigurer;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.lang.reflect.Method;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author 小五
  */
+@Slf4j
 @Data
+@EnableAsync
 @Configuration
 @ConfigurationProperties(prefix = "thread.pool")
-public class ThreadConfig {
-
-    private Integer coreSize = 20;
-    private Integer maxSize = 200;
-    private Integer keepAliveTime = 10;
-    private String namePrefix = "custom";
-
-    @Primary
-    @Bean
-    public ThreadPoolExecutor threadPoolExecutor() {
-        return new ThreadPoolExecutor(
-                coreSize,
-                maxSize,
-                keepAliveTime,
-                TimeUnit.SECONDS,
-                new ArrayBlockingQueue<>(100000),
-                new MyThreadFactory(namePrefix),
-                new ThreadPoolExecutor.AbortPolicy()
-        );
-    }
+public class ThreadConfig implements AsyncConfigurer {
 
     /**
-     * 在DefaultThreadFactory中创建的线程名字格式为pool-m-thread-n,
-     * 也就是pool-1-thread-2,pool-2-thread-3,完全看不出该线程为何创建，在做什么事情。在调试、监控和查看日志时非常不便。
+     * 获取当前机器的核数, 不一定准确 需根据实际场景 CPU密集 || IO 密集
      */
-    class MyThreadFactory implements ThreadFactory {
-        private final AtomicInteger threadNumber = new AtomicInteger(1);
-        private final String namePrefix;
+    public static final int cpuNum = Runtime.getRuntime().availableProcessors();
 
-        MyThreadFactory(String namePrefix) {
-            this.namePrefix = namePrefix + "-thread-";
-        }
+    private Integer coreSize = cpuNum;
+    private Integer maxSize = cpuNum * 2;
+    private Integer queueCapacity = 500;
+    private Integer keepAliveTime = 60;
+    private Integer awaitTerminationSeconds = 60;
+    private String namePrefix = "custom";
 
-        @Override
-        public Thread newThread(Runnable r) {
-            Thread t = new Thread(r, namePrefix + threadNumber.getAndIncrement());
-            if (t.isDaemon())
-                t.setDaemon(true);
-            if (t.getPriority() != Thread.NORM_PRIORITY)
-                t.setPriority(Thread.NORM_PRIORITY);
-            return t;
-        }
+    @Override
+    public Executor getAsyncExecutor() {
+        return getThreadPoolTaskExecutor();
     }
+
+    @Override
+    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+        return (ex, method, params) -> {
+            log.error("Error Occurs in async method:{}", ex.getMessage());
+        };
+    }
+
+    @Bean
+    public ThreadPoolTaskExecutor executor(){
+        return getThreadPoolTaskExecutor();
+    }
+
+    private ThreadPoolTaskExecutor getThreadPoolTaskExecutor() {
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        // 核心线程大小 默认区 CPU 数量
+        taskExecutor.setCorePoolSize(coreSize);
+        // 最大线程大小 默认区 CPU * 2 数量
+        taskExecutor.setMaxPoolSize(maxSize);
+        // 队列最大容量
+        taskExecutor.setQueueCapacity(queueCapacity);
+        // 拒绝策略 默认new ThreadPoolExecutor.AbortPolicy()
+        taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        // 任务结束再shutdown
+        taskExecutor.setWaitForTasksToCompleteOnShutdown(true);
+        // 线程最大空闲时间
+        taskExecutor.setKeepAliveSeconds(keepAliveTime);
+        taskExecutor.setAwaitTerminationSeconds(awaitTerminationSeconds);
+        taskExecutor.setThreadNamePrefix(namePrefix);
+        // 交给spring托管的会自动初始化，因为实现了InitializingBean接口
+        taskExecutor.initialize();
+        return taskExecutor;
+    }
+
 }

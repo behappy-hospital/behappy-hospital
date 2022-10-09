@@ -1,8 +1,8 @@
 package org.xiaowu.behappy.user.controller.api;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.xiaowu.behappy.common.core.exception.HospitalException;
 import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
+import org.xiaowu.behappy.common.core.util.HttpClientUtil;
 import org.xiaowu.behappy.common.core.util.HttpUtil;
 import org.xiaowu.behappy.common.core.util.JwtHelper;
 import org.xiaowu.behappy.user.config.WxConfigProperties;
@@ -76,16 +77,15 @@ public class WeixinApiController {
                 wxConfigProperties.getAppId(),
                 wxConfigProperties.getAppSecret());
 
-        String accessTokenResult = new String(HttpUtil.doGet(accessTokenUrl));
-        log.info("使用token换取的结果: {}", accessTokenResult);
-        JSONObject jsonObject = JSONUtil.parseObj(accessTokenResult);
-        if (jsonObject.getStr("errcode") != null) {
-            log.error("获取token失败: {}", jsonObject.getStr("errmsg"));
+        JSONObject jsonObject = HttpClientUtil.doHttpGet(accessTokenUrl, null);
+        log.info("使用token换取的结果: {}", jsonObject.toString());
+        if (jsonObject.getString("errcode") != null) {
+            log.error("获取token失败: {}", jsonObject.getString("errmsg"));
             throw new HospitalException(ResultCodeEnum.FETCH_ACCESSTOKEN_FAILD);
         }
         //根据access_token获取微信用户的基本信息
-        String access_token = jsonObject.getStr("access_token");
-        String openid = jsonObject.getStr("openid");
+        String access_token = jsonObject.getString("access_token");
+        String openid = jsonObject.getString("openid");
         //先根据openid进行数据库查询
         UserInfo userInfo = userInfoService.getByOpenid(openid);
         // 如果没有查到用户信息,那么调用微信个人信息获取的接口
@@ -97,13 +97,13 @@ public class WeixinApiController {
             String userInfoUrl = String.format(baseUserInfoUrl, access_token, openid);
             String resultUserInfo = new String(HttpUtil.doGet(userInfoUrl));
             log.info("获取到的用户信息: {}", resultUserInfo);
-            JSONObject userInfoObj = JSONUtil.parseObj(resultUserInfo);
-            if (userInfoObj.getStr("errcode") != null) {
-                log.error("获取用户信息失败: {}", userInfoObj.getStr("errmsg"));
+            JSONObject userInfoObj = JSON.parseObject(resultUserInfo);
+            if (userInfoObj.getString("errcode") != null) {
+                log.error("获取用户信息失败: {}", userInfoObj.getString("errmsg"));
             }
             // 解析用户信息
-            String nickname = userInfoObj.getStr("nickname");
-            //String headimgurl = userInfoObj.getStr("headimgurl");
+            String nickname = userInfoObj.getString("nickname");
+            //String headimgurl = userInfoObj.getString("headimgurl");
 
             // 存数据库
             userInfo = new UserInfo();

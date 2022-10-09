@@ -1,5 +1,3 @@
-server:
-  port: 8207
 spring:
   profiles:
     active: @profiles.active@

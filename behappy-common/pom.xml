@@ -14,6 +14,7 @@
         <module>behappy-common-mybatis</module>
         <module>behappy-common-mongo</module>
         <module>behappy-common-rmq</module>
+        <module>behappy-common-sentinel</module>
     </modules>
 
 </project>

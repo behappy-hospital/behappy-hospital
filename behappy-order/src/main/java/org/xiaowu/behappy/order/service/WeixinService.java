@@ -1,14 +1,9 @@
 package org.xiaowu.behappy.order.service;
 
-import cn.hutool.core.util.NumberUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.core.io.Resource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.xiaowu.behappy.api.order.enums.PaymentTypeEnum;
@@ -63,7 +58,7 @@ public class WeixinService {
             String body = order.getReserveDate() + "就诊" + order.getDepname();
             paramMap.put("body", body);
             paramMap.put("out_trade_no", order.getOutTradeNo());
-            // total_fee类型是int，单位为分,测试使用1分
+            // todo total_fee类型是int，单位为分,测试使用1分
             //paramMap.put("total_fee", order.getAmount().intValue());
             paramMap.put("total_fee", "1");
             paramMap.put("spbill_create_ip", IpUtil.getIpAddr(httpServletRequest));
@@ -134,7 +129,7 @@ public class WeixinService {
             paramMap.put("transaction_id", paymentInfoQuery.getTradeNo()); //微信订单号
             paramMap.put("out_trade_no", paymentInfoQuery.getOutTradeNo()); //商户订单编号
             paramMap.put("out_refund_no", "tk" + paymentInfoQuery.getOutTradeNo()); //商户退款单号
-            // total_fee类型是int，单位为分,测试使用1分
+            // todo total_fee类型是int，单位为分,测试使用1分
             //paramMap.put("total_fee", String.valueOf(paymentInfoQuery.getTotalAmount().intValue()));
             paramMap.put("total_fee", "1");
             //paramMap.put("refund_fee", String.valueOf(paymentInfoQuery.getTotalAmount().intValue()));
