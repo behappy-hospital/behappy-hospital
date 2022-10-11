@@ -12,8 +12,6 @@ import org.xiaowu.behappy.common.mybatis.base.BaseEntity;
  * <p>
  * HospitalSet
  * </p>
- *
- * @author qy
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

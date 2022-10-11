@@ -84,14 +84,9 @@ public class HttpRequestHelper {
      * @return
      */
     public static JSONObject sendRequest(Map<String, Object> paramMap, String url){
-        String result = "";
-        try {
-            log.info(String.format("--> 发送请求 %s：post data %s", url,paramMap.toString()));
-            JSONObject jsonObject = HttpClientUtil.doHttpPost(url, paramMap);
-            log.info(String.format("--> 应答结果：result data %s", jsonObject.toString()));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return JSONObject.parseObject(result);
+        log.info(String.format("--> 发送请求 %s：post data %s", url,paramMap.toString()));
+        JSONObject jsonObject = HttpClientUtil.doHttpPost(url, paramMap);
+        log.info(String.format("--> 应答结果：result data %s", jsonObject.toString()));
+        return jsonObject;
     }
 }

@@ -14,8 +14,6 @@ import java.util.Date;
  * <p>
  * PaymentInfo
  * </p>
- *
- * @author qy
  */
 @Data
 @ApiModel(description = "PaymentInfo")

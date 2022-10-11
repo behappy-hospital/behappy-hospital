@@ -17,16 +17,11 @@ import java.util.StringJoiner;
 @Slf4j
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @RestControllerAdvice(basePackages = "org.xiaowu.behappy")
-public class ServletExceptionHandlerConfig {
+public class ServletExceptionHandler {
 
     @ExceptionHandler(HospitalException.class)
     public Result beHappyExceptionHandler(HospitalException ex) {
-        Arrays.stream(ex.getStackTrace()).forEach(stackTraceElement -> log.error(
-                new StringJoiner(" - ")
-                        .add(stackTraceElement.getClassName())
-                        .add(stackTraceElement.getMethodName())
-                        .add(String.valueOf(stackTraceElement.getLineNumber()))
-                        .add(ex.getMessage()).toString()));
+        extractedErrPrint(ex);
         return Result.failed(ex.getCode(), ex.getMessage());
     }
 
@@ -36,12 +31,7 @@ public class ServletExceptionHandlerConfig {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Result handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        Arrays.stream(ex.getStackTrace()).forEach(stackTraceElement -> log.error(
-                new StringJoiner(" - ")
-                        .add(stackTraceElement.getClassName())
-                        .add(stackTraceElement.getMethodName())
-                        .add(String.valueOf(stackTraceElement.getLineNumber()))
-                        .add(ex.getMessage()).toString()));
+        extractedErrPrint(ex);
         StringJoiner sj = new StringJoiner(";");
         ex.getBindingResult().getFieldErrors().forEach(x -> sj.add(x.getDefaultMessage()));
         return Result.failed(ex);
@@ -52,12 +42,7 @@ public class ServletExceptionHandlerConfig {
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public Result handleMissingServletRequestParameterException(MissingServletRequestParameterException ex) {
-        Arrays.stream(ex.getStackTrace()).forEach(stackTraceElement -> log.error(
-                new StringJoiner(" - ")
-                        .add(stackTraceElement.getClassName())
-                        .add(stackTraceElement.getMethodName())
-                        .add(String.valueOf(stackTraceElement.getLineNumber()))
-                        .add(ex.getMessage()).toString()));
+        extractedErrPrint(ex);
         return Result.failed(ex);
     }
 
@@ -69,12 +54,21 @@ public class ServletExceptionHandlerConfig {
      */
     @ExceptionHandler(Exception.class)
     public Result exceptionHandler(Exception ex) {
-        Arrays.stream(ex.getStackTrace()).forEach(stackTraceElement -> log.error(
-                new StringJoiner(" - ")
-                        .add(stackTraceElement.getClassName())
-                        .add(stackTraceElement.getMethodName())
-                        .add(String.valueOf(stackTraceElement.getLineNumber()))
-                        .add(ex.getMessage()).toString()));
+        extractedErrPrint(ex);
         return Result.failed(ex);
+    }
+
+    private static void extractedErrPrint(Exception ex) {
+        if (ex.getStackTrace().length>0) {
+            StackTraceElement stackTraceElement = ex.getStackTrace()[0];
+            log.error(
+                    new StringJoiner(" - ")
+                            .add(stackTraceElement.getClassName())
+                            .add(stackTraceElement.getMethodName())
+                            .add(String.valueOf(stackTraceElement.getLineNumber()))
+                            .add(ex.getMessage()).toString());
+        }else {
+            log.error(ex.getMessage());
+        }
     }
 }

@@ -75,7 +75,8 @@ public class WeixinApiController {
 
         String accessTokenUrl = String.format(baseAccessTokenUrl.toString(),
                 wxConfigProperties.getAppId(),
-                wxConfigProperties.getAppSecret());
+                wxConfigProperties.getAppSecret(),
+                code);
 
         JSONObject jsonObject = HttpClientUtil.doHttpGet(accessTokenUrl, null);
         log.info("使用token换取的结果: {}", jsonObject.toString());

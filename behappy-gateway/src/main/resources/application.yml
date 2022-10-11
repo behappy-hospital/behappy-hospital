@@ -30,7 +30,7 @@ spring:
         - id: behappy-msm
           uri: lb://behappy-msm
           predicates:
-            - Path=*/msm/**
+            - Path=/*/msm/**
         - id: behappy-oss
           uri: lb://behappy-oss
           predicates:

@@ -12,8 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author xubo
- * @date 2017.9.25
+ * @author xiaowu
  */
 public class BeanUtils extends org.springframework.beans.BeanUtils {
 

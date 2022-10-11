@@ -32,7 +32,7 @@ public class MsmApiController {
         // 验证码code
         String code = redisTemplate.opsForValue().get(phone);
         if (!StrUtil.isEmpty(code)) {
-            return Result.ok();
+            return Result.failed("发生验证码过于频繁");
         }
         // 如果从redis获取不到, 则生成验证码
         code = RandomUtil.randomNumbers(6);
@@ -42,7 +42,7 @@ public class MsmApiController {
             return Result.failed("发送短信失败");
         }
         // 将验证码设置2分钟的有效期
-        redisTemplate.opsForValue().set(phone,code,1, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(phone,code,2, TimeUnit.MINUTES);
         return Result.ok();
     }
 }

@@ -38,6 +38,7 @@ public enum ResultCodeEnum {
     HOSCODE_EXIST(230, "医院编号已经存在"),
     NUMBER_NO(240, "可预约号不足"),
     TIME_NO(250, "当前时间不可以预约"),
+    UN_AVAILABLE_NUMBER(251, "数量不足/不可用"),
 
     SIGN_ERROR(300, "签名错误"),
     HOSPITAL_OPEN(310, "医院未开通，暂时不能访问"),

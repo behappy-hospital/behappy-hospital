@@ -7,8 +7,6 @@ import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
 
 /**
  * 自定义全局异常类
- *
- * @author qy
  */
 @Data
 @ApiModel(value = "自定义全局异常类")
