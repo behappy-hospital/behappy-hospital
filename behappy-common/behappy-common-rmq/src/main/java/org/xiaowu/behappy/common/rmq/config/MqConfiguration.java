@@ -75,7 +75,7 @@ public class MqConfiguration {
         rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
             @Override
             public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-                log.info("\n确认收到消息: " + correlationData + "\tack: " + ack + "\tcause： " + cause);
+                log.info("\n确认收到消息: " + correlationData.toString() + "\tack: " + ack + "\tcause： " + cause);
             }
         });
         /**

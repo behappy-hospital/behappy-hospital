@@ -94,7 +94,7 @@ wx:
     app-id: wx74862e0dfcf69954
     partner: 1558950191
     partner-key: T6m9iK73b0kn9g5v426MKfHQH7X8rKwb
-    cert: classpath:cert/apiclient_cert.p12
+    cert: cert/apiclient_cert.p12
 aliyun:
   sms:
     template-code: SMS_206546316

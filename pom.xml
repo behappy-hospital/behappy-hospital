@@ -367,9 +367,10 @@
                     <artifactId>maven-resources-plugin</artifactId>
                     <configuration>
                         <encoding>UTF-8</encoding>
-                        <!-- 过滤后缀为pkcs12、jks的证书文件 -->
+                        <!-- 过滤不需要转码后缀为pkcs12、jks的证书文件 -->
                         <nonFilteredFileExtensions>
                             <nonFilteredFileExtension>p12</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>jks</nonFilteredFileExtension>
                         </nonFilteredFileExtensions>
                     </configuration>
                 </plugin>
