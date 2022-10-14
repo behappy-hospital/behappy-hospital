@@ -154,13 +154,13 @@ public class UserInfoService extends ServiceImpl<UserInfoMapper, UserInfo> imple
         //处理认证状态编码
         userInfo.getParam().put("authStatusString",AuthStatusEnum.getStatusNameByStatus(userInfo.getAuthStatus()));
         //处理用户状态 0  1
-        String statusString = userInfo.getStatus().intValue()==0 ?"锁定" : "正常";
+        String statusString = userInfo.getStatus() ==0 ?"锁定" : "正常";
         userInfo.getParam().put("statusString",statusString);
         return userInfo;
     }
 
     public void lock(Long userId, Integer status) {
-        if(status.intValue() == 0 || status.intValue() == 1) {
+        if(status == 0 || status == 1) {
             UserInfo userInfo = this.getById(userId);
             userInfo.setStatus(status);
             this.updateById(userInfo);
@@ -179,7 +179,7 @@ public class UserInfoService extends ServiceImpl<UserInfoMapper, UserInfo> imple
     }
 
     public void approval(Long userId, Integer authStatus) {
-        if(authStatus.intValue()==2 || authStatus.intValue()==-1) {
+        if(authStatus==2 || authStatus==-1) {
             UserInfo userInfo = baseMapper.selectById(userId);
             userInfo.setAuthStatus(authStatus);
             baseMapper.updateById(userInfo);

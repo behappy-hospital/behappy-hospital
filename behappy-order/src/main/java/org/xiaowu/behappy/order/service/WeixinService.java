@@ -1,9 +1,11 @@
 package org.xiaowu.behappy.order.service;
 
+import cn.hutool.core.map.MapUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.xiaowu.behappy.api.order.enums.PaymentTypeEnum;
@@ -16,11 +18,15 @@ import org.xiaowu.behappy.order.entity.RefundInfo;
 import org.xiaowu.behappy.order.util.HttpClient;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class WeixinService {
@@ -29,7 +35,7 @@ public class WeixinService {
 
     private final PaymentService paymentService;
 
-    private final RedisTemplate<String,Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     private final WxConfigProperties wxConfigProperties;
 
@@ -51,16 +57,19 @@ public class WeixinService {
             // 保存交易记录
             paymentService.savePaymentInfo(order, PaymentTypeEnum.WEIXIN.getStatus());
             //1、设置参数
-            Map paramMap = new HashMap();
+            Map<String, String> paramMap = new HashMap();
             paramMap.put("appid", wxConfigProperties.getAppId());
             paramMap.put("mch_id", wxConfigProperties.getPartner());
             paramMap.put("nonce_str", WXPayUtil.generateNonceStr());
             String body = order.getReserveDate() + "就诊" + order.getDepname();
             paramMap.put("body", body);
             paramMap.put("out_trade_no", order.getOutTradeNo());
-            // todo total_fee类型是int，单位为分,测试使用1分
-            //paramMap.put("total_fee", order.getAmount().intValue());
-            paramMap.put("total_fee", "1");
+            // 单位是分
+            paramMap.put("total_fee", order.getAmount()
+                    .multiply(BigDecimal.valueOf(100))
+                    .setScale(0, RoundingMode.CEILING)
+                    .toString());
+            //paramMap.put("total_fee", "1");
             paramMap.put("spbill_create_ip", IpUtil.getIpAddr(httpServletRequest));
             paramMap.put("notify_url", "http://guli.shop/api/order/weixinPay/weixinNotify");
             paramMap.put("trade_type", "NATIVE");
@@ -73,6 +82,7 @@ public class WeixinService {
             //3、返回第三方的数据
             String xml = client.getContent();
             Map<String, String> resultMap = WXPayUtil.xmlToMap(xml);
+            log.error("微信支付码返回信息: {}", resultMap.get("return_msg"));
             //4、封装返回结果集
             Map map = new HashMap<>();
             map.put("orderId", orderId);
@@ -119,7 +129,7 @@ public class WeixinService {
             PaymentInfo paymentInfoQuery = paymentService.getPaymentInfo(orderId, PaymentTypeEnum.WEIXIN.getStatus());
 
             RefundInfo refundInfo = refundInfoService.saveRefundInfo(paymentInfoQuery);
-            if (refundInfo.getRefundStatus().intValue() == RefundStatusEnum.REFUND.getStatus().intValue()) {
+            if (refundInfo.getRefundStatus() == RefundStatusEnum.REFUND.getStatus()) {
                 return true;
             }
             Map<String, String> paramMap = new HashMap<>(8);
@@ -129,11 +139,17 @@ public class WeixinService {
             paramMap.put("transaction_id", paymentInfoQuery.getTradeNo()); //微信订单号
             paramMap.put("out_trade_no", paymentInfoQuery.getOutTradeNo()); //商户订单编号
             paramMap.put("out_refund_no", "tk" + paymentInfoQuery.getOutTradeNo()); //商户退款单号
-            // todo total_fee类型是int，单位为分,测试使用1分
-            //paramMap.put("total_fee", String.valueOf(paymentInfoQuery.getTotalAmount().intValue()));
-            paramMap.put("total_fee", "1");
-            //paramMap.put("refund_fee", String.valueOf(paymentInfoQuery.getTotalAmount().intValue()));
-            paramMap.put("refund_fee", "1");
+            // 单位是分
+            paramMap.put("total_fee", paymentInfoQuery.getTotalAmount()
+                    .multiply(BigDecimal.valueOf(100))
+                    .setScale(0, RoundingMode.CEILING)
+                    .toString());
+            //paramMap.put("total_fee", "1");
+            paramMap.put("refund_fee", paymentInfoQuery.getTotalAmount()
+                    .multiply(BigDecimal.valueOf(100))
+                    .setScale(0, RoundingMode.CEILING)
+                    .toString());
+            //paramMap.put("refund_fee", "1");
             String paramXml = WXPayUtil.generateSignedXml(paramMap, wxConfigProperties.getPartnerKey());
             HttpClient client = new HttpClient("https://api.mch.weixin.qq.com/secapi/pay/refund");
             client.setXmlParam(paramXml);

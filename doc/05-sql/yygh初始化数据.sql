@@ -3,7 +3,7 @@
 # Generator: MySQL-Front 6.1  (Build 1.26)
 
 use `yygh_hosp`;
-INSERT INTO yygh_hosp.hospital_set (id, hosname, hoscode, api_url, sign_key, contacts_name, contacts_phone, status, create_time, update_time, is_deleted) VALUES (1, '北京协和医院', '1000_0', 'http://localhost:8201', '880189488a80a9d7851d63240fd22aba', '熊大', '999', 1, '2022-05-15 04:02:47', '2022-05-22 08:02:19', 0);
+INSERT INTO yygh_hosp.hospital_set (id, hosname, hoscode, api_url, sign_key, contacts_name, contacts_phone, status, create_time, update_time, is_deleted) VALUES (1, '北京协和医院', '1000_0', 'http://localhost:9998', '880189488a80a9d7851d63240fd22aba', '熊大', '999', 1, '2022-05-15 04:02:47', '2022-05-22 08:02:19', 0);
 
 #
 # Data for table "dict"

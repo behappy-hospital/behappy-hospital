@@ -18,7 +18,7 @@ public enum OrderStatusEnum {
     public static String getStatusNameByStatus(Integer status) {
         OrderStatusEnum arrObj[] = OrderStatusEnum.values();
         for (OrderStatusEnum obj : arrObj) {
-            if (status.intValue() == obj.getStatus().intValue()) {
+            if (status.equals(obj.getStatus())) {
                 return obj.getComment();
             }
         }

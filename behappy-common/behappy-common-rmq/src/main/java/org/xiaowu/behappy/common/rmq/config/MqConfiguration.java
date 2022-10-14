@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+import java.util.Objects;
+
 import static cn.hutool.core.util.CharsetUtil.UTF_8;
 
 /**
@@ -75,7 +77,7 @@ public class MqConfiguration {
         rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
             @Override
             public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-                log.info("\n确认收到消息: " + correlationData.toString() + "\tack: " + ack + "\tcause： " + cause);
+                log.info("\n确认收到消息: " + Objects.toString(correlationData,"消息队列消息为空!") + "\tack: " + ack + "\tcause： " + cause);
             }
         });
         /**

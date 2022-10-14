@@ -44,9 +44,9 @@ public class HttpClientUtil {
         // setConnectionRequestTimeout：从连接池中拿连接的等待超时时间
         // setSocketTimeout：发出请求后等待对端应答的超时时间
         RequestConfig requestConfig = RequestConfig.custom()
-                .setConnectTimeout(1000)
-                .setConnectionRequestTimeout(2000)
-                .setSocketTimeout(3000)
+                .setConnectTimeout(600000)
+                .setConnectionRequestTimeout(600000)
+                .setSocketTimeout(600000)
                 .build();
         // 重试处理器，StandardHttpRequestRetryHandler
         HttpRequestRetryHandler retryHandler = new StandardHttpRequestRetryHandler();

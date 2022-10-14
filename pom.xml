@@ -38,6 +38,7 @@
         <commons-codec.version>1.15</commons-codec.version>
         <xxl-job.version>2.3.1</xxl-job.version>
         <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
+        <druid-spring-boot-starter.version>1.2.9</druid-spring-boot-starter.version>
     </properties>
     <modules>
         <module>behappy-api</module>
@@ -147,6 +148,13 @@
                 <artifactId>joda-time</artifactId>
                 <version>${joda.time.version}</version>
             </dependency>
+            <!--druid 数据源连接池-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid-spring-boot-starter.version}</version>
+            </dependency>
+            <!--easy excel-->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>easyexcel</artifactId>

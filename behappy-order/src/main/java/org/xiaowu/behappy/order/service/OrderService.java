@@ -175,8 +175,7 @@ public class OrderService {
 
     public Boolean cancelOrder(Long orderId) {
         OrderInfo orderInfo = orderInfoService.getById(orderId);
-        // 当前时间大约退号时间，不能取消预约
-        // todo,测试
+        // todo,当前时间在退号时间之后，不能取消预约
         //DateTime quitTime = new DateTime(orderInfo.getQuitTime());
         //if (quitTime.isBeforeNow()) {
         //    throw new HospitalException(ResultCodeEnum.CANCEL_ORDER_NO);
@@ -200,7 +199,7 @@ public class OrderService {
             throw new HospitalException(result.getString("message"), ResultCodeEnum.FAIL.getCode());
         } else {
             //是否支付 退款
-            if (orderInfo.getOrderStatus().intValue() == OrderStatusEnum.PAID.getStatus().intValue()) {
+            if (orderInfo.getOrderStatus().equals(OrderStatusEnum.PAID.getStatus())) {
                 //已支付 退款
                 boolean isRefund = weixinService.refund(orderId);
                 if (!isRefund) {

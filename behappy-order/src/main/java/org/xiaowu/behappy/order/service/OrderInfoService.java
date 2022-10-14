@@ -66,6 +66,8 @@ public class OrderInfoService extends ServiceImpl<OrderInfoMapper, OrderInfo> im
         if(!StrUtil.isEmpty(createTimeEnd)) {
             wrapper.le("create_time",createTimeEnd);
         }
+        // 按更新时间倒序
+        wrapper.orderByDesc("update_time");
         //调用mapper的方法
         IPage<OrderInfo> pages = baseMapper.selectPage(pageParam, wrapper);
         //编号变成对应值封装

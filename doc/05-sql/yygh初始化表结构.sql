@@ -86,7 +86,7 @@ CREATE TABLE `order_info` (
   `number` int(11) DEFAULT NULL COMMENT '预约号序',
   `fetch_time` varchar(50) DEFAULT NULL COMMENT '建议取号时间',
   `fetch_address` varchar(255) DEFAULT NULL COMMENT '取号地点',
-  `amount` decimal(10,0) DEFAULT NULL COMMENT '医事服务费',
+  `amount` decimal(10,2) DEFAULT NULL COMMENT '医事服务费',
   `quit_time` datetime DEFAULT NULL COMMENT '退号时间',
   `order_status` tinyint(3) DEFAULT NULL COMMENT '订单状态',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

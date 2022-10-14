@@ -71,7 +71,7 @@ public class Swagger3Config {
     /**
      * 项目描述信息
      */
-    @Value("${swagger.application.description:医院模块}")
+    @Value("${swagger.application.description:尚医通(改)}")
     private String applicationDescription;
 
     /**
