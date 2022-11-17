@@ -52,6 +52,7 @@
         <module>behappy-statistics</module>
         <module>behappy-user</module>
         <module>behappy-manager</module>
+        <module>behappy-monitor</module>
         <module>behappy-xxl-admin</module>
         <module>behappy-executor-task</module>
     </modules>

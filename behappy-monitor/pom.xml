@@ -8,8 +8,6 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>behappy-monitor</artifactId>
-    <description>behappy-monitor</description>
-
     <dependencies>
         <!--undertow容器-->
         <dependency>
