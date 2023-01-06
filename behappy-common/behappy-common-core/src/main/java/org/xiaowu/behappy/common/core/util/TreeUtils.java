@@ -1,8 +1,8 @@
 package org.xiaowu.behappy.common.core.util;
 
 import cn.hutool.core.util.StrUtil;
+import jakarta.validation.constraints.NotNull;
 
-import javax.validation.constraints.NotNull;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;

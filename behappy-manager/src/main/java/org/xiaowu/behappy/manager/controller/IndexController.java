@@ -1,12 +1,11 @@
 package org.xiaowu.behappy.manager.controller;
 
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -22,7 +21,7 @@ public class IndexController {
 	private final static String PAGE_MAIN  = "frame/main";
 	private final static String PAGE_LOGIN  = "frame/login";
 	private final static String PAGE_AUTH = "frame/auth";
-	
+
 	/**
 	 * 框架首页
 	 * @return

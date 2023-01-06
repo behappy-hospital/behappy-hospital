@@ -1,6 +1,6 @@
 package org.xiaowu.behappy.common.core.util;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 获取当前用户信息工具类

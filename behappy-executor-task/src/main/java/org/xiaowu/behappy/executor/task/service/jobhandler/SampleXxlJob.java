@@ -4,7 +4,6 @@ import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.stereotype.Component;
 import org.xiaowu.behappy.executor.task.core.config.XxlJobLogger;
 

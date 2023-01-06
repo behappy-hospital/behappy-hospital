@@ -7,10 +7,9 @@ import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.xiaowu.behappy.common.core.result.Result;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import static org.xiaowu.behappy.common.core.constants.CommonConstants.CONTENT_TYPE;
 

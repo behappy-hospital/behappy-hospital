@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.xiaowu</groupId>
         <artifactId>behappy-common</artifactId>
-        <version>1.0.0</version>
+        <version>3.0.0</version>
     </parent>
     <artifactId>behappy-common-mybatis</artifactId>
 
@@ -22,14 +22,14 @@
         </dependency>
         <!--数据库-->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
         <!--server-api-->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

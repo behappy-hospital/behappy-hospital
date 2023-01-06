@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.xiaowu.behappy.common.mybatis.base.BaseEntity;
 
 /**
@@ -12,11 +13,12 @@ import org.xiaowu.behappy.common.mybatis.base.BaseEntity;
  * </p>
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @ApiModel(description = "Patient")
 public class Patient extends BaseEntity {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@ApiModelProperty(value = "用户id")
 	private Long userId;
 

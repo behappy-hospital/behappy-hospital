@@ -2,6 +2,7 @@ package org.xiaowu.behappy.cmn.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,7 +10,6 @@ import org.xiaowu.behappy.cmn.entity.Dict;
 import org.xiaowu.behappy.cmn.service.DictService;
 import org.xiaowu.behappy.common.core.result.Result;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**

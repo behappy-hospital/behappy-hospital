@@ -1,9 +1,9 @@
 package org.xiaowu.behappy.order.service;
 
-import cn.hutool.core.map.MapUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -17,9 +17,7 @@ import org.xiaowu.behappy.order.entity.PaymentInfo;
 import org.xiaowu.behappy.order.entity.RefundInfo;
 import org.xiaowu.behappy.order.util.HttpClient;
 
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Date;
 import java.util.HashMap;

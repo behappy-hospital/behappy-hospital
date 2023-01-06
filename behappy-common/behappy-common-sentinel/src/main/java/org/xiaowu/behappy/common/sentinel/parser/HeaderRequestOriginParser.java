@@ -1,8 +1,7 @@
 package org.xiaowu.behappy.common.sentinel.parser;
 
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.RequestOriginParser;
-
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * sentinel 请求头解析判断

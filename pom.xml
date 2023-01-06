@@ -4,21 +4,21 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.xiaowu</groupId>
     <artifactId>behappy-hospital</artifactId>
-    <version>1.0.0</version>
+    <version>3.0.0</version>
     <name>behappy-hospital</name>
-    <description>尚硅谷-尚医通(改)</description>
+    <description>尚硅谷-尚医通(改-springboot3.0)</description>
     <packaging>pom</packaging>
     <properties>
-        <behappy.version>1.0.0</behappy.version>
+        <behappy.version>3.0.0</behappy.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <!-- alibaba,cloud,springboot,最佳实践版本:https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E-->
-        <spring-boot.version>2.6.11</spring-boot.version>
-        <spring-cloud.version>2021.0.4</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
-        <spring-boot-admin.version>2.6.9</spring-boot-admin.version>
+        <spring-boot.version>3.0.1</spring-boot.version>
+        <spring-cloud.version>2022.0.0</spring-cloud.version>
+        <spring-cloud-alibaba.version>2022.0.0.0-RC1</spring-cloud-alibaba.version>
+        <spring-boot-admin.version>3.0.0-M7</spring-boot-admin.version>
         <swagger.version>3.0.0</swagger.version>
         <fastjson.version>2.0.13</fastjson.version>
         <joda.time.version>2.10.14</joda.time.version>
@@ -37,7 +37,6 @@
         <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
         <commons-codec.version>1.15</commons-codec.version>
         <xxl-job.version>2.3.1</xxl-job.version>
-        <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
         <druid-spring-boot-starter.version>1.2.9</druid-spring-boot-starter.version>
     </properties>
     <modules>
@@ -53,7 +52,6 @@
         <module>behappy-user</module>
         <module>behappy-manager</module>
         <module>behappy-monitor</module>
-        <module>behappy-xxl-admin</module>
         <module>behappy-executor-task</module>
     </modules>
     <dependencyManagement>
@@ -124,12 +122,6 @@
                 <groupId>com.xuxueli</groupId>
                 <artifactId>xxl-job-core</artifactId>
                 <version>${xxl-job.version}</version>
-            </dependency>
-            <!-- mybatis-starter：mybatis + mybatis-spring + hikari（default） -->
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis-spring-boot-starter.version}</version>
             </dependency>
             <!-- commons-codec -->
             <dependency>

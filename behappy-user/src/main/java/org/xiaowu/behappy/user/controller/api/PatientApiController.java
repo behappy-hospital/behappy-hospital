@@ -2,6 +2,7 @@ package org.xiaowu.behappy.user.controller.api;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.xiaowu.behappy.common.core.result.Result;
@@ -9,7 +10,6 @@ import org.xiaowu.behappy.common.core.util.AuthContextHolder;
 import org.xiaowu.behappy.user.entity.Patient;
 import org.xiaowu.behappy.user.service.PatientService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 //就诊人管理接口

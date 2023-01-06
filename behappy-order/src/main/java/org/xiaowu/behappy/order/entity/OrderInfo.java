@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.xiaowu.behappy.common.mybatis.base.BaseEntity;
 
 import java.math.BigDecimal;
@@ -17,10 +18,11 @@ import java.util.Date;
  * </p>
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @ApiModel(description = "Order")
 @TableName("order_info")
 public class OrderInfo extends BaseEntity {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "userId")

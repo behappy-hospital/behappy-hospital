@@ -1,9 +1,7 @@
 package org.xiaowu.behappy.monitor.config;
 
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -30,13 +28,13 @@ public class SecurityConfig {
                 new SavedRequestAwareAuthenticationSuccessHandler();
         successHandler.setTargetUrlParameter("redirectTo");
         successHandler.setDefaultTargetUrl(adminContextPath + "/");
-        return http.authorizeHttpRequests(auth -> auth.antMatchers(
+        return http.authorizeHttpRequests(auth -> auth.requestMatchers(
                                         adminContextPath + "/assets/**",
                                         adminContextPath + "/login",
                                         adminContextPath + "/instances",
                                         adminContextPath + "/actuator/**"
                                 ).permitAll()
-                                .antMatchers(adminContextPath + "/**").authenticated()
+                                .requestMatchers(adminContextPath + "/**").authenticated()
                                 .anyRequest().permitAll()
                 ).formLogin(form -> form.loginPage(adminContextPath + "/login")
                         .successHandler(successHandler)

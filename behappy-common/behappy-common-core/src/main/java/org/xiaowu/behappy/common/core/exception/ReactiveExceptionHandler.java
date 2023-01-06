@@ -11,8 +11,8 @@ import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.server.handler.ResponseStatusExceptionHandler;
 import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.handler.ResponseStatusExceptionHandler;
 import org.xiaowu.behappy.common.core.result.Result;
 import reactor.core.publisher.Mono;
 
@@ -39,7 +39,7 @@ public class ReactiveExceptionHandler implements ErrorWebExceptionHandler {
 		// header set
 		response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
 		if (ex instanceof ResponseStatusException) {
-			response.setStatusCode(((ResponseStatusException) ex).getStatus());
+			response.setStatusCode(((ResponseStatusException) ex).getStatusCode());
 		}
 
 		return response.writeWith(Mono.fromSupplier(() -> {

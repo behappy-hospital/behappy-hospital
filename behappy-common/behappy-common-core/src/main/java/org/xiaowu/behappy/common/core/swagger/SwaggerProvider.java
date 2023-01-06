@@ -1,11 +1,10 @@
 package org.xiaowu.behappy.common.core.swagger;
 
-import io.micrometer.core.instrument.util.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.cloud.gateway.config.GatewayProperties;
 import org.springframework.cloud.gateway.route.RouteLocator;
-import org.springframework.cloud.gateway.support.NameUtils;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import springfox.documentation.spi.DocumentationType;
@@ -53,7 +52,7 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
                             //开始添加SwaggerResource
                             .forEach(predicateDefinition -> {
                                 String routeId = route.getId();
-                                if (StringUtils.isNotEmpty(routeId)) {
+                                if (StrUtil.isNotEmpty(routeId)) {
                                     //resources.add(swaggerResource(routeId,
                                     //        predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX + "0")
                                     //                .replace("/**", API_URI)));
@@ -83,4 +82,4 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
     }
 
 }
- 
+

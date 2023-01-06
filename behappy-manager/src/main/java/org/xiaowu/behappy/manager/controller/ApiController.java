@@ -1,10 +1,11 @@
 package org.xiaowu.behappy.manager.controller;
 
+import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,8 +15,6 @@ import org.xiaowu.behappy.common.core.exception.HospitalException;
 import org.xiaowu.behappy.manager.entity.HospitalSet;
 import org.xiaowu.behappy.manager.service.ApiService;
 import org.xiaowu.behappy.manager.service.HospitalService;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -51,7 +50,7 @@ public class ApiController extends org.xiaowu.behappy.manager.controller.BaseCon
 	public String getHospital(ModelMap model,HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		try {
 			HospitalSet hospitalSet = hospitalService.getFirst();
-			if(null == hospitalSet || StringUtils.isEmpty(hospitalSet.getHoscode()) || StringUtils.isEmpty(hospitalSet.getSignKey())) {
+			if(null == hospitalSet || StrUtil.isEmpty(hospitalSet.getHoscode()) || StrUtil.isEmpty(hospitalSet.getSignKey())) {
 				this.failureMessage("先设置医院code与签名key", redirectAttributes);
 				return "redirect:/hospitalSet/index";
 			}
@@ -89,7 +88,7 @@ public class ApiController extends org.xiaowu.behappy.manager.controller.BaseCon
 								 HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		try {
 			HospitalSet hospitalSet = hospitalService.getFirst();
-			if(null == hospitalSet || StringUtils.isEmpty(hospitalSet.getHoscode()) || StringUtils.isEmpty(hospitalSet.getSignKey())) {
+			if(null == hospitalSet || StrUtil.isEmpty(hospitalSet.getHoscode()) || StrUtil.isEmpty(hospitalSet.getSignKey())) {
 				this.failureMessage("先设置医院code与签名key", redirectAttributes);
 				return "redirect:/hospitalSet/index";
 			}
@@ -127,7 +126,7 @@ public class ApiController extends org.xiaowu.behappy.manager.controller.BaseCon
 							   HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		try {
 			HospitalSet hospitalSet = hospitalService.getFirst();
-			if(null == hospitalSet || StringUtils.isEmpty(hospitalSet.getHoscode()) || StringUtils.isEmpty(hospitalSet.getSignKey())) {
+			if(null == hospitalSet || StrUtil.isEmpty(hospitalSet.getHoscode()) || StrUtil.isEmpty(hospitalSet.getSignKey())) {
 				this.failureMessage("先设置医院code与签名key", redirectAttributes);
 				return "redirect:/hospitalSet/index";
 			}

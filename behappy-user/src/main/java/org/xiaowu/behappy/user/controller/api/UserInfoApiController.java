@@ -1,6 +1,7 @@
 package org.xiaowu.behappy.user.controller.api;
 
 import io.swagger.annotations.ApiOperation;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.xiaowu.behappy.api.user.vo.LoginVo;
@@ -11,7 +12,6 @@ import org.xiaowu.behappy.common.core.util.IpUtil;
 import org.xiaowu.behappy.user.entity.UserInfo;
 import org.xiaowu.behappy.user.service.UserInfoService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**

@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.xiaowu</groupId>
         <artifactId>behappy-common</artifactId>
-        <version>1.0.0</version>
+        <version>3.0.0</version>
     </parent>
     <artifactId>behappy-common-core</artifactId>
     <dependencies>
@@ -15,8 +15,8 @@
         </dependency>
         <!--server-api-->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -77,9 +77,9 @@
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
         </dependency>
-        <!--解决高于jdk8环境产生的问题：java.lang.NoClassDefFoundError: javax/xml/bind/DatatypeConverter-->
+        <!--解决高于jdk8环境产生的问题：java.lang.NoClassDefFoundError: jakarta/xml/bind/DatatypeConverter-->
 <!--        <dependency>-->
-<!--            <groupId>javax.xml.bind</groupId>-->
+<!--            <groupId>jakarta.xml.bind</groupId>-->
 <!--            <artifactId>jaxb-api</artifactId>-->
 <!--            <version>2.3.0</version>-->
 <!--        </dependency>-->

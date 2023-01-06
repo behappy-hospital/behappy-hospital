@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.xiaowu.behappy.common.core.result.Result;
 
-import java.util.Arrays;
 import java.util.StringJoiner;
 
 /**
