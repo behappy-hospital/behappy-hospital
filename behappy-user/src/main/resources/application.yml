@@ -7,7 +7,7 @@ spring:
       # 取消Sentinel控制台懒加载
       eager: true
       transport:
-        dashboard: pig-sentinel:5003
+        dashboard: 192.168.56.103:8858
   redis:
     redisson:
       config: |-
