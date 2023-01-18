@@ -595,6 +595,7 @@ behappy-hospital-admin -- 后台管理
 ![img.png](doc/readme-img/img_9.png)
 
 9. xxl job: http://localhost:8080/
+   账户密码：admin@123456
 
 - 添加task
 
