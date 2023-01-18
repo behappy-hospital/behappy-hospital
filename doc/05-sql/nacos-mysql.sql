@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+create database if not exists nacos_config;
+use nacos_config;
 /******************************************/
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_info   */
