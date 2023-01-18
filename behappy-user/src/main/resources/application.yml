@@ -3,6 +3,26 @@ server:
   port: 8160
 spring:
   cloud:
+    openfeign:
+      okhttp:
+        enabled: false
+      httpclient:
+        enabled: true
+        max-connections: 200 # 最大的连接数
+        max-connections-per-route: 50 # 每个路径的最大连接数
+      client:
+        config:
+          default: # default全局的配置
+            loggerLevel: basic # 日志级别，BASIC就是基本的请求和响应信息
+            connectTimeout: 10000
+            readTimeout: 10000
+      compression:
+        request:
+          enabled: true
+        response:
+          enabled: true
+      # https://github.com/alibaba/spring-cloud-alibaba/issues/3024
+      lazy-attributes-resolution: true
     sentinel:
       # 取消Sentinel控制台懒加载
       eager: true
@@ -14,7 +34,7 @@ spring:
         # 例: 单节点设置
         singleServerConfig:
           # （节点地址）redis://-非ssl,rediss://-ssl
-          address: redis://192.168.56.103:6379
+          address: redis://192.168.56.100:6379
           database: 0
           password: null
           # 如果当前连接池里的连接数量超过了`最小空闲连接数`，而同时有连接空闲时间超过了该数值，那么这些连接将会自动被关闭，并从连接池里去掉。时间单位是毫秒。
@@ -47,7 +67,7 @@ spring:
         nettyThreads: 0
         # 序列化方式, 内部提供了`ruedigermoeller`的fst方式,配置如下即可
         # (默认为jackson方式)如果想要适用jdk的编码方式,可以如下配置,jdk编码方式model必须实现序列化接口
-        codec: !<org.xiaowu.behappy.redis.serializer.FstCodec> {}
+        codec: !<org.redisson.codec.JsonJacksonCodec> {}
         transportMode: NIO
   mvc:
     pathmatch:
@@ -56,7 +76,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: root
     username: root
-    url: jdbc:mysql://192.168.56.103:3306/yygh_user?allowMultiQueries=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+    url: jdbc:mysql://192.168.56.100:3306/yygh_user?allowMultiQueries=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
     druid:
       aop-patterns: org.xiaowu.behappy.*  #监控SpringBean
       filters: stat,wall     # 底层开启功能，stat（sql监控），wall（防火墙）
@@ -93,25 +113,8 @@ mybatis-plus:
     #开启sql日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 feign:
-  okhttp:
-    enabled: false
-  httpclient:
-    enabled: true
-    max-connections: 200 # 最大的连接数
-    max-connections-per-route: 50 # 每个路径的最大连接数
   sentinel:
     enabled: true
-  client:
-    config:
-      default: # default全局的配置
-        loggerLevel: basic # 日志级别，BASIC就是基本的请求和响应信息
-        connectTimeout: 10000
-        readTimeout: 10000
-  compression:
-    request:
-      enabled: true
-    response:
-      enabled: true
 wx:
   open:
     app-id: wxed9954c01bb89b47

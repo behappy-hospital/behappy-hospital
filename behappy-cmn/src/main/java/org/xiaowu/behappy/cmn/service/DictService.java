@@ -23,7 +23,6 @@ import org.xiaowu.behappy.cmn.listener.DictListener;
 import org.xiaowu.behappy.cmn.mapper.DictMapper;
 import org.xiaowu.behappy.common.core.constants.CommonConstants;
 
-import javax.annotation.PostConstruct;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;

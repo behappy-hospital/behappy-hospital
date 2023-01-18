@@ -18,30 +18,39 @@
 所以我的目的, 就是想可以借着这个实战项目持续输出一些技术/代码能力, 以此加深/巩固自己对这些技术/代码能力的认识
 ```
 
+### TODO
+
+1. swagger3 -> open api
+2. xxljob 排查
+
 ### 技术栈
 
 alibaba,cloud,springboot,最佳实践版本:https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E
 
 **核心依赖**
 
-jdk: 1.8
+jdk: 17
 nodejs: 10.24.1
 
 
-| 依赖                 | 版本       |
-| -------------------- | ---------- |
-| Spring Boot          | 2.6.11     |
-| Spring Cloud         | 2021.0.4   |
-| Spring Cloud Alibaba | 2021.0.4.0 |
-| Mybatis Plus         | 3.5.2      |
+| 依赖                 | 版本         |
+| -------------------- |------------|
+| Spring Boot          | 3.0.1      |
+| Spring Cloud         | 2022.0.0   |
+| Spring Cloud Alibaba | 2022.0.0.0-RC1 |
+| Mybatis Plus         | 3.5.3.1    |
 | Swagger              | 3.0.0      |
-| behappy redis        | 0.0.4      |
+| behappy redis        | 3.0.0      |
 | wxpay-sdk            | 0.0.3      |
-| Hutool               | 5.6.4      |
+| Hutool               | 5.8.11      |
 | xxl job              | 2.3.1      |
-| druid                | 1.2.9      |
+| druid                | 1.2.15      |
 
-### 配置章节(以下标注todo的都是需要留意进行配置的,实际上如果仅是希望项目能跑起来，只需要改下组件连接信息即可【mysql/redis/nacos。。。】)
+### 配置章节
+
+> 以下标注todo的都是需要留意进行配置的,实际上如果仅是希望项目能跑起来，只需要改下组件连接信息即可【mysql/redis/nacos。。。】
+> 推荐使用`https://github.com/behappy-hospital/behappy-docker-application`仓库下的组件，版本以及配置是经我测试过的，然后仅需修改下面配置中的192.168.56.103为你的ip即可
+
 #### 统一配置 - boostrap.yml
 ```yaml
 spring:
@@ -73,6 +82,28 @@ server:
   # 除了微信回调用的8160端口不能改，其他的可自行更改，以下不再赘述
   port: 8202
 spring:
+  cloud:
+    # todo openfeign 4.0配置改动
+    openfeign:
+      okhttp:
+        enabled: false
+      httpclient:
+        enabled: true
+        max-connections: 200 # 最大的连接数
+        max-connections-per-route: 50 # 每个路径的最大连接数
+      client:
+        config:
+          default: # default全局的配置
+            loggerLevel: basic # 日志级别，BASIC就是基本的请求和响应信息
+            connectTimeout: 10000
+            readTimeout: 10000
+      compression:
+        request:
+          enabled: true
+        response:
+          enabled: true
+      # https://github.com/alibaba/spring-cloud-alibaba/issues/3024
+      lazy-attributes-resolution: true
   # 使用redisson作为redis客户端框架，所有配置都可以参照官方，以下不再赘述
   redis:
     redisson:
@@ -84,9 +115,8 @@ spring:
           database: 0
           password: null
           ......
-        # 序列化方式, 内部提供了`ruedigermoeller`的fst方式,配置如下即可
-        # (默认为jackson方式)如果想要适用jdk的编码方式,可以进行如下配置(ps: jdk编码方式model必须实现序列化接口)
-        codec: !<org.xiaowu.behappy.redis.serializer.FstCodec> {}
+        # 默认是Kryo序列化模式，修改成jackson
+        codec: !<org.redisson.codec.JsonJacksonCodec> {}
   mvc:
     # 此配置是用来解决swagger3在springboot2.6之后的冲突问题（2.6之后使用PathPattern代替AntPathMatcher）
     pathmatch:
@@ -152,25 +182,8 @@ thread:
     name-prefix: @project.artifactId@
 # feign 使用httpclient，开启sentinel以及压缩
 feign:
-  okhttp:
-    enabled: false
-  httpclient:
-    enabled: true
-    max-connections: 200 # 最大的连接数
-    max-connections-per-route: 50 # 每个路径的最大连接数
   sentinel:
     enabled: true
-  client:
-    config:
-      default: # default全局的配置
-        loggerLevel: basic # 日志级别，BASIC就是基本的请求和响应信息
-        connectTimeout: 10000
-        readTimeout: 10000
-  compression:
-    request:
-      enabled: true
-    response:
-      enabled: true
 management:
   endpoints:
     web:
@@ -215,7 +228,7 @@ xxl:
   job:
     accessToken: default_token
     admin:
-      addresses: http://127.0.0.1:8080/xxl-job-admin
+      addresses: http://192.168.56.103:8080/xxl-job-admin
     executor:
       ip: ''
       address: ''
@@ -512,11 +525,7 @@ spring:
 
 > 需要nacos,behappy-sentinel-dashboard,redis,rabbitmq,mongo,mysql
 
-1. 执行`doc/sql`下的sql文件, 以及`behappy-xxl-admin/resources/db/tables_xxl_job.sql`
-
-> 执行顺序
->
-> 1. yygh_manager.sql   2. yygh初始化表结构.sql   3. yygh初始化数据.sql(已包含一条默认医院数据)   4. tables_xxl_job.sql
+1. 执行`doc/sql`下的sql文件
 
 2. 启动项目, 各模块作用已标明在文档中
 
@@ -590,11 +599,11 @@ behappy-hospital-admin -- 后台管理
    退单逻辑在`OrderService-cancelOrder, 可自行将时间限定注释打开`
    ![img_8.png](doc/readme-img/img_8.png)
 
-8. springboot admin查看各模块状态(http://localhost:8203/monitor [账户密码: root@root])
+8. springboot admin查看各模块状态(http://localhost:8203/ [账户密码: root@root])
 
 ![img.png](doc/readme-img/img_9.png)
 
-9. xxl job: http://localhost:8080/
+9. xxl job: http://192.168.56.103:8080/
 
 - 添加task
 
@@ -640,7 +649,6 @@ behappy-hospital-admin -- 后台管理
 ├─behappy-oss --oss模块
 ├─behappy-statistics --信息统计模块
 ├─behappy-user --用户模块
-├─behappy-xxl-admin --xxl-job admin
 └─doc
     ├─01-教案
     ├─02-分析图

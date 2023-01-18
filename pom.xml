@@ -28,16 +28,16 @@
         <aliyun-dysmsapi-sdk.version>2.2.1</aliyun-dysmsapi-sdk.version>
         <behappy-redis.version>3.0.0</behappy-redis.version>
         <wx-pay.version>0.0.3</wx-pay.version>
-        <hutool.version>5.6.4</hutool.version>
-        <mybatis-plus.version>3.5.2</mybatis-plus.version>
-        <alipay.sdk.oss.version>3.8.0</alipay.sdk.oss.version>
+        <hutool.version>5.8.11</hutool.version>
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        <alipay.sdk.oss.version>3.16.0</alipay.sdk.oss.version>
         <logstash.logback.version>7.2</logstash.logback.version>
         <swagger-annotations.version>1.6.6</swagger-annotations.version>
         <jackson-annotations.version>2.13.4</jackson-annotations.version>
-        <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
+        <aspectjweaver.version>1.9.19</aspectjweaver.version>
         <commons-codec.version>1.15</commons-codec.version>
         <xxl-job.version>2.3.1</xxl-job.version>
-        <druid-spring-boot-starter.version>1.2.9</druid-spring-boot-starter.version>
+        <druid-spring-boot-starter.version>1.2.15</druid-spring-boot-starter.version>
     </properties>
     <modules>
         <module>behappy-api</module>
@@ -105,6 +105,11 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-boot-starter</artifactId>
                 <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>2.0.2</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>

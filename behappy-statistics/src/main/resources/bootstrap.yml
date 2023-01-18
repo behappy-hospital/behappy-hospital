@@ -5,7 +5,7 @@ spring:
     name: @project.artifactId@
   cloud:
     nacos:
-      server-addr: 192.168.56.103:8848
+      server-addr: 192.168.56.100:8848
       #      config:
       #        file-extension: yml
       #        namespace: 96d736a4-1fa4-407a-af7a-f5e9009c5075

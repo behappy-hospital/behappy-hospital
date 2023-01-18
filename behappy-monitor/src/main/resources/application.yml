@@ -7,13 +7,10 @@ spring:
       password: root
   boot:
     admin:
-      context-path: '/monitor'
+      context-path: '/'
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
-thread:
-  pool:
-    name-prefix: @project.artifactId@
 management:
   endpoints:
     web:

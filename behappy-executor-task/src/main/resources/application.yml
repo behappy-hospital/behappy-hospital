@@ -5,7 +5,7 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   rabbitmq:
-    host: 192.168.56.103
+    host: 192.168.56.100
     port: 5672
     # 指定虚拟主机
     virtual-host: /
@@ -29,15 +29,21 @@ logging:
   config: classpath:logback-spring.xml
 xxl:
   job:
+    #调度中心通讯TOKEN [选填]：非空时启用
     accessToken: default_token
     admin:
-      addresses: http://127.0.0.1:8080/xxl-job-admin
+      addresses: http://192.168.56.100:8080/xxl-job-admin
     executor:
+      #执行器IP，默认为空表示自动获取IP
       ip: ''
       address: ''
+      #xxljob配置的端口号，默认为9999
       port: 9999
+      #xxljob配置的执行器名称，
       appname: @project.artifactId@
+      #执行器运行日志文件存储磁盘路径
       logpath: /data/applogs/xxl-job/jobhandler
+      #调度中心日志表数据保存天数，过期日志自动清理；限制大于等于7时生效，否则, 如-1，关闭自动清理功能
       logretentiondays: 7
 management:
   endpoints:

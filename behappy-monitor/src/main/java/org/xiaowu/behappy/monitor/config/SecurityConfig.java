@@ -24,22 +24,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        SavedRequestAwareAuthenticationSuccessHandler successHandler =
-                new SavedRequestAwareAuthenticationSuccessHandler();
+        SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
         successHandler.setTargetUrlParameter("redirectTo");
         successHandler.setDefaultTargetUrl(adminContextPath + "/");
-        return http.authorizeHttpRequests(auth -> auth.requestMatchers(
-                                        adminContextPath + "/assets/**",
-                                        adminContextPath + "/login",
-                                        adminContextPath + "/instances",
-                                        adminContextPath + "/actuator/**"
-                                ).permitAll()
-                                .requestMatchers(adminContextPath + "/**").authenticated()
-                                .anyRequest().permitAll()
-                ).formLogin(form -> form.loginPage(adminContextPath + "/login")
-                        .successHandler(successHandler)
-                ).logout(logout -> logout.logoutUrl(adminContextPath + "/logout"))
-                .csrf(AbstractHttpConfigurer::disable)
-                .build();
+        http.headers().frameOptions().disable().and().authorizeHttpRequests()
+                .requestMatchers(adminContextPath + "/assets/**", adminContextPath + "/login",
+                        adminContextPath + "/instances/**", adminContextPath + "/actuator/**")
+                .permitAll().anyRequest().authenticated().and().formLogin().loginPage(adminContextPath + "/login")
+                .successHandler(successHandler).and().logout().logoutUrl(adminContextPath + "/logout").and().httpBasic()
+                .and().csrf().disable();
+        return http.build();
     }
 }

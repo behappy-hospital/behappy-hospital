@@ -7,7 +7,7 @@ spring:
         # 例: 单节点设置
         singleServerConfig:
           # （节点地址）redis://-非ssl,rediss://-ssl
-          address: redis://192.168.56.103:6379
+          address: redis://192.168.56.100:6379
           database: 0
           password: null
           # 如果当前连接池里的连接数量超过了`最小空闲连接数`，而同时有连接空闲时间超过了该数值，那么这些连接将会自动被关闭，并从连接池里去掉。时间单位是毫秒。
@@ -40,10 +40,10 @@ spring:
         nettyThreads: 0
         # 序列化方式, 内部提供了`ruedigermoeller`的fst方式,配置如下即可
         # (默认为jackson方式)如果想要适用jdk的编码方式,可以如下配置,jdk编码方式model必须实现序列化接口
-        codec: !<org.xiaowu.behappy.redis.serializer.FstCodec> {}
+        codec: !<org.redisson.codec.JsonJacksonCodec> {}
         transportMode: NIO
   rabbitmq:
-    host: 192.168.56.103
+    host: 192.168.56.100
     port: 5672
     # 指定虚拟主机
     virtual-host: /
