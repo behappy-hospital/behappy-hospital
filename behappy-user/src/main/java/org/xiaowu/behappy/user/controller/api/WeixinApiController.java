@@ -21,6 +21,7 @@ import org.xiaowu.behappy.user.entity.UserInfo;
 import org.xiaowu.behappy.user.service.UserInfoService;
 
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +50,7 @@ public class WeixinApiController {
     public Result<Map<String, Object>> getQrConnect() {
         Map<String, Object> map = new HashMap<>();
         map.put("appid", wxConfigProperties.getAppId());
-        map.put("redirectUri", URLEncoder.encode(wxConfigProperties.getRedirectUrl(), "UTF-8"));
+        map.put("redirectUri", URLEncoder.encode(wxConfigProperties.getRedirectUrl(), StandardCharsets.UTF_8));
         map.put("scope", "snsapi_login");
         map.put("state", System.currentTimeMillis());
         return Result.ok(map);
@@ -130,6 +131,6 @@ public class WeixinApiController {
         }
         String token = JwtHelper.createToken(userInfo.getId(), name);
         map.put("token", token);
-        return "redirect:" + wxConfigProperties.getYyghBaseUrl() + "/weixin/callback?token=" + map.get("token") + "&openid=" + map.get("openid") + "&name=" + URLEncoder.encode((String) map.get("name"), "UTF-8");
+        return "redirect:" + wxConfigProperties.getYyghBaseUrl() + "/weixin/callback?token=" + map.get("token") + "&openid=" + map.get("openid") + "&name=" + URLEncoder.encode((String) map.get("name"), StandardCharsets.UTF_8);
     }
 }

@@ -10,6 +10,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -18,9 +21,12 @@ import org.xiaowu.behappy.api.cmn.vo.DictEeVo;
 import org.xiaowu.behappy.cmn.entity.Dict;
 import org.xiaowu.behappy.cmn.listener.DictListener;
 import org.xiaowu.behappy.cmn.mapper.DictMapper;
+import org.xiaowu.behappy.common.core.constants.CommonConstants;
 
+import javax.annotation.PostConstruct;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.xiaowu.behappy.api.cmn.constants.CmnConstant.DICT_CACHE;
@@ -51,9 +57,9 @@ public class DictService extends ServiceImpl<DictMapper, Dict> implements IServi
     @SneakyThrows
     public void exportData(HttpServletResponse response) {
         response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding(CommonConstants.UTF8);
         // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
-        String fileName = URLEncoder.encode("数据字典", "UTF-8");
+        String fileName = URLEncoder.encode("数据字典", StandardCharsets.UTF_8);
         response.setHeader("Content-disposition", "attachment;filename="+ fileName + ".xlsx");
         List<DictEeVo> dictEeVos = BeanUtil.copyToList(list(), DictEeVo.class, CopyOptions.create());
         EasyExcel.write(response.getOutputStream(),DictEeVo.class)

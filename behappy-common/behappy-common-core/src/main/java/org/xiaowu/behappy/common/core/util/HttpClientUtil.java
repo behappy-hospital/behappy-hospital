@@ -22,8 +22,10 @@ import org.apache.http.impl.client.StandardHttpRequestRetryHandler;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.xiaowu.behappy.common.core.constants.CommonConstants;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -72,7 +74,7 @@ public class HttpClientUtil {
             if (HttpStatus.SC_OK == statusCode) {
                 HttpEntity entity = response.getEntity();
                 if (null != entity) {
-                    String resStr = EntityUtils.toString(entity, "utf-8");
+                    String resStr = EntityUtils.toString(entity, StandardCharsets.UTF_8);
                     return JSON.parseObject(resStr);
                 }
             }
@@ -98,7 +100,7 @@ public class HttpClientUtil {
                 for (Map.Entry<String, Object> param : getParams.entrySet()) {
                     list.add(new BasicNameValuePair(param.getKey(), StrUtil.toString(param.getValue())));
                 }
-                HttpEntity httpEntity = new UrlEncodedFormEntity(list, "utf-8");
+                HttpEntity httpEntity = new UrlEncodedFormEntity(list, StandardCharsets.UTF_8);
                 httpPost.setEntity(httpEntity);
             }
             response = httpClient.execute(httpPost);
@@ -106,7 +108,7 @@ public class HttpClientUtil {
             if (HttpStatus.SC_OK == statusCode) {
                 HttpEntity entity = response.getEntity();
                 if (null != entity) {
-                    String resStr = EntityUtils.toString(entity, "utf-8");
+                    String resStr = EntityUtils.toString(entity, StandardCharsets.UTF_8);
                     return JSON.parseObject(resStr);
                 }
             }
