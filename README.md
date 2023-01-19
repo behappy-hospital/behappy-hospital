@@ -483,41 +483,6 @@ wx:
     yygh-base-url: http://localhost:3000
 ```
 
-#### behappy-xxl-admin
-> 以下是主要介绍的配置，开发时以实际代码内的为准
-
-```yaml
-server:
-  servlet:
-    context-path: /xxl-job-admin
-spring:
-  cloud:
-    config:
-    nacos:
-      discovery:
-        metadata:
-          management:
-            # 此处是带有context-path的服务. 配置nacos的服务发现地址增加context-path
-            context-path: ${server.servlet.context-path}/actuator
-  datasource:
-    # todo 数据库配置
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      auto-commit: true
-      connection-test-query: SELECT 1
-      connection-timeout: 10000
-      idle-timeout: 30000
-      max-lifetime: 900000
-      maximum-pool-size: 30
-      minimum-idle: 10
-      pool-name: HikariCP
-      validation-timeout: 1000
-    password: root
-    type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://192.168.56.103:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
-    username: root
-```
-
 
 ### 启动流程
 
