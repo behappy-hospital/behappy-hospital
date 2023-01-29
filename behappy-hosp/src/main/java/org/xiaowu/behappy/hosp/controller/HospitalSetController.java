@@ -4,9 +4,12 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 import org.xiaowu.behappy.api.hosp.vo.HospitalSetQueryVo;
 import org.xiaowu.behappy.common.core.result.Result;
@@ -22,7 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/hosp/hospitalSet")
 @RequiredArgsConstructor
-@Api(tags = "医院设置管理")
+@Tag(name = "医院设置管理")
 public class HospitalSetController {
 
     private final HospitalSetService hospitalSetService;
@@ -33,7 +36,7 @@ public class HospitalSetController {
      * @author xiaowu
      * @return org.xiaowu.behappy.common.core.result.Response<org.xiaowu.behappy.hosp.entity.HospitalSet>
      */
-    @ApiOperation(value = "获取所有医院设置")
+    @Operation(summary = "获取所有医院设置", security = { @SecurityRequirement(name = HttpHeaders.AUTHORIZATION) })
     @GetMapping("/findAll")
     public Result<List<HospitalSet>> findAllHospSet() {
         // 调用service的方法
@@ -48,7 +51,7 @@ public class HospitalSetController {
      * @param id
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
      */
-    @ApiOperation(value = "逻辑删除医院配置")
+    @Operation(summary = "逻辑删除医院配置")
     @DeleteMapping("/{id}")
     public Result<Boolean> removeById(@PathVariable Long id) {
         boolean flag = hospitalSetService.removeById(id);
@@ -64,7 +67,7 @@ public class HospitalSetController {
      * @param hospitalSetQueryVo
      * @return org.xiaowu.behappy.common.core.result.Response<com.baomidou.mybatisplus.extension.plugins.pagination.Page < org.xiaowu.behappy.hosp.entity.HospitalSet>>
      */
-    @ApiOperation(value = "条件查询带分页")
+    @Operation(summary = "条件查询带分页")
     @PostMapping("/findPageHospSet/{current}/{limit}")
     public Result<Page<HospitalSet>> info(@PathVariable Integer current,
                                           @PathVariable Integer limit,
@@ -94,7 +97,7 @@ public class HospitalSetController {
      * @param hospitalSet
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
      */
-    @ApiOperation("添加医院设置")
+    @Operation(summary = "添加医院设置")
     @PostMapping("/saveHospitalSet")
     public Result<Boolean> saveHospitalSet(@RequestBody HospitalSet hospitalSet) {
         // 设置状态 1:可使用  2:不可使用
@@ -115,7 +118,7 @@ public class HospitalSetController {
      * @param id
      * @return org.xiaowu.behappy.common.core.result.Response<org.xiaowu.behappy.hosp.entity.HospitalSet>
      */
-    @ApiOperation("根据id获取医院设置")
+    @Operation(summary = "根据id获取医院设置")
     @GetMapping("/getHospSet/{id}")
     public Result<HospitalSet> getHospital(@PathVariable Long id) {
         HospitalSet hospitalSet = hospitalSetService.getById(id);
@@ -129,7 +132,7 @@ public class HospitalSetController {
      * @param hospitalSet
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
      */
-    @ApiOperation("修改医院设置")
+    @Operation(summary = "修改医院设置")
     @GetMapping("/updateHospitalSet/{id}")
     public Result<Boolean> updateHospSet(@RequestBody HospitalSet hospitalSet) {
         boolean update = hospitalSetService.updateById(hospitalSet);
@@ -143,7 +146,7 @@ public class HospitalSetController {
      * @param idList
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
      */
-    @ApiOperation("批量删除医院设置")
+    @Operation(summary = "批量删除医院设置")
     @DeleteMapping("/batchRemove")
     public Result<Boolean> batchRemove(@RequestBody List<Long> idList) {
         boolean batch = hospitalSetService.removeBatchByIds(idList);
@@ -158,7 +161,7 @@ public class HospitalSetController {
      * @param status
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
      */
-    @ApiOperation("医院设置锁定和解锁")
+    @Operation(summary = "医院设置锁定和解锁")
     @PutMapping("/lockHospitalSet/{id}/{status}")
     public Result<Boolean> lockHospitalSet(@PathVariable Long id, @PathVariable Integer status) {
         // 根据id查询医院设置信息
@@ -177,7 +180,7 @@ public class HospitalSetController {
      * @param id
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
      */
-    @ApiOperation("发送签名密钥")
+    @Operation(summary = "发送签名密钥")
     @PutMapping("/sendKey/{id}")
     public Result<Boolean> sendKey(@PathVariable Long id) {
         HospitalSet hospitalSet = hospitalSetService.getById(id);

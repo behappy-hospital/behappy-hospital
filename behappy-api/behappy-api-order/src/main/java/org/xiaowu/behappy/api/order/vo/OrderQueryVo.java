@@ -1,36 +1,37 @@
 package org.xiaowu.behappy.api.order.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-@ApiModel(description = "Order")
+@Schema(description = "Order")
 public class OrderQueryVo {
 
 
-	@ApiModelProperty(value = "会员id")
+	@Schema(description = "会员id")
 	private Long userId;
-	
-	@ApiModelProperty(value = "订单交易号")
+
+	@Schema(description = "订单交易号")
 	private String outTradeNo;
 
-	@ApiModelProperty(value = "就诊人id")
+	@Schema(description = "就诊人id")
 	private Long patientId;
 
-	@ApiModelProperty(value = "就诊人")
+	@Schema(description = "就诊人")
 	private String patientName;
 
-	@ApiModelProperty(value = "医院名称")
+	@Schema(description = "医院名称")
 	private String keyword;
 
-	@ApiModelProperty(value = "订单状态")
+	@Schema(description = "订单状态")
 	private String orderStatus;
 
-	@ApiModelProperty(value = "安排日期")
+	@Schema(description = "安排日期")
 	private String reserveDate;
 
-	@ApiModelProperty(value = "创建时间")
+	@Schema(description = "创建时间")
 	private String createTimeBegin;
 	private String createTimeEnd;
 

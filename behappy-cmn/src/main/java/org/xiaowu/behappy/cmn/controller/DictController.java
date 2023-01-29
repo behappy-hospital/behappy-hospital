@@ -1,7 +1,8 @@
 package org.xiaowu.behappy.cmn.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Around;
@@ -22,7 +23,7 @@ import java.util.List;
  *
  * @author xiaowu
  */
-@Api(tags = "数据字典接口")
+@Tag(name = "数据字典接口")
 @RestController
 @RequestMapping("/admin/cmn/dict")
 @RequiredArgsConstructor
@@ -37,7 +38,7 @@ public class DictController {
      * @param id
      * @return org.xiaowu.behappy.common.core.result.Response<java.util.List < org.xiaowu.behappy.cmn.entity.Dict>>
      */
-    @ApiOperation(value = "根据数据id查询子数据列表")
+    @Operation(summary = "根据数据id查询子数据列表")
     @GetMapping("/findChildData/{id}")
     public Result<List<Dict>> findChildData(@PathVariable Long id) {
         List<Dict> dictList = dictService.findChildData(id);
@@ -50,7 +51,7 @@ public class DictController {
      * @author xiaowu
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
      */
-    @ApiOperation(value = "导出数据字典")
+    @Operation(summary = "导出数据字典")
     @GetMapping("/exportData")
     public Result<Boolean> exportData(HttpServletResponse response) {
         dictService.exportData(response);
@@ -64,7 +65,7 @@ public class DictController {
      * @param multipartFile
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.Boolean>
      */
-    @ApiOperation(value = "导入数据字典")
+    @Operation(summary = "导入数据字典")
     @PostMapping("/importData")
     public Result<Boolean> importData(@RequestParam("file") MultipartFile multipartFile) {
         dictService.importData(multipartFile);
@@ -79,7 +80,7 @@ public class DictController {
      * @param value
      * @return org.xiaowu.behappy.common.core.result.Response<java.lang.String>
      */
-    @ApiOperation("数据字典名称")
+    @Operation(summary = "数据字典名称")
     @GetMapping("/getName")
     public Result<String> getName(@RequestParam(value = "parentDictCode", required = false) String parentDictCode,
                                   @RequestParam(value = "value") String value) {
@@ -87,7 +88,7 @@ public class DictController {
         return Result.ok(dictName);
     }
 
-    @ApiOperation("根据dictCode获取下级节点")
+    @Operation(summary = "根据dictCode获取下级节点")
     @GetMapping("/findByDictCode/{dictCode}")
     public Result<List<Dict>> findByDictCode(@PathVariable String dictCode) {
         List<Dict> dictList = dictService.findByDictCode(dictCode);

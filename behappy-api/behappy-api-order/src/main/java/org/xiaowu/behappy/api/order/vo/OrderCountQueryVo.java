@@ -1,20 +1,21 @@
 package org.xiaowu.behappy.api.order.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-@ApiModel(description = "OrderCountQueryVo")
+@Schema(description = "OrderCountQueryVo")
 public class OrderCountQueryVo {
-	
-	@ApiModelProperty(value = "医院编号")
+
+	@Schema(description = "医院编号")
 	private String hoscode;
 
-	@ApiModelProperty(value = "医院名称")
+	@Schema(description = "医院名称")
 	private String hosname;
 
-	@ApiModelProperty(value = "安排日期")
+	@Schema(description = "安排日期")
 	private String reserveDateBegin;
 	private String reserveDateEnd;
 

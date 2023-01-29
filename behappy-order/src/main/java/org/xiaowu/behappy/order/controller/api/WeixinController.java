@@ -1,7 +1,7 @@
 package org.xiaowu.behappy.order.controller.api;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,15 +26,15 @@ public class WeixinController {
      */
     @GetMapping("/createNative/{orderId}")
     public Result<Map> createNative(
-            @ApiParam(name = "orderId", value = "订单id", required = true)
+            @Parameter(name = "orderId", description = "订单id", required = true)
             @PathVariable("orderId") Long orderId) {
         return Result.ok(weixinPayService.createNative(orderId));
     }
 
-    @ApiOperation(value = "查询支付状态")
+    @Operation(summary = "查询支付状态")
     @GetMapping("/queryPayStatus/{orderId}")
-    public Result queryPayStatus(
-            @ApiParam(name = "orderId", value = "订单id", required = true)
+    public Result<Object> queryPayStatus(
+            @Parameter(name = "orderId", description = "订单id", required = true)
             @PathVariable("orderId") Long orderId) {
         //调用查询接口
         Map<String, String> resultMap = weixinPayService.queryPayStatus(orderId, PaymentTypeEnum.WEIXIN.name());

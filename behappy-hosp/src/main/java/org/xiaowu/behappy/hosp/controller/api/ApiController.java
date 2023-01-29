@@ -1,7 +1,7 @@
 package org.xiaowu.behappy.hosp.controller.api;
 
 import cn.hutool.core.util.StrUtil;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * @author xiaowu
  */
-@Api(tags = "医院管理API接口")
+@Tag(name = "医院管理API接口")
 @RestController
 @RequestMapping("/api/hosp")
 @AllArgsConstructor

@@ -9,6 +9,7 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
@@ -82,7 +83,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
      * @return long
      */
     private Long getUserId(ServerHttpRequest request) {
-        List<String> tokenList = request.getHeaders().get("token");
+        List<String> tokenList = request.getHeaders().get(HttpHeaders.AUTHORIZATION);
         String token = null;
         if (CollUtil.isNotEmpty(tokenList)) {
             token = tokenList.get(0);

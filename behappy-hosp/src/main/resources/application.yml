@@ -105,3 +105,7 @@ thread:
 feign:
   sentinel:
     enabled: true
+# swagger 配置
+swagger:
+  enabled: true
+#  services: "{'behappy-hosp': 'behappy-hosp'}"

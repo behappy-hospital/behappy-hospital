@@ -1,22 +1,23 @@
 package org.xiaowu.behappy.api.hosp.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.xiaowu.behappy.api.common.vo.MsmVo;
 
 @Data
-@ApiModel(description = "OrderMqVo")
+@Schema(description = "OrderMqVo")
 public class OrderMqVo {
-   @ApiModelProperty(value = "可预约数")
+   @Schema(description = "可预约数")
    private Integer reservedNumber;
 
-   @ApiModelProperty(value = "剩余预约数")
+   @Schema(description = "剩余预约数")
    private Integer availableNumber;
 
-   @ApiModelProperty(value = "排班id")
+   @Schema(description = "排班id")
    private String scheduleId;
 
-   @ApiModelProperty(value = "短信实体")
+   @Schema(description = "短信实体")
    private MsmVo msmVo;
 }

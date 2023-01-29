@@ -1,7 +1,7 @@
 package org.xiaowu.behappy.manager.controller;
 
 import cn.hutool.core.util.StrUtil;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ import org.xiaowu.behappy.manager.service.HospitalService;
 /**
  *
  */
-@Api(tags = "医院管理接口")
+@Tag(name = "医院管理接口")
 @Controller
 @RequestMapping
 public class ApiController extends org.xiaowu.behappy.manager.controller.BaseController {
