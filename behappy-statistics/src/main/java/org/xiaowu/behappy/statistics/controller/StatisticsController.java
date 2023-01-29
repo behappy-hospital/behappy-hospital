@@ -1,8 +1,9 @@
 package org.xiaowu.behappy.statistics.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import org.xiaowu.behappy.api.order.feign.OrderFeign;
 import org.xiaowu.behappy.api.order.vo.OrderCountQueryVo;
 import org.xiaowu.behappy.common.core.result.Result;
 
-@Api(tags = "统计管理接口")
+@Tag(name = "统计管理接口")
 @RestController
 @RequestMapping("/admin/statistics")
 @RequiredArgsConstructor
@@ -19,9 +20,9 @@ public class StatisticsController {
 
     private final OrderFeign orderFeign;
 
-    @ApiOperation(value = "获取订单统计数据")
+    @Operation(summary = "获取订单统计数据")
     @GetMapping("getCountMap")
-    public Result getCountMap(@ApiParam(name = "orderCountQueryVo", value = "查询对象", required = false) OrderCountQueryVo orderCountQueryVo) {
+    public Result getCountMap(@Parameter(name = "orderCountQueryVo", description = "查询对象", required = false) OrderCountQueryVo orderCountQueryVo) {
         return orderFeign.getCountMap(orderCountQueryVo);
     }
 }

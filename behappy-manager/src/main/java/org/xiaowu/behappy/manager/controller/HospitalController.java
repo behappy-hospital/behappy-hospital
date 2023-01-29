@@ -1,6 +1,6 @@
 package org.xiaowu.behappy.manager.controller;
 
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  *
  */
-@Api(tags = "医院管理接口")
+@Tag(name = "医院管理接口")
 @RestController
 public class HospitalController {
 

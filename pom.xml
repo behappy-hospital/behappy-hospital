@@ -15,11 +15,12 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <!-- alibaba,cloud,springboot,最佳实践版本:https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E-->
-        <spring-boot.version>3.0.1</spring-boot.version>
-        <spring-cloud.version>2022.0.0</spring-cloud.version>
+        <spring-boot.version>3.0.2</spring-boot.version>
+        <spring-cloud.version>2022.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2022.0.0.0-RC1</spring-cloud-alibaba.version>
         <spring-boot-admin.version>3.0.0-M7</spring-boot-admin.version>
-        <swagger.version>3.0.0</swagger.version>
+        <swagger.core.version>2.2.7</swagger.core.version>
+        <springdoc.version>2.0.2</springdoc.version>
         <fastjson.version>2.0.13</fastjson.version>
         <joda.time.version>2.10.14</joda.time.version>
         <easyexcel.version>2.1.1</easyexcel.version>
@@ -100,17 +101,6 @@
                 <artifactId>spring-boot-admin-starter-server</artifactId>
                 <version>${spring-boot-admin.version}</version>
             </dependency>
-            <!--swagger-->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-                <version>2.0.2</version>
-            </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
@@ -179,11 +169,21 @@
                 <artifactId>logstash-logback-encoder</artifactId>
                 <version>${logstash.logback.version}</version>
             </dependency>
-            <!--swagger注解支持-->
+            <!--springdoc -->
             <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>${swagger-annotations.version}</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations-jakarta</artifactId>
+                <version>${swagger.core.version}</version>
             </dependency>
             <!--mybatis-->
             <dependency>

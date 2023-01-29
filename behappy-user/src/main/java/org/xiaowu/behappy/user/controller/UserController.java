@@ -2,7 +2,8 @@ package org.xiaowu.behappy.user.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.swagger.annotations.ApiOperation;
+
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +34,7 @@ public class UserController {
         return Result.ok(pageModel);
     }
 
-    @ApiOperation(value = "锁定")
+    @Operation(summary = "锁定")
     @GetMapping("/lock/{userId}/{status}")
     public Result<Boolean> lock(
             @PathVariable("userId") Long userId,

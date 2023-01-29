@@ -1,7 +1,6 @@
 package org.xiaowu.behappy.common.core.exception;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
@@ -11,10 +10,10 @@ import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "自定义全局异常类")
+@Schema(description = "自定义全局异常类")
 public class HospitalException extends RuntimeException {
 
-    @ApiModelProperty(value = "异常状态码")
+    @Schema(description = "异常状态码")
     private Integer code;
 
     /**

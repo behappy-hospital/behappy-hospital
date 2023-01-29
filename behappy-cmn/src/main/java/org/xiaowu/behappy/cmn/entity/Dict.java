@@ -4,8 +4,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,50 +20,50 @@ import java.util.Map;
  * </p>
  */
 @Data
-@ApiModel(description = "数据字典")
+@Schema(description = "数据字典")
 @TableName("dict")
 public class Dict implements Serializable {
 
     private static final long serialVersionUID = 1096027854163553447L;
 
-    @ApiModelProperty(value = "id")
+    @Schema(description = "id")
     private Long id;
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField("create_time")
     private Date createTime;
 
-    @ApiModelProperty(value = "更新时间")
+    @Schema(description = "更新时间")
     @TableField("update_time")
     private Date updateTime;
 
-    @ApiModelProperty(value = "逻辑删除(1:已删除，0:未删除)")
+    @Schema(description = "逻辑删除(1:已删除，0:未删除)")
     @TableLogic
     @TableField("is_deleted")
     private Integer isDeleted;
 
-    @ApiModelProperty(value = "其他参数")
+    @Schema(description = "其他参数")
     @TableField(exist = false)
     private Map<String,Object> param = new HashMap<>();
 
-    @ApiModelProperty(value = "上级id")
+    @Schema(description = "上级id")
     @TableField("parent_id")
     private Long parentId;
 
-    @ApiModelProperty(value = "名称")
+    @Schema(description = "名称")
     @TableField("name")
     private String name;
 
-    @ApiModelProperty(value = "值")
+    @Schema(description = "值")
     @TableField("value")
     private String value;
 
-    @ApiModelProperty(value = "编码")
+    @Schema(description = "编码")
     @TableField("dict_code")
     private String dictCode;
 
-    @ApiModelProperty(value = "是否包含子节点")
+    @Schema(description = "是否包含子节点")
     @TableField(exist = false)
     private boolean hasChildren;
 

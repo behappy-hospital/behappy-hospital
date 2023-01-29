@@ -1,7 +1,7 @@
 package org.xiaowu.behappy.user.controller.api;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -60,10 +60,10 @@ public class PatientApiController {
      * @param id
      * @return
      */
-    @ApiOperation(value = "获取就诊人")
+    @Operation(summary = "获取就诊人")
     @GetMapping("/inner/get/{id}")
     public Result<Patient> getPatientOrder(
-            @ApiParam(name = "id", value = "就诊人id", required = true)
+            @Parameter(name = "id", description = "就诊人id", required = true)
             @PathVariable("id") Long id) {
         Patient patient = patientService.getById(id);
         return Result.ok(patient);

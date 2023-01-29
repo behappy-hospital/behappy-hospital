@@ -2,9 +2,9 @@ package org.xiaowu.behappy.order.controller.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ import org.xiaowu.behappy.order.service.OrderService;
 import java.util.List;
 import java.util.Map;
 
-@Api(tags = "订单接口")
+@Tag(name = "订单接口")
 @RestController
 @RequestMapping("/api/order/orderInfo")
 @AllArgsConstructor
@@ -29,12 +29,12 @@ public class OrderApiController {
 
     private final OrderInfoService orderInfoService;
 
-    @ApiOperation(value = "创建订单")
+    @Operation(summary = "创建订单")
     @PostMapping("/auth/submitOrder/{scheduleId}/{patientId}")
     public Result<Long> submitOrder(
-            @ApiParam(name = "scheduleId", value = "排班id", required = true)
+            @Parameter(name = "scheduleId", description = "排班id", required = true)
             @PathVariable String scheduleId,
-            @ApiParam(name = "patientId", value = "就诊人id", required = true)
+            @Parameter(name = "patientId", description = "就诊人id", required = true)
             @PathVariable Long patientId) {
         return Result.ok(orderService.saveOrder(scheduleId, patientId));
     }
@@ -52,7 +52,7 @@ public class OrderApiController {
         return Result.ok(pageModel);
     }
 
-    @ApiOperation(value = "获取订单状态")
+    @Operation(summary = "获取订单状态")
     @GetMapping("/auth/getStatusList")
     public Result<List<Map<String, Object>>> getStatusList() {
         List<Map<String, Object>> statusList = OrderStatusEnum.getStatusList();
@@ -66,10 +66,10 @@ public class OrderApiController {
         return Result.ok(orderInfo);
     }
 
-    @ApiOperation(value = "取消预约")
+    @Operation(summary = "取消预约")
     @GetMapping("/auth/cancelOrder/{orderId}")
     public Result<Boolean> cancelOrder(
-            @ApiParam(name = "orderId", value = "订单id", required = true)
+            @Parameter(name = "orderId", description = "订单id", required = true)
             @PathVariable("orderId") Long orderId) {
         return Result.ok(orderService.cancelOrder(orderId));
     }

@@ -1,6 +1,5 @@
 server:
   port: 8088
-
 spring:
   cloud:
     gateway:
@@ -39,6 +38,13 @@ spring:
           uri: lb://behappy-order
           predicates:
             - Path=/*/order/**
+        # 固定路由转发配置
+        - id: openapi
+          uri: lb://behappy-gateway
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/$\{path}/v3/api-docs
 thread:
   pool:
     name-prefix: @project.artifactId@

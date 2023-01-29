@@ -1,26 +1,27 @@
 package org.xiaowu.behappy.api.hosp.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-@ApiModel(description = "Department")
+@Schema(description = "Department")
 public class DepartmentQueryVo {
-	
-	@ApiModelProperty(value = "医院编号")
+
+	@Schema(description = "医院编号")
 	private String hoscode;
 
-	@ApiModelProperty(value = "科室编号")
+	@Schema(description = "科室编号")
 	private String depcode;
 
-	@ApiModelProperty(value = "科室名称")
+	@Schema(description = "科室名称")
 	private String depname;
 
-	@ApiModelProperty(value = "大科室编号")
+	@Schema(description = "大科室编号")
 	private String bigcode;
 
-	@ApiModelProperty(value = "大科室名称")
+	@Schema(description = "大科室名称")
 	private String bigname;
 
 }

@@ -1,6 +1,7 @@
 package org.xiaowu.behappy.user.controller.api;
 
-import io.swagger.annotations.ApiOperation;
+
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class UserInfoApiController {
 
     private final UserInfoService userInfoService;
 
-    @ApiOperation(value = "会员登录")
+    @Operation(summary = "会员登录")
     @PostMapping("/login")
     public Result<Map<String, Object>> login(@RequestBody LoginVo loginVo,
                                              HttpServletRequest request) {

@@ -50,6 +50,11 @@
             <groupId>org.xiaowu</groupId>
             <artifactId>behappy-common-core</artifactId>
         </dependency>
+        <!--接口文档-->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

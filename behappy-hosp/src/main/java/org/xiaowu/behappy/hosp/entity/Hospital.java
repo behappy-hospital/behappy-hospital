@@ -1,8 +1,9 @@
 package org.xiaowu.behappy.hosp.entity;
 
 import com.alibaba.fastjson.JSONObject;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -16,49 +17,49 @@ import org.xiaowu.behappy.common.mongo.base.BaseMongoEntity;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(description = "Hospital")
+@Schema(description = "Hospital")
 @Document("Hospital")
 public class Hospital extends BaseMongoEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "医院编号")
+    @Schema(description = "医院编号")
     @Indexed(unique = true) //唯一索引
     private String hoscode;
 
-    @ApiModelProperty(value = "医院名称")
+    @Schema(description = "医院名称")
     @Indexed //普通索引
     private String hosname;
 
-    @ApiModelProperty(value = "医院类型")
+    @Schema(description = "医院类型")
     private String hostype;
 
-    @ApiModelProperty(value = "省code")
+    @Schema(description = "省code")
     private String provinceCode;
 
-    @ApiModelProperty(value = "市code")
+    @Schema(description = "市code")
     private String cityCode;
 
-    @ApiModelProperty(value = "区code")
+    @Schema(description = "区code")
     private String districtCode;
 
-    @ApiModelProperty(value = "详情地址")
+    @Schema(description = "详情地址")
     private String address;
 
-    @ApiModelProperty(value = "医院logo")
+    @Schema(description = "医院logo")
     private String logoData;
 
-    @ApiModelProperty(value = "医院简介")
+    @Schema(description = "医院简介")
     private String intro;
 
-    @ApiModelProperty(value = "坐车路线")
+    @Schema(description = "坐车路线")
     private String route;
 
-    @ApiModelProperty(value = "状态 0：未上线 1：已上线")
+    @Schema(description = "状态 0：未上线 1：已上线")
     private Integer status;
 
     //预约规则
-    @ApiModelProperty(value = "预约规则")
+    @Schema(description = "预约规则")
     private BookingRule bookingRule;
 
     /**

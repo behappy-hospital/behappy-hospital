@@ -19,9 +19,8 @@
 ```
 
 ### TODO
-
-1. swagger3 -> open api
-2. xxljob 排查
+- [x] swagger3 -> open api
+- [ ] xxljob 排查
 
 ### 技术栈
 
@@ -33,18 +32,18 @@ jdk: 17
 nodejs: 10.24.1
 
 
-| 依赖                 | 版本         |
-| -------------------- |------------|
-| Spring Boot          | 3.0.1      |
-| Spring Cloud         | 2022.0.0   |
+| 依赖                   | 版本             |
+|----------------------|----------------|
+| Spring Boot          | 3.0.2          |
+| Spring Cloud         | 2022.0.1       |
 | Spring Cloud Alibaba | 2022.0.0.0-RC1 |
-| Mybatis Plus         | 3.5.3.1    |
-| Swagger              | 3.0.0      |
-| behappy redis        | 3.0.0      |
-| wxpay-sdk            | 0.0.3      |
-| Hutool               | 5.8.11      |
-| xxl job              | 2.3.1      |
-| druid                | 1.2.15      |
+| Mybatis Plus         | 3.5.3.1        |
+| Open Api             | 2.0.2          |
+| Behappy-redis        | 3.0.0          |
+| Wxpay-Sdk            | 0.0.3          |
+| Hutool               | 5.8.11         |
+| Xxl job              | 2.3.1          |
+| Druid                | 1.2.15         |
 
 ### 配置章节
 
