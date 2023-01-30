@@ -71,7 +71,7 @@ spring:
     username: root
     password: root
     # 开启发送端确认
-    publisher-confirm-type: simple
+    publisher-confirm-type: correlated
     #　开启发送端消息抵达队列确认
     publisher-returns: true
     # 只要抵达队列，以异步优先回调我们这个 return/confirm
