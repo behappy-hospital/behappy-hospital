@@ -8,6 +8,7 @@
         <version>3.0.0</version>
     </parent>
     <artifactId>behappy-msm</artifactId>
+    <description>短信模块</description>
     <dependencies>
         <dependency>
             <groupId>org.xiaowu</groupId>

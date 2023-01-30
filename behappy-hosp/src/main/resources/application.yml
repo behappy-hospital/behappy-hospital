@@ -107,5 +107,7 @@ feign:
     enabled: true
 # swagger 配置
 swagger:
-  enabled: true
-#  services: "{'behappy-hosp': 'behappy-hosp'}"
+  host: http://localhost:8088
+  application:
+    version: @project.version@
+    description: @project.description@

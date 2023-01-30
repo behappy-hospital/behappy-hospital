@@ -6,7 +6,7 @@
 
 - 背景
 
-本项目是在尚硅谷-尚医通项目基础上改造, 整合sentinel, xxl, boot-admin等技术, 完善了业务代码, 修改了许多原项目存在的bug
+本项目是在尚硅谷-尚医通项目基础上改造， 整合分布式事务、 限流降级、 分布式定时任务， 监控等技术， 完善了业务代码， 修改了许多原项目存在的bug
 
 - 目的
 
@@ -28,8 +28,11 @@ alibaba,cloud,springboot,最佳实践版本:https://github.com/alibaba/spring-cl
 
 **核心依赖**
 
-jdk: 17
-nodejs: 10.24.1
+> Jdk: 17
+>
+> Maven: 3.8.7
+> 
+> Nodejs: 10.24.1
 
 
 | 依赖                   | 版本             |

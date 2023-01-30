@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  *
  */
-@Tag(name = "医院管理接口")
+@Tag(name = "订单管理接口")
 @RestController
 public class HospitalController {
 
@@ -88,4 +88,3 @@ public class HospitalController {
 		}
 	}
 }
-

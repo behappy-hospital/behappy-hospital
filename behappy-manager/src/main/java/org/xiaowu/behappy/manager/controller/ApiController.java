@@ -19,7 +19,6 @@ import org.xiaowu.behappy.manager.service.HospitalService;
 /**
  *
  */
-@Tag(name = "医院管理接口")
 @Controller
 @RequestMapping
 public class ApiController extends org.xiaowu.behappy.manager.controller.BaseController {

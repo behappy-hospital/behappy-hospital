@@ -8,6 +8,7 @@
         <version>3.0.0</version>
     </parent>
     <artifactId>behappy-hosp</artifactId>
+    <description>医院配置模块</description>
     <dependencies>
         <dependency>
             <groupId>org.xiaowu</groupId>

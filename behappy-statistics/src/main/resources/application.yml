@@ -39,3 +39,9 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+# swagger 配置
+swagger:
+  host: http://localhost:8088
+  application:
+    version: @project.version@
+    description: @project.description@

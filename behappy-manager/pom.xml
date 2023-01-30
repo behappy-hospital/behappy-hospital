@@ -11,7 +11,7 @@
     <artifactId>behappy-manager</artifactId>
     <version>3.0.0</version>
     <name>behappy-manager</name>
-    <description>医院管理系统</description>
+    <description>医院后台管理系统</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -50,6 +50,11 @@
             <artifactId>commons-codec</artifactId>
         </dependency>
 
+        <!--注册中心客户端-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
     </dependencies>
 
 

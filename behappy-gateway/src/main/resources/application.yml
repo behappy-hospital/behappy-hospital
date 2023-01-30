@@ -38,6 +38,10 @@ spring:
           uri: lb://behappy-order
           predicates:
             - Path=/*/order/**
+        - id: behappy-manager
+          uri: lb://behappy-manager
+          predicates:
+            - Path=/**
         # 固定路由转发配置
         - id: openapi
           uri: lb://behappy-gateway

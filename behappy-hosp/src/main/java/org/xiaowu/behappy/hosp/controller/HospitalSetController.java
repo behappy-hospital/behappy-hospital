@@ -36,7 +36,7 @@ public class HospitalSetController {
      * @author xiaowu
      * @return org.xiaowu.behappy.common.core.result.Response<org.xiaowu.behappy.hosp.entity.HospitalSet>
      */
-    @Operation(summary = "获取所有医院设置", security = { @SecurityRequirement(name = HttpHeaders.AUTHORIZATION) })
+    @Operation(summary = "获取所有医院设置")
     @GetMapping("/findAll")
     public Result<List<HospitalSet>> findAllHospSet() {
         // 调用service的方法
