@@ -1,16 +1,13 @@
 server:
   port: 8208
 spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
   rabbitmq:
-    host: 192.168.56.100
-    port: 5672
+    host: ${behappy.rabbitmq.host:192.168.56.100}
+    port: ${behappy.rabbitmq.port:5672}
     # 指定虚拟主机
-    virtual-host: /
-    username: root
-    password: root
+    virtual-host: ${behappy.rabbitmq.virtual-host:/}
+    username: ${behappy.rabbitmq.username:root}
+    password: ${behappy.rabbitmq.password:root}
     # 开启发送端确认
     publisher-confirm-type: correlated
     #　开启发送端消息抵达队列确认
@@ -32,7 +29,7 @@ xxl:
     #调度中心通讯TOKEN [选填]：非空时启用
     accessToken: default_token
     admin:
-      addresses: http://192.168.56.100:8080/xxl-job-admin
+      addresses: ${behappy.xxl-admin.addresses:http://192.168.56.100:8080/xxl-job-admin}
     executor:
       #执行器IP，默认为空表示自动获取IP
       ip: ''

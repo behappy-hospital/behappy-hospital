@@ -1,6 +1,6 @@
 package org.xiaowu.behappy.order.service;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;

@@ -1,9 +1,9 @@
 package org.xiaowu.behappy.hosp.entity;
 
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSONArray;
 
 
+import com.alibaba.fastjson2.JSONArray;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -44,7 +44,9 @@ public class BookingRule {
 	 */
 	public void setRule(String rule) {
 		if(StrUtil.isNotEmpty(rule)) {
-			this.rule = JSONArray.parseArray(rule, String.class);
+			this.rule = JSONArray
+					.parseArray(rule)
+					.toList(String.class);
 		}
 	}
 

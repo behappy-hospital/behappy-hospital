@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.xiaowu.behappy.api.order.enums.OrderStatusEnum;
+import org.xiaowu.behappy.api.order.vo.OrderCountQueryVo;
 import org.xiaowu.behappy.api.order.vo.OrderQueryVo;
 import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.util.AuthContextHolder;
@@ -74,5 +75,10 @@ public class OrderApiController {
         return Result.ok(orderService.cancelOrder(orderId));
     }
 
-
+    @Operation(summary = "获取订单统计数据")
+    @PostMapping("/inner/getCountMap")
+    public Result<Map<String, Object>> getCountMap(@RequestBody OrderCountQueryVo orderCountQueryVo) {
+        Map<String, Object> countMap = orderService.getCountMap(orderCountQueryVo);
+        return Result.ok(countMap);
+    }
 }

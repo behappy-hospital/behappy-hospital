@@ -22,9 +22,6 @@ spring:
           uri: lb://behappy-user
           predicates:
             - Path=/*/user/**
-        - id: behappy-user
-          uri: lb://behappy-user
-          predicates:
             - Path=/*/ucenter/**
         - id: behappy-msm
           uri: lb://behappy-msm

@@ -96,7 +96,7 @@ public class UserInfoService extends ServiceImpl<UserInfoMapper, UserInfo> imple
             name = userInfo.getPhone();
         }
         info.put("name", name);
-        String token = JwtHelper.createToken(userInfo.getId(), userInfo.getName());
+        String token = JwtHelper.createToken(String.valueOf(userInfo.getId()), userInfo.getName());
         info.put("token", token);
         return info;
     }

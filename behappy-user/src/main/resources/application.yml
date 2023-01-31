@@ -27,7 +27,7 @@ spring:
       # 取消Sentinel控制台懒加载
       eager: true
       transport:
-        dashboard: pig-sentinel:5003
+        dashboard: localhost:5003
   redis:
     redisson:
       config: |-
@@ -69,28 +69,25 @@ spring:
         # (默认为jackson方式)如果想要适用jdk的编码方式,可以如下配置,jdk编码方式model必须实现序列化接口
         codec: !<org.redisson.codec.JsonJacksonCodec> {}
         transportMode: NIO
-  mvc:
-    pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: root
-    username: root
-    url: jdbc:mysql://192.168.56.100:3306/yygh_user?allowMultiQueries=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+    password: ${behappy.mysql.password:root}
+    username: ${behappy.mysql.username:root}
+    url: jdbc:mysql://${behappy.mysql.host:192.168.56.100:3306}/${behappy.mysql.db.user:yygh_user}?allowMultiQueries=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
     druid:
       aop-patterns: org.xiaowu.behappy.*  #监控SpringBean
       filters: stat,wall     # 底层开启功能，stat（sql监控），wall（防火墙）
-      stat-view-servlet: # 配置监控页功能
+      stat-view-servlet:   # 配置监控页功能
         enabled: true
-        login-username: admin
-        login-password: admin
+        login-username: ${behappy.druid.login-username:admin}
+        login-password: ${behappy.druid.login-password:admin}
         resetEnable: false
-      web-stat-filter: # 监控web
+      web-stat-filter:  # 监控web
         enabled: true
         urlPattern: /*
         exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
       filter:
-        stat: # 对上面filters里面的stat的详细配置
+        stat:    # 对上面filters里面的stat的详细配置
           slow-sql-millis: 1000
           logSlowSql: true
           enabled: true
@@ -132,9 +129,3 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-# swagger 配置
-swagger:
-  host: http://localhost:8088
-  application:
-    version: @project.version@
-    description: @project.description@

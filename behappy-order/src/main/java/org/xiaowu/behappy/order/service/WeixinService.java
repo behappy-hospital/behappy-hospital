@@ -1,6 +1,6 @@
 package org.xiaowu.behappy.order.service;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import jakarta.servlet.http.HttpServletRequest;

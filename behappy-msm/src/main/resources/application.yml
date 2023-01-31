@@ -43,12 +43,12 @@ spring:
         codec: !<org.redisson.codec.JsonJacksonCodec> {}
         transportMode: NIO
   rabbitmq:
-    host: 192.168.56.100
-    port: 5672
+    host: ${behappy.rabbitmq.host:192.168.56.100}
+    port: ${behappy.rabbitmq.port:5672}
     # 指定虚拟主机
-    virtual-host: /
-    username: root
-    password: root
+    virtual-host: ${behappy.rabbitmq.virtual-host:/}
+    username: ${behappy.rabbitmq.username:root}
+    password: ${behappy.rabbitmq.password:root}
     # 开启发送端确认
     publisher-confirm-type: correlated
     #　开启发送端消息抵达队列确认
@@ -60,18 +60,10 @@ spring:
     listener:
       simple:
         acknowledge-mode: manual
-  mvc:
-    pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
-  compression:
-    request:
-      enabled: true
-    response:
-      enabled: true
 aliyun:
   sms:
-    access-key-id:
-    access-key-secret:
+    access-key-id: ${behappy.aliyun.access-key-id:}
+    access-key-secret: ${behappy.aliyun.access-key-secret:}
     sign-name: ABC商城
     template-code: SMS_206546316
 thread:
@@ -85,9 +77,3 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-# swagger 配置
-swagger:
-  host: http://localhost:8088
-  application:
-    version: @project.version@
-    description: @project.description@
