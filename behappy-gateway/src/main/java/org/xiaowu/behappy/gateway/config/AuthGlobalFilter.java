@@ -48,7 +48,9 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
             return output(serverHttpResponse, ResultCodeEnum.PERMISSION);
         }
         // 放行接口
-        if (antPathMatcher.match("/api/user/login", path)
+        if (antPathMatcher.match("/**/swagger-ui/**", path)
+                || antPathMatcher.match("/swagger-ui.html", path)
+                || antPathMatcher.match("/api/user/login", path)
                 || antPathMatcher.match("/api/msm/send/**", path)
                 || antPathMatcher.match("/admin/**", path)) {
             return chain.filter(exchange);

@@ -14,3 +14,12 @@ spring:
           - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
       username: nacos
       password: nacos
+# 线程池线程名字自定义
+thread:
+  pool:
+    name-prefix: @project.artifactId@
+# swagger 配置
+swagger:
+  application:
+    version: @project.version@
+    description: @project.description@
