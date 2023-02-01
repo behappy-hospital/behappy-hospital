@@ -1,3 +1,5 @@
+server:
+  port: 8203
 spring:
   profiles:
     active: @profiles.active@
@@ -6,11 +8,14 @@ spring:
   cloud:
     nacos:
       server-addr: 192.168.56.100:8848
-      #      config:
-      #        file-extension: yml
-      #        namespace: 96d736a4-1fa4-407a-af7a-f5e9009c5075
-#      discovery:
-#        namespace: d83c21cc-2614-41ea-ad2b-17a4ef3d596f
-#        group: behappy
+      config:
+        file-extension: yml
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
       username: nacos
       password: nacos
+# swagger 配置
+swagger:
+  application:
+    version: @project.version@
+    description: @project.description@

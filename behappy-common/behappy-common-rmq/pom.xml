@@ -11,8 +11,6 @@
 
     <artifactId>behappy-common-rmq</artifactId>
     <packaging>jar</packaging>
-
-    <description>rabbit mq</description>
     <dependencies>
         <!-- 引入RabbitMQ场景启动器 -->
         <dependency>

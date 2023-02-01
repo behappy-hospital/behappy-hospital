@@ -31,7 +31,7 @@ public class MsmApiController {
         // 从redis获取验证码, 如果有, 则ok(说明两分钟内有获取到验证码, 前端定时器)
         // 验证码code
         String code = redisTemplate.opsForValue().get(phone);
-        if (!StrUtil.isEmpty(code)) {
+        if (StrUtil.isNotEmpty(code)) {
             return Result.failed("发生验证码过于频繁");
         }
         // 如果从redis获取不到, 则生成验证码

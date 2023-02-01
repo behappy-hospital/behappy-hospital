@@ -1,8 +1,8 @@
 package org.xiaowu.behappy.user.controller.api;
 
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -129,7 +129,7 @@ public class WeixinApiController {
         } else {
             map.put("openid", "");
         }
-        String token = JwtHelper.createToken(userInfo.getId(), name);
+        String token = JwtHelper.createToken(String.valueOf(userInfo.getId()), name);
         map.put("token", token);
         return "redirect:" + wxConfigProperties.getYyghBaseUrl() + "/weixin/callback?token=" + map.get("token") + "&openid=" + map.get("openid") + "&name=" + URLEncoder.encode((String) map.get("name"), StandardCharsets.UTF_8);
     }
