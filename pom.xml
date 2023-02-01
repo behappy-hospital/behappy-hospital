@@ -334,28 +334,10 @@
     <build>
         <finalName>${project.name}</finalName>
         <resources>
-            <!--开启过滤, 但排除fonts文件,.p12文件-->
+            <!--<exclude>指定的文件不会编译也不会打入war包。<nonFilteredFileExtension>指定的文件不会编译，但会打入war包-->
             <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
+                <directory>src/main/resources</directory>
                 <filtering>true</filtering>
-                <excludes>
-                    <exclude>${project.basedir}/src/main/resources/**.p12</exclude>
-                    <exclude>${project.basedir}/src/main/resources/**.jks</exclude>
-                    <exclude>${project.basedir}/src/main/resources/**.woff</exclude>
-                    <exclude>${project.basedir}/src/main/resources/**.woff2</exclude>
-                    <exclude>${project.basedir}/src/main/resources/**.ttf</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-                <filtering>false</filtering>
-                <includes>
-                    <include>${project.basedir}/src/main/resources/**.p12</include>
-                    <include>${project.basedir}/src/main/resources/**.jks</include>
-                    <include>${project.basedir}/src/main/resources/**.woff</include>
-                    <include>${project.basedir}/src/main/resources/**.woff2</include>
-                    <include>${project.basedir}/src/main/resources/**.ttf</include>
-                </includes>
             </resource>
         </resources>
         <pluginManagement>
@@ -383,11 +365,20 @@
                     <artifactId>maven-resources-plugin</artifactId>
                     <configuration>
                         <encoding>UTF-8</encoding>
-                        <!-- 过滤不需要转码后缀为pkcs12、jks的证书文件 -->
+                        <!-- 过滤不需要转码后缀为pkcs12、fonts等文件 -->
                         <nonFilteredFileExtensions>
                             <nonFilteredFileExtension>p12</nonFilteredFileExtension>
-                            <nonFilteredFileExtension>jks</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>woff</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>eot</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>svg</nonFilteredFileExtension>
                         </nonFilteredFileExtensions>
+                        <delimiters>
+                            <!--YML中使用的分隔符-->
+                            <delimiter>@</delimiter>
+                        </delimiters>
+                        <useDefaultDelimiters>false</useDefaultDelimiters>
                     </configuration>
                 </plugin>
             </plugins>

@@ -39,8 +39,7 @@ public class OpenAPIConfig implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         Set<AbstractSwaggerUiConfigProperties.SwaggerUrl> swaggerUrlSet = new HashSet<>();
-        // 非阻塞式
-        routeLocator.getRoutes().subscribe(route -> {
+        gatewayProperties.getRoutes().forEach(route -> {
             String routeId = route.getId();
             if (StrUtil.isNotEmpty(routeId) && StrUtil.startWith(routeId, "behappy-")) {
                 AbstractSwaggerUiConfigProperties.SwaggerUrl swaggerUrl = assembleResource(routeId, String.format("/%s", routeId + API_URI));
