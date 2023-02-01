@@ -54,7 +54,11 @@ alibaba,cloud,springboot,最佳实践版本:https://github.com/alibaba/spring-cl
 
 > 推荐使用`https://github.com/behappy-hospital/behappy-docker-application`仓库下的组件，版本以及配置是经我测试过的
 > 
-> 使用nacos config作为配置中心和服务发现，修改[bootstrap.yml]中的nacos地址和账户密码即可
+> 使用nacos config作为配置中心和服务发现，先执行nacos初始化sql，导入doc/nacos目录下的zip，然后修改[bootstrap.yml]中的nacos地址和账户密码，以及nacos中的全局配置和redis配置，如下图
+
+![](doc/readme-img/nacos-config.png)
+![](doc/readme-img/nacos-config2.png)
+
 
 ### 启动流程
 
