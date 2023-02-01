@@ -47,19 +47,13 @@ public class OrderController {
     }
 
     @ApiOperation(value = "获取订单")
-    @GetMapping("show/{id}")
+    @GetMapping("/show/{id}")
     public Result<Map<String, Object>> get(
             @ApiParam(name = "orderId", value = "订单id", required = true)
             @PathVariable Long id) {
         return Result.ok(orderInfoService.show(id));
     }
 
-    @ApiOperation(value = "获取订单统计数据")
-    @PostMapping("inner/getCountMap")
-    public Result<Map<String, Object>> getCountMap(@RequestBody OrderCountQueryVo orderCountQueryVo) {
-        Map<String, Object> countMap = orderService.getCountMap(orderCountQueryVo);
-        return Result.ok(countMap);
-    }
 
 }
 

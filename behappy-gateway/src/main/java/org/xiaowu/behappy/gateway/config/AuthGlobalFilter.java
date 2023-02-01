@@ -1,14 +1,17 @@
 package org.xiaowu.behappy.gateway.config;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
@@ -19,11 +22,11 @@ import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
 import org.xiaowu.behappy.common.core.util.JwtHelper;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
 
 /**
  * @author xiaowu
  */
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class AuthGlobalFilter implements GlobalFilter, Ordered {
@@ -35,26 +38,33 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
+        // 请求路径
         String path = request.getURI().getPath();
-        // 内部服务接口,不允许外部访问
         ServerHttpResponse serverHttpResponse = exchange.getResponse();
+        // 内部服务接口,不允许外部访问
         if (antPathMatcher.match("/**/inner/**", path)) {
             return output(serverHttpResponse, ResultCodeEnum.PERMISSION);
         }
-        //Long userId = this.getUserId(request);
-        // api接口, 用户必须登录, 除开登录接口
-        // todo 这里需要对不需要验证的接口做下统计
-        //if (antPathMatcher.match("/api/api/**", path)) {
-        //    // 剔除登录接口和发送短信接口
-        //    if (antPathMatcher.match("**/login/**", path)
-        //            || antPathMatcher.match("**/send/**", path)
-        //            || antPathMatcher.match("/api/api/**", path)) {
-        //        return chain.filter(exchange);
-        //    }
-        //    if (ObjectUtil.isNull(userId)){
-        //        return output(serverHttpResponse,ResultCodeEnum.LOGIN_AUTH);
-        //    }
-        //}
+        // 放行接口
+        if (antPathMatcher.match("/**/swagger-ui/**", path)
+                || antPathMatcher.match("/swagger-ui.html", path)
+                || antPathMatcher.match("/api/user/login", path)
+                || antPathMatcher.match("/api/msm/send/**", path)
+                || antPathMatcher.match("/admin/**", path)) {
+            return chain.filter(exchange);
+        }
+        String token = this.getToken(request);
+        if (ObjectUtil.isNull(token)){
+            return output(serverHttpResponse,ResultCodeEnum.LOGIN_AUTH);
+        }
+        // 如果请求头中有令牌则解析令牌
+        try {
+            JwtHelper.getUserName(token);
+        } catch (Exception e) {
+            // 解析jwt令牌出错, 说明令牌过期或者伪造等不合法情况出现
+            log.error("解析令牌报错: {}",e.getMessage());
+            return output(serverHttpResponse,ResultCodeEnum.PERMISSION);
+        }
         return chain.filter(exchange);
     }
 
@@ -75,21 +85,16 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
     }
 
     /**
-     * 获取当前登录用户id
+     * 获取token
      * @apiNote
      * @author xiaowu
-     * @param request
-     * @return long
+     * @return token
      */
-    private Long getUserId(ServerHttpRequest request) {
-        List<String> tokenList = request.getHeaders().get("token");
-        String token = null;
-        if (CollUtil.isNotEmpty(tokenList)) {
-            token = tokenList.get(0);
-        }
+    private String getToken(ServerHttpRequest request) {
+        String token = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
         if (StrUtil.isEmpty(token)) {
             return null;
         }
-        return JwtHelper.getUserId(token);
+        return token;
     }
 }
