@@ -31,8 +31,7 @@ public class HospMqConfiguration {
      */
     @Bean
     public Queue queue() {
-        Queue queue = new Queue(MqConst.QUEUE_ORDER, true, false, false);
-        return queue;
+        return new Queue(MqConst.QUEUE_ORDER, true, false, false);
     }
 
     /**

@@ -52,7 +52,9 @@ alibaba,cloud,springboot,最佳实践版本:https://github.com/alibaba/spring-cl
 
 ### 配置
 
-> 推荐使用`https://github.com/behappy-hospital/behappy-docker-application`仓库下的组件，版本以及配置是经我测试过的
+> 推荐使用`https://github.com/behappy-hospital/behappy-docker-application`仓库下的组件，版本以及配置是经我测试过的，仅需全局修改`192.168.56.100`为你的ip即可
+> 
+> 执行命令：git clone https://github.com/behappy-hospital/behappy-docker-application && cd behappy-docker-application && docker-compose -f mysql/docker-compose.yml up -d && docker-compose -f redis/docker-compose.yml up -d && docker-compose -f mongo/docker-compose.yml up -d && docker-compose -f rabbitmq/docker-compose.yaml up -d && docker-compose -f nacos/docker-compose.yml up -d && docker-compose -f sentinel/docker-compose.yml up -d && docker-compose -f xxl-job-admin/docker-compose.yml up -d
 > 
 > 使用nacos config作为配置中心和服务发现，先执行nacos初始化sql，导入doc/nacos目录下的zip，然后修改[bootstrap.yml]中的nacos地址和账户密码，以及nacos中的全局配置和redis配置，如下图
 

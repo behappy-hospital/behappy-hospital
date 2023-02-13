@@ -44,7 +44,7 @@ public class HospitalApiController {
 
     @Operation(summary = "获取分页列表")
     @GetMapping("{page}/{limit}")
-    public Result index(
+    public Result<Page<Hospital>> index(
             @PathVariable Integer page,
             @PathVariable Integer limit,
             HospitalQueryVo hospitalQueryVo) {
