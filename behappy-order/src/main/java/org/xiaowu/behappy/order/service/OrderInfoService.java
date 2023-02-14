@@ -71,9 +71,7 @@ public class OrderInfoService extends ServiceImpl<OrderInfoMapper, OrderInfo> im
         //调用mapper的方法
         IPage<OrderInfo> pages = baseMapper.selectPage(pageParam, wrapper);
         //编号变成对应值封装
-        pages.getRecords().stream().forEach(item -> {
-            this.packOrderInfo(item);
-        });
+        pages.getRecords().forEach(this::packOrderInfo);
         return pages;
     }
 

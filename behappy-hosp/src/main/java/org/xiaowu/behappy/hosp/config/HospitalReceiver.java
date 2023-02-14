@@ -30,20 +30,6 @@ public class HospitalReceiver {
 
     private final RabbitTemplate rabbitTemplate;
 
-    //@RabbitHandler
-    //public void receive(OrderMqVo orderMqVo){
-    //    //下单成功更新预约数
-    //    Schedule schedule = scheduleService.getById(orderMqVo.getScheduleId());
-    //    schedule.setReservedNumber(orderMqVo.getReservedNumber());
-    //    schedule.setAvailableNumber(orderMqVo.getAvailableNumber());
-    //    scheduleService.update(schedule);
-    //    //发送短信
-    //    MsmVo msmVo = orderMqVo.getMsmVo();
-    //    if(null != msmVo) {
-    //        rabbitTemplate.convertAndSend(MqConst.EXCHANGE_DIRECT_MSM, MqConst.ROUTING_MSM_ITEM, msmVo);
-    //    }
-    //}
-
     @RabbitHandler
     public void receiver(OrderMqVo orderMqVo, Message message, Channel channel) throws IOException {
         try {

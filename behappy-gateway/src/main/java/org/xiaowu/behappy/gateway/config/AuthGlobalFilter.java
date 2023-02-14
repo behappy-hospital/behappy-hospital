@@ -51,6 +51,9 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         if (antPathMatcher.match("/**/swagger-ui/**", path)
                 || antPathMatcher.match("/swagger-ui.html", path)
                 || antPathMatcher.match("/api/user/login", path)
+                || antPathMatcher.match("/api/hosp/hospital/**", path)
+                || antPathMatcher.match("/admin/cmn/dict/**", path)
+                || antPathMatcher.match("/api/ucenter/**", path)
                 || antPathMatcher.match("/api/msm/send/**", path)
                 || antPathMatcher.match("/admin/**", path)) {
             return chain.filter(exchange);

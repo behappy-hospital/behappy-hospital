@@ -78,7 +78,9 @@ public class MqConfiguration {
         rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
             @Override
             public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-                log.info("Mq Send Confirm CallBack, 回调id: {}", correlationData.getId());
+                if (Objects.nonNull(correlationData.getId())){
+                    log.info("Mq Send Confirm CallBack, 回调id: {}", correlationData.getId());
+                }
                 if(ack) {
                     log.info("消息发送成功");
                 }else {
