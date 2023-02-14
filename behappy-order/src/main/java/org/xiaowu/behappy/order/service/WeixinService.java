@@ -127,7 +127,7 @@ public class WeixinService {
             PaymentInfo paymentInfoQuery = paymentService.getPaymentInfo(orderId, PaymentTypeEnum.WEIXIN.getStatus());
 
             RefundInfo refundInfo = refundInfoService.saveRefundInfo(paymentInfoQuery);
-            if (refundInfo.getRefundStatus() == RefundStatusEnum.REFUND.getStatus()) {
+            if (refundInfo.getRefundStatus().equals(RefundStatusEnum.REFUND.getStatus())) {
                 return true;
             }
             Map<String, String> paramMap = new HashMap<>(8);

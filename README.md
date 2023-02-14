@@ -110,7 +110,7 @@ BehappyUserApplication
 3. 找到behappy-manager/resources下的schedule.json, 复制粘贴-排班列表
 4. 登陆behappy-hospital-user, 完成注册登陆
 
-> **使用localhost访问,不要用ipv4**
+> **使用localhost访问,不要用ipv4,保证与微信回调地址一致**
 
 - 使用手机号或者微信登陆(目前是模拟发送短信, 在MsmService中可自行打开注释. 微信登陆使用谷粒学院的key和secret)
 

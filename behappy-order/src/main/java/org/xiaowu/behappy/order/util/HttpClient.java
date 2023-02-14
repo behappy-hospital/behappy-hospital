@@ -144,7 +144,8 @@ public class HttpClient {
                SSLContext sslContext = SSLContexts.custom().loadKeyMaterial(keystore, partnerId2charArray).build();
                SSLConnectionSocketFactory sslsf =
                      new SSLConnectionSocketFactory(sslContext,
-                           new String[] { "TLSv1" },
+                           // https://blog.csdn.net/u013025160/article/details/119416957
+                           new String[] { "TLSv1.2" },
                            null,
                            SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
                httpClient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
