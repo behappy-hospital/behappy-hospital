@@ -108,6 +108,7 @@ public class HttpClient {
                url.append("&");
             }
             url.append(key).append("=").append(param.get(key));
+            isFirst = false;
          }
          this.url = url.toString();
       }
@@ -168,8 +169,7 @@ public class HttpClient {
          } else {
             httpClient = HttpClients.createDefault();
          }
-         CloseableHttpResponse response = httpClient.execute(http);
-         try {
+         try (CloseableHttpResponse response = httpClient.execute(http)) {
             if (response != null) {
                if (response.getStatusLine() != null) {
                   statusCode = response.getStatusLine().getStatusCode();
@@ -178,8 +178,6 @@ public class HttpClient {
                // 响应内容
                content = EntityUtils.toString(entity, Consts.UTF_8);
             }
-         } finally {
-            response.close();
          }
       } catch (Exception e) {
          e.printStackTrace();

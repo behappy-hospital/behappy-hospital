@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.dialects.MySqlDialect;
 import lombok.RequiredArgsConstructor;
@@ -61,8 +62,8 @@ public class MybatisAutoConfiguration implements WebMvcConfigurer {
     @Bean
     @ConditionalOnMissingBean
     public IdentifierGenerator identifierGenerator() {
-        Long dataCenterId = Long.valueOf(environment.getProperty("snowflake.data-center-id", "0"));
-        Long workerId = Long.valueOf(environment.getProperty("snowflake.machine-id", "0"));
+        long dataCenterId = Long.parseLong(environment.getProperty("snowflake.data-center-id", "0"));
+        long workerId = Long.parseLong(environment.getProperty("snowflake.machine-id", "0"));
         return new DefaultIdentifierGenerator(workerId, dataCenterId);
     }
 
@@ -76,19 +77,23 @@ public class MybatisAutoConfiguration implements WebMvcConfigurer {
     }
 
     /**
-     * 分页插件, 对于单一数据库类型来说,都建议配置该值,避免每次分页都去抓取数据库类型
+     * 插件配置,
      */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         // 向Mybatis过滤器链中添加分页拦截器
         PaginationInnerInterceptor innerInterceptor = new PaginationInnerInterceptor();
+        // 对于单一数据库类型来说,都建议配置该值,避免每次分页都去抓取数据库类型
         innerInterceptor.setDbType(DbType.MYSQL);
         innerInterceptor.setDialect(new MySqlDialect());
         // 如果查询当前页大于总页数，则置为第一页
         innerInterceptor.setOverflow(true);
         interceptor.addInnerInterceptor(innerInterceptor);
+        // 乐观锁插件
+        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
         return interceptor;
     }
+
 
 }
