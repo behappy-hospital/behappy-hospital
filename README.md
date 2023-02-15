@@ -148,7 +148,7 @@ BehappyUserApplication
 
 ![img.png](doc/readme-img/img_9.png)
 
-9. xxl job: http://192.168.56.103:8080/
+9. xxl job: http://192.168.56.100:8080/
 
 - 添加task
 
