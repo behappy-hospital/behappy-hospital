@@ -181,7 +181,7 @@ BehappyUserApplication
 ├─behappy-common --公共模块
 │  ├─behappy-common-core --核心模块
 │  ├─behappy-common-mongo --mongo模块
-│  ├─behappy-common-mybatis --mybatis模块
+│  ├─behappy-common-mybatis --mybatis模块  --druid控制台[http://localhost:xxxx/druid/login.html]
 │  ├─behappy-common-rmq --rabbit mq模块
 │  └─behappy-common-sentinel --sentinel/feign配置模块
 ├─behappy-executor-task --放定时任务, 整合xxl-job使用
