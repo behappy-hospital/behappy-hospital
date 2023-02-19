@@ -70,7 +70,7 @@ public class MqConfiguration {
         rabbitTemplate.setMessageConverter(messageConverter());
         rabbitTemplate.setEncoding(UTF_8);
         /**
-         * 	设置确认回调
+         * 	生产者发送消息时可能因为网络问题导致消息没有到达交换机,设置确认回调
          *  correlationData: 消息的唯一id
          *  ack： 消息是否成功收到
          * 	cause：失败的原因
@@ -89,7 +89,7 @@ public class MqConfiguration {
             }
         });
         /**
-         * 设置消息抵达队列回调：可以很明确的知道那些消息失败了
+         * 消息到达交换机后，如果未能到达队列，也会导致消息丢失,设置消息抵达队列回调：可以很明确的知道那些消息失败了
          * message: 投递失败的消息详细信息
          * replyCode: 回复的状态码
          * replyText: 回复的文本内容
