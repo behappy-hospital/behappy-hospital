@@ -43,8 +43,8 @@ public class WeixinController {
         }
         if ("SUCCESS".equals(resultMap.get("trade_state"))) {//如果成功
             //更改订单状态，处理支付结果
-            String out_trade_no = resultMap.get("out_trade_no");
-            paymentService.paySuccess(out_trade_no, PaymentTypeEnum.WEIXIN.getStatus(), resultMap);
+            String outTradeNo = resultMap.get("out_trade_no");
+            paymentService.paySuccess(outTradeNo, PaymentTypeEnum.WEIXIN.getStatus(), resultMap);
             return Result.ok();
         }
         return Result.ok().setMessage("支付中");

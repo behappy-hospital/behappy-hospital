@@ -2,7 +2,6 @@ package org.xiaowu.behappy.manager.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

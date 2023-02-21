@@ -1,8 +1,6 @@
 package org.xiaowu.behappy.hosp.entity;
 
 import cn.hutool.core.util.StrUtil;
-
-
 import com.alibaba.fastjson2.JSONArray;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

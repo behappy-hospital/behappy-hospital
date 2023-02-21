@@ -1,7 +1,7 @@
 package org.xiaowu.behappy.common.mybatis.config;
 
+import com.alibaba.druid.pool.DruidDataSourceStatLogger;
 import com.alibaba.druid.pool.DruidDataSourceStatLoggerAdapter;
-  import com.alibaba.druid.pool.DruidDataSourceStatLogger ;
 import com.alibaba.druid.pool.DruidDataSourceStatValue;
 import com.alibaba.druid.support.logging.Log;
 

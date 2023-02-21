@@ -333,6 +333,10 @@
 
     <build>
         <finalName>${project.name}</finalName>
+        <!--https://juejin.cn/post/6844904185557680142, 配置filters会去寻找`src/main/resources/behappy.properties`中的对应的属性值给resources中的资源文件进行使用-->
+        <!--<filters>
+            <filter>src/main/resources/behappy.properties</filter>
+        </filters>-->
         <resources>
             <!--<exclude>指定的文件不会编译也不会打入war包。<nonFilteredFileExtension>指定的文件不会编译，但会打入war包-->
             <resource>
@@ -361,11 +365,11 @@
                     </executions>
                 </plugin>
                 <plugin>
+                    <!-- 该插件将阻止二进制文件过滤，默认无需为以下文件扩展名添加一些排除配置:jpg, jpeg, gif, bmp 以及 png -->
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <configuration>
                         <encoding>UTF-8</encoding>
-                        <!-- 过滤不需要转码后缀为pkcs12、fonts等文件 -->
                         <nonFilteredFileExtensions>
                             <nonFilteredFileExtension>p12</nonFilteredFileExtension>
                             <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
@@ -374,11 +378,6 @@
                             <nonFilteredFileExtension>eot</nonFilteredFileExtension>
                             <nonFilteredFileExtension>svg</nonFilteredFileExtension>
                         </nonFilteredFileExtensions>
-                        <delimiters>
-                            <!--YML中使用的分隔符-->
-                            <delimiter>@</delimiter>
-                        </delimiters>
-                        <useDefaultDelimiters>false</useDefaultDelimiters>
                     </configuration>
                 </plugin>
             </plugins>

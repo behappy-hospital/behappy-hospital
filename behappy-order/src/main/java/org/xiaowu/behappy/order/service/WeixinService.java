@@ -98,11 +98,11 @@ public class WeixinService {
         }
     }
 
-    public Map queryPayStatus(Long orderId, String paymentType) {
+    public Map<String, String> queryPayStatus(Long orderId, String paymentType) {
         try {
             OrderInfo orderInfo = orderInfoService.getById(orderId);
             //1、封装参数
-            Map paramMap = new HashMap<>();
+            Map<String, String> paramMap = new HashMap<>();
             paramMap.put("appid", wxConfigProperties.getAppId());
             paramMap.put("mch_id", wxConfigProperties.getPartner());
             paramMap.put("out_trade_no", orderInfo.getOutTradeNo());
@@ -114,9 +114,8 @@ public class WeixinService {
             client.post();
             //3、返回第三方的数据，转成Map
             String xml = client.getContent();
-            Map<String, String> resultMap = WXPayUtil.xmlToMap(xml);
             //4、返回
-            return resultMap;
+            return WXPayUtil.xmlToMap(xml);
         } catch (Exception e) {
             return null;
         }

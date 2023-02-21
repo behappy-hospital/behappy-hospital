@@ -22,7 +22,6 @@ import org.apache.http.impl.client.StandardHttpRequestRetryHandler;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.xiaowu.behappy.common.core.constants.CommonConstants;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

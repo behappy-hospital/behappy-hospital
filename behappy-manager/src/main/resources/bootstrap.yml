@@ -12,6 +12,7 @@ spring:
         file-extension: yml
         shared-configs:
           - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          - datasource-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
       username: nacos
       password: nacos
 # 线程池线程名字自定义
