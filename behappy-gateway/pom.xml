@@ -43,6 +43,10 @@
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
+        </dependency>
         <!-- LB 扩展
          必须包含此依赖, 否则报错
          No Feign Client for loadBalancing defined. Did you forget to include spring-cloud-starter-loadbalancer?
