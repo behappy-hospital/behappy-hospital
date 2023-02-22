@@ -14,8 +14,4 @@ spring:
           - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
       username: nacos
       password: nacos
-# swagger 配置
-swagger:
-  application:
-    version: @project.version@
-    description: @project.description@
+

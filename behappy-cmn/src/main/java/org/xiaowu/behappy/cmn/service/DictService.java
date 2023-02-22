@@ -41,11 +41,7 @@ public class DictService extends ServiceImpl<DictMapper, Dict> implements IServi
         List<Dict> dictList = list(dictLambdaQueryWrapper);
         for (Dict dict : dictList) {
             long count = count(new LambdaQueryWrapper<Dict>().eq(Dict::getParentId, dict.getId()));
-            if (count > 0){
-                dict.setHasChildren(true);
-            }else {
-                dict.setHasChildren(false);
-            }
+            dict.setHasChildren(count > 0);
         }
         return dictList;
     }

@@ -6,6 +6,9 @@ spring:
     active: @profiles.active@
   application:
     name: @project.artifactId@
+    version: @project.version@
+    description: @project.description@
+    gateway-host: http://localhost:8088
   cloud:
     nacos:
       server-addr: 192.168.56.100:8848
@@ -22,8 +25,4 @@ spring:
 thread:
   pool:
     name-prefix: @project.artifactId@
-# swagger 配置
-swagger:
-  application:
-    version: @project.version@
-    description: @project.description@
+
