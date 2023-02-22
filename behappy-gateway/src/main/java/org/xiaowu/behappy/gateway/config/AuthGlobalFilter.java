@@ -46,6 +46,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         // 放行接口
         if (antPathMatcher.match("/**/swagger-ui/**", path)
                 || antPathMatcher.match("/swagger-ui.html", path)
+                || antPathMatcher.match("/**/v3/api-docs", path)
                 || antPathMatcher.match("/api/user/login", path)
                 || antPathMatcher.match("/api/hosp/hospital/**", path)
                 || antPathMatcher.match("/admin/cmn/dict/**", path)

@@ -6,11 +6,13 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -19,10 +21,12 @@ import org.springframework.http.HttpHeaders;
  * http://localhost:8088/swagger-ui.html
  * @author 94391
  */
+@Data
 @ConditionalOnExpression("#{'dev'.equals('${spring.profiles.active:}')}")
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @Configuration
 @RequiredArgsConstructor
+@ConfigurationProperties(prefix = "spring.application")
 public class OpenAPIConfig {
 
     public static final String API_URI = "/v3/api-docs";
@@ -30,33 +34,29 @@ public class OpenAPIConfig {
     /**
      * 项目应用名
      */
-    @Value("${spring.application.name}")
-    private String applicationName;
+    private String name;
 
     /**
      * host需要配置成网关的地址
      */
-    @Value("${swagger.host:http://localhost:8088}")
-    private String host;
+    private String gatewayHost;
 
     /**
      * 项目版本信息
      */
-    @Value("${swagger.application.version:1.0.0}")
-    private String applicationVersion;
+    private String version;
 
     /**
      * 项目描述信息
      */
-    @Value("${swagger.application.description:尚医通(改)}")
-    private String applicationDescription;
+    private String description;
 
     @Bean
     public OpenAPI springOpenAPI() {
         OpenAPI openAPI = new OpenAPI().info(new Info()
-                .title(applicationName)
-                .version(applicationVersion)
-                .description(applicationDescription)
+                .title(name)
+                .version(version)
+                .description(description)
                 .contact(new Contact()
                         .name("小五")
                         .url("https://wang-xiaowu.github.io/")
@@ -67,8 +67,8 @@ public class OpenAPIConfig {
                 .addList(HttpHeaders.AUTHORIZATION));
         // 添加对应server
         openAPI.addServersItem(new Server()
-                .url(host + String.format("/%s", applicationName))
-                .description(applicationDescription));
+                .url(gatewayHost + String.format("/%s", name))
+                .description(description));
         return openAPI;
     }
 
@@ -83,7 +83,7 @@ public class OpenAPIConfig {
     @Bean
     public GroupedOpenApi groupedOpenApi() {
         return GroupedOpenApi.builder()
-                .group(applicationName)
+                .group(name)
                 .packagesToScan("org.xiaowu.behappy")
                 .build();
     }
