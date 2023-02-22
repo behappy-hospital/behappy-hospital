@@ -17,9 +17,11 @@ import org.xiaowu.behappy.api.user.vo.UserAuthVo;
 import org.xiaowu.behappy.api.user.vo.UserInfoQueryVo;
 import org.xiaowu.behappy.common.core.exception.HospitalException;
 import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
+import org.xiaowu.behappy.common.core.util.IpUtil;
 import org.xiaowu.behappy.common.core.util.JwtHelper;
 import org.xiaowu.behappy.user.entity.Patient;
 import org.xiaowu.behappy.user.entity.UserInfo;
+import org.xiaowu.behappy.user.entity.UserLoginRecord;
 import org.xiaowu.behappy.user.mapper.UserInfoMapper;
 
 import java.util.HashMap;
@@ -36,6 +38,8 @@ public class UserInfoService extends ServiceImpl<UserInfoMapper, UserInfo> imple
     private final RedisTemplate<String, String> redisTemplate;
 
     private final PatientService patientService;
+
+    private final UserLoginRecordService userLoginRecordService;
 
     public UserInfo getByOpenid(String openid) {
         return baseMapper.selectOne(new QueryWrapper<UserInfo>().eq("openid", openid));
@@ -81,11 +85,17 @@ public class UserInfoService extends ServiceImpl<UserInfoMapper, UserInfo> imple
                 this.save(userInfo);
             }
         }
+        // 登录记录
+        UserLoginRecord userLoginRecord = new UserLoginRecord();
+        userLoginRecord.setUserId(userInfo.getId());
+        userLoginRecord.setIp(loginVo.getIp());
+        userLoginRecord.setIsDeleted(userInfo.getIsDeleted());
+        userLoginRecordService.save(userLoginRecord);
+
         // 校验是否被禁用
         if (userInfo.getStatus() == 0) {
             throw new HospitalException(ResultCodeEnum.LOGIN_DISABLED_ERROR);
         }
-        // todo 记录登录
         // 返回页面显示名称
         Map<String, Object> info = new HashMap<>();
         String name = userInfo.getName();

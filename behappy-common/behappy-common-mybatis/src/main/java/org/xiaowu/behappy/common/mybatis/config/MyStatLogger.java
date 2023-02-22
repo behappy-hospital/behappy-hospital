@@ -8,7 +8,7 @@ import com.alibaba.druid.support.logging.Log;
 import java.util.Properties;
 
 /**
- * todo
+ * todo druid 日志记录
  * @author 94391
  */
 public class MyStatLogger extends DruidDataSourceStatLoggerAdapter implements DruidDataSourceStatLogger {

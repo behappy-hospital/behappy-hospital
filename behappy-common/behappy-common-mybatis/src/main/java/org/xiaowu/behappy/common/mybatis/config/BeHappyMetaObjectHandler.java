@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author 小五
@@ -13,19 +14,26 @@ public class BeHappyMetaObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         boolean needConvertCreateTime = needConvertCreateTime(metaObject);
         if (needConvertCreateTime) {
-            strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
+            Class<?> createTimeType = getCreateTimeType(metaObject);
+            if (createTimeType.equals(LocalDateTime.class)){
+                strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
+            }else {
+                strictInsertFill(metaObject, "createTime", Date.class, new Date());
+            }
         }
-        boolean needConvertUpdateTime = needConvertUpdateTime(metaObject);
-        if (needConvertUpdateTime) {
-            strictInsertFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
-        }
+        this.updateFill(metaObject);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
         boolean needConvertUpdateTime = needConvertUpdateTime(metaObject);
         if (needConvertUpdateTime) {
-            strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
+            Class<?> updateTimeType = getUpdateTimeType(metaObject);
+            if (updateTimeType.equals(LocalDateTime.class)){
+                strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
+            }else {
+                strictUpdateFill(metaObject, "updateTime", Date.class, new Date());
+            }
         }
     }
 
@@ -43,5 +51,13 @@ public class BeHappyMetaObjectHandler implements MetaObjectHandler {
         Object createTimeHasVal = getFieldValByName("createTime", metaObject);
         boolean flag = createTimeHasSetter && createTimeHasVal == null;
         return flag;
+    }
+
+    private Class<?> getCreateTimeType(MetaObject metaObject) {
+        return metaObject.getSetterType("createTime");
+    }
+
+    private Class<?> getUpdateTimeType(MetaObject metaObject) {
+        return metaObject.getSetterType("updateTime");
     }
 }
