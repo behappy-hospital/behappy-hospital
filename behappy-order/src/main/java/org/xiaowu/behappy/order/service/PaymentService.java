@@ -55,7 +55,6 @@ public class PaymentService extends ServiceImpl<PaymentInfoMapper, PaymentInfo> 
         }
         // 保存交易记录
         PaymentInfo paymentInfo = new PaymentInfo();
-        paymentInfo.setCreateTime(new Date());
         paymentInfo.setOrderId(orderInfo.getId());
         paymentInfo.setPaymentType(paymentType);
         paymentInfo.setOutTradeNo(orderInfo.getOutTradeNo());

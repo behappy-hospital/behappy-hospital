@@ -62,7 +62,9 @@ public class HospitalApiController {
 
     @Operation(summary = "医院预约挂号详情")
     @GetMapping("/{hoscode}")
-    public Result<Map<String, Object>> item(@PathVariable String hoscode) {
+    public Result<Map<String, Object>> item(
+            @Parameter(name = "hoscode", required = true)
+            @PathVariable("hoscode") String hoscode) {
         Map<String, Object> map = hospitalService.item(hoscode);
         return Result.ok(map);
     }

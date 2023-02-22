@@ -1,5 +1,6 @@
 package org.xiaowu.behappy.manager.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -17,11 +18,11 @@ public class BaseNoAutoEntity implements Serializable {
     private Long id;
 
     @Schema(description = "创建时间")
-    @TableField("create_time")
+    @TableField(value = "create_time",fill = FieldFill.INSERT)
     private Date createTime;
 
     @Schema(description = "更新时间")
-    @TableField("update_time")
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
     @Schema(description = "逻辑删除(1:已删除，0:未删除)")

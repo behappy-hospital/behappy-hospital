@@ -28,7 +28,6 @@ public class RefundInfoService extends ServiceImpl<RefundInfoMapper, RefundInfo>
         }
         // 保存交易记录
         refundInfo = new RefundInfo();
-        refundInfo.setCreateTime(new Date());
         refundInfo.setOrderId(paymentInfo.getOrderId());
         refundInfo.setPaymentType(paymentInfo.getPaymentType());
         refundInfo.setOutTradeNo(paymentInfo.getOutTradeNo());

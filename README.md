@@ -20,8 +20,9 @@
 
 ### TODO
 - [x] swagger3 -> springDoc open api
+- [x] sentinel业务整合
 - [ ] seata业务整合 - 0%
-- [ ] sentinel业务整合 - 70%
+- [ ] druid-springboot3 - 0%
 
 ### 技术栈
 
@@ -61,6 +62,20 @@ alibaba,cloud,springboot,最佳实践版本:https://github.com/alibaba/spring-cl
 ![](doc/readme-img/nacos-config.png)
 ![](doc/readme-img/nacos-config2.png)
 
+
+### sentinel 配置
+
+当前配置了如下规则，可自行配置添加
+1. 下订单和支付两个操作，一旦支付接口达到了阈值，那么需要优先保障支付操作， 那么订单接口就被限流，从而保护支付的目的
+
+2. hospital服务设置统一限流
+
+对于限流和降级，可以在gateway中配置，也可以在单一application中配置，异常统一配置在`org.xiaowu.behappy.common.sentinel.exception.SentinelExceptionHandler`
+![img.png](doc/readme-img/sentinel1.png) 或
+![img.png](doc/readme-img/sentinel2.png)
+注：gateway中，每一个RouteDefinition都有id唯一标识，格式为ReactiveCompositeDiscoveryClient_{微服务名}，所以routeId配置成{微服务名}是不生效的
+
+关于sentinel的详细教程可以参考：https://wang-xiaowu.github.io/posts/c7b26cd1/
 
 ### 启动流程
 
