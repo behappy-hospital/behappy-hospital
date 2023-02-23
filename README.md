@@ -81,11 +81,11 @@ alibaba,cloud,springboot,最佳实践版本:https://github.com/alibaba/spring-cl
 
 0. clone[组件应用库](https://github.com/behappy-hospital/behappy-docker-application.git), 切到各自目录下执行`docker-compose up -d`
 
-> 需要nacos,behappy-sentinel-dashboard,redis,rabbitmq,mongo,mysql
+> 需要nacos,behappy-sentinel-dashboard,redis,rabbitmq,mongo,mysql,xxl-job-admin
 
 1. 执行`doc/sql`下的sql文件
 
-2. 启动项目, 各模块作用已标明在文档中
+2. 启动项目, 各模块作用已标明在文档中, 记得修改bootstrap.yml中nacos的配置
 
 **后端必须启动的模块**
 
@@ -164,6 +164,7 @@ BehappyUserApplication
 ![img.png](doc/readme-img/img_9.png)
 
 9. xxl job: http://192.168.56.100:8080/
+   账户密码：admin@123456
 
 - 添加task
 
