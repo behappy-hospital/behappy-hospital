@@ -10,16 +10,6 @@
 	<artifactId>behappy-common-sentinel</artifactId>
 
 	<dependencies>
-		<!--feign 依赖-->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
-		</dependency>
-		<!--httpClient的依赖 -->
-		<dependency>
-			<groupId>io.github.openfeign</groupId>
-			<artifactId>feign-httpclient</artifactId>
-		</dependency>
 		<!--alibaba-sentinel-->
 		<dependency>
 			<groupId>com.alibaba.cloud</groupId>
@@ -34,14 +24,6 @@
 		<dependency>
 			<groupId>com.alibaba.csp</groupId>
 			<artifactId>sentinel-datasource-nacos</artifactId>
-		</dependency>
-		<!-- LB 扩展
-         必须包含此依赖, 否则报错
-         No Feign Client for loadBalancing defined. Did you forget to include spring-cloud-starter-loadbalancer?
-         -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.xiaowu</groupId>

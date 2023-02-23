@@ -17,5 +17,7 @@
         <module>behappy-api-order</module>
         <module>behappy-api-user</module>
         <module>behappy-api-manager</module>
+        <module>behappy-api-oss</module>
+        <module>behappy-api-statistics</module>
     </modules>
 </project>
