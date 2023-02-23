@@ -2,6 +2,8 @@
 
 > 所有文档/sql在doc目录下
 
+请在[此issue](https://github.com/behappy-hospital/behappy-hospital/issues/7)中留下你的邮箱和所在城市，我会在项目有变动的时候推送消息给您
+
 ### 介绍
 
 - 背景
