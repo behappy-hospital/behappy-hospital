@@ -2,9 +2,9 @@ name: 'GitHub Actions pushEmail Bot'
 
 on:
   push:
-    branches: [ "master","springboot2","springboot3" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "master","springboot2","springboot3" ]
+    branches: [ "master" ]
 
 jobs:
   bot:
