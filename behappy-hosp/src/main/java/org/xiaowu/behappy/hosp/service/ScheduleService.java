@@ -67,8 +67,7 @@ public class ScheduleService {
                 .withIgnoreCase();
         Schedule schedule = BeanUtil.copyProperties(scheduleQueryVo, Schedule.class);
         Example<Schedule> scheduleExample = Example.of(schedule, exampleMatcher);
-        Page<Schedule> all = scheduleRepository.findAll(scheduleExample, pageRequest);
-        return all;
+        return scheduleRepository.findAll(scheduleExample, pageRequest);
     }
 
     public int removeSchedule(Map<String, Object> paramMap) {

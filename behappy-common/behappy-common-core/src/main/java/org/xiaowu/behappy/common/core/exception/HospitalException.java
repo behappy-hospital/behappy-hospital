@@ -3,12 +3,14 @@ package org.xiaowu.behappy.common.core.exception;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
 
 /**
  * 自定义全局异常类
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "自定义全局异常类")
 public class HospitalException extends RuntimeException {
 

@@ -2,6 +2,7 @@ package org.xiaowu.behappy.common.core.swagger;
 
 import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.cloud.gateway.config.GatewayProperties;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -18,6 +19,7 @@ import java.util.List;
 /**
  * @author 94391
  */
+@ConditionalOnExpression("#{'dev'.equals('${spring.profiles.active:}')}")
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 @Component
 @Primary
@@ -83,4 +85,4 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
     }
 
 }
- 
+

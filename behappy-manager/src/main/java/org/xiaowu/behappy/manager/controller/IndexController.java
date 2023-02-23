@@ -22,7 +22,7 @@ public class IndexController {
 	private final static String PAGE_MAIN  = "frame/main";
 	private final static String PAGE_LOGIN  = "frame/login";
 	private final static String PAGE_AUTH = "frame/auth";
-	
+
 	/**
 	 * 框架首页
 	 * @return

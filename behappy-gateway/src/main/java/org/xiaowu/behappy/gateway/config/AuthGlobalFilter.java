@@ -1,6 +1,5 @@
 package org.xiaowu.behappy.gateway.config;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +20,6 @@ import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
 import org.xiaowu.behappy.common.core.util.JwtHelper;
 import reactor.core.publisher.Mono;
-
 
 /**
  * @author xiaowu
@@ -48,7 +46,11 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         // 放行接口
         if (antPathMatcher.match("/**/swagger-ui/**", path)
                 || antPathMatcher.match("/swagger-ui.html", path)
+                || antPathMatcher.match("/**/v3/api-docs", path)
                 || antPathMatcher.match("/api/user/login", path)
+                || antPathMatcher.match("/api/hosp/hospital/**", path)
+                || antPathMatcher.match("/admin/cmn/dict/**", path)
+                || antPathMatcher.match("/api/ucenter/**", path)
                 || antPathMatcher.match("/api/msm/send/**", path)
                 || antPathMatcher.match("/admin/**", path)) {
             return chain.filter(exchange);

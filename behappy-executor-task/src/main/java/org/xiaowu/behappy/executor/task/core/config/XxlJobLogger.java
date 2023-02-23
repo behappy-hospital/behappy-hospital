@@ -1,7 +1,6 @@
 package org.xiaowu.behappy.executor.task.core.config;
 
 import com.xxl.job.core.context.XxlJobContext;
-import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.log.XxlJobFileAppender;
 import com.xxl.job.core.util.DateUtil;
 import lombok.experimental.UtilityClass;

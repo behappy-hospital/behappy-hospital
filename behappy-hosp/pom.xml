@@ -8,6 +8,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>behappy-hosp</artifactId>
+    <description>医院配置模块</description>
     <dependencies>
         <dependency>
             <groupId>org.xiaowu</groupId>
@@ -47,6 +48,11 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!--配置中心客户端-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
     </dependencies>

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.xiaowu.behappy.common.mybatis.base.BaseEntity;
 
 /**
@@ -13,6 +14,7 @@ import org.xiaowu.behappy.common.mybatis.base.BaseEntity;
  * </p>
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @ApiModel(description = "UserInfo")
 @TableName("user_info")
 public class UserInfo extends BaseEntity {

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.xiaowu.behappy.common.core.constants.CommonConstants;
 import org.xiaowu.behappy.common.core.exception.HospitalException;
 import org.xiaowu.behappy.common.core.result.Result;
 import org.xiaowu.behappy.common.core.result.ResultCodeEnum;
@@ -49,7 +50,7 @@ public class WeixinApiController {
     public Result<Map<String, Object>> getQrConnect() {
         Map<String, Object> map = new HashMap<>();
         map.put("appid", wxConfigProperties.getAppId());
-        map.put("redirectUri", URLEncoder.encode(wxConfigProperties.getRedirectUrl(), "UTF-8"));
+        map.put("redirectUri", URLEncoder.encode(wxConfigProperties.getRedirectUrl(), CommonConstants.UTF8));
         map.put("scope", "snsapi_login");
         map.put("state", System.currentTimeMillis());
         return Result.ok(map);

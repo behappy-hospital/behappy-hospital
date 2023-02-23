@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.xiaowu.behappy.common.mongo.base.BaseMongoEntity;
@@ -17,10 +18,11 @@ import java.util.Date;
  * </p>
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @ApiModel(description = "Schedule")
 @Document("Schedule")
 public class Schedule extends BaseMongoEntity {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "医院编号")

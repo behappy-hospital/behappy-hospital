@@ -11,6 +11,8 @@ import org.xiaowu.behappy.api.order.feign.OrderFeign;
 import org.xiaowu.behappy.api.order.vo.OrderCountQueryVo;
 import org.xiaowu.behappy.common.core.result.Result;
 
+import java.util.Map;
+
 @Api(tags = "统计管理接口")
 @RestController
 @RequestMapping("/admin/statistics")
@@ -21,7 +23,7 @@ public class StatisticsController {
 
     @ApiOperation(value = "获取订单统计数据")
     @GetMapping("getCountMap")
-    public Result getCountMap(@ApiParam(name = "orderCountQueryVo", value = "查询对象", required = false) OrderCountQueryVo orderCountQueryVo) {
+    public Result<Map<String, Object>> getCountMap(@ApiParam(name = "orderCountQueryVo", value = "查询对象", required = false) OrderCountQueryVo orderCountQueryVo) {
         return orderFeign.getCountMap(orderCountQueryVo);
     }
 }

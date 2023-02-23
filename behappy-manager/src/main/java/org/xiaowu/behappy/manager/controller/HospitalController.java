@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  *
  */
-@Api(tags = "医院管理接口")
+@Api(tags = "订单管理接口")
 @RestController
 public class HospitalController {
 

@@ -46,12 +46,12 @@ public class MqConfiguration {
 
     /**
      * 1.设置确认回调： ConfirmCallback
-     * 先在配置文件中开启 publisher-confirms: true
+     * 先在配置文件中开启 publisher-confirm-type: correlated
      *
      *  2.消息抵达队列的确认回调
      * 　	开启发送端消息抵达队列确认
      *     publisher-returns: true
-     *     	只要抵达队列，以异步优先回调我们这个 returnconfirm
+     *     	只要抵达队列，以异步优先回调我们这个 return confirm
      *     template:
      *       mandatory: true
      *	3.消费端确认(保证每一个消息被正确消费才可以broker删除消息)
@@ -59,7 +59,8 @@ public class MqConfiguration {
      *
      *		如何签收:
      *			签收: channel.basicAck(deliveryTag, false);
-     *			拒签: channel.basicNack(deliveryTag, false,true);
+     *			拒签且拒绝再次接收: channel.basicReject(deliveryTag, false);
+     *			拒签且消息即将再次返回队列处理: channel.basicNack(deliveryTag, false,true);
      *	配置文件中一定要加上这个配置
      *		listener:
      *       simple:
@@ -69,7 +70,7 @@ public class MqConfiguration {
         rabbitTemplate.setMessageConverter(messageConverter());
         rabbitTemplate.setEncoding(UTF_8);
         /**
-         * 	设置确认回调
+         * 	生产者发送消息时可能因为网络问题导致消息没有到达交换机,设置确认回调
          *  correlationData: 消息的唯一id
          *  ack： 消息是否成功收到
          * 	cause：失败的原因
@@ -77,11 +78,18 @@ public class MqConfiguration {
         rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
             @Override
             public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-                log.info("\n确认收到消息: " + Objects.toString(correlationData,"消息队列消息为空!") + "\tack: " + ack + "\tcause： " + cause);
+                if (Objects.nonNull(correlationData)){
+                    log.info("Mq Send Confirm CallBack, 回调id: {}", correlationData.getId());
+                }
+                if(ack) {
+                    log.info("消息发送成功");
+                }else {
+                    log.error("消息发送失败: {}", cause);
+                }
             }
         });
         /**
-         * 设置消息抵达队列回调：可以很明确的知道那些消息失败了
+         * 消息到达交换机后，如果未能到达队列，也会导致消息丢失,设置消息抵达队列回调：可以很明确的知道那些消息失败了
          * message: 投递失败的消息详细信息
          * replyCode: 回复的状态码
          * replyText: 回复的文本内容

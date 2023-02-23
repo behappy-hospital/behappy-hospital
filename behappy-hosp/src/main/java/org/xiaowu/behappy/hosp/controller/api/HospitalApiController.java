@@ -3,6 +3,7 @@ package org.xiaowu.behappy.hosp.controller.api;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +44,7 @@ public class HospitalApiController {
 
     @ApiOperation(value = "获取分页列表")
     @GetMapping("{page}/{limit}")
-    public Result index(
+    public Result<Page<Hospital>> index(
             @PathVariable Integer page,
             @PathVariable Integer limit,
             HospitalQueryVo hospitalQueryVo) {
@@ -62,7 +63,8 @@ public class HospitalApiController {
 
     @ApiOperation(value = "医院预约挂号详情")
     @GetMapping("/{hoscode}")
-    public Result<Map<String, Object>> item(@PathVariable String hoscode) {
+    public Result<Map<String, Object>> item(
+            @PathVariable("hoscode") String hoscode) {
         Map<String, Object> map = hospitalService.item(hoscode);
         return Result.ok(map);
     }

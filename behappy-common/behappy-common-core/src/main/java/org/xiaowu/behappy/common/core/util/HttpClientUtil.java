@@ -22,18 +22,19 @@ import org.apache.http.impl.client.StandardHttpRequestRetryHandler;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
- 
+
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
- 
- 
+
+
 @SuppressWarnings("all")
 @Slf4j
 public class HttpClientUtil {
     private static CloseableHttpClient httpClient = null;
- 
+
     static {
         PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
         // 总连接池数量
@@ -50,11 +51,11 @@ public class HttpClientUtil {
                 .build();
         // 重试处理器，StandardHttpRequestRetryHandler
         HttpRequestRetryHandler retryHandler = new StandardHttpRequestRetryHandler();
- 
+
         httpClient = HttpClients.custom().setConnectionManager(connectionManager).setDefaultRequestConfig(requestConfig)
                 .setRetryHandler(retryHandler).build();
     }
- 
+
     public static JSONObject doHttpGet(String uri, Map<String, String> getParams) {
         CloseableHttpResponse response = null;
         try {
@@ -72,7 +73,7 @@ public class HttpClientUtil {
             if (HttpStatus.SC_OK == statusCode) {
                 HttpEntity entity = response.getEntity();
                 if (null != entity) {
-                    String resStr = EntityUtils.toString(entity, "utf-8");
+                    String resStr = EntityUtils.toString(entity, StandardCharsets.UTF_8);
                     return JSON.parseObject(resStr);
                 }
             }
@@ -88,7 +89,7 @@ public class HttpClientUtil {
         }
         return new JSONObject();
     }
- 
+
     public static JSONObject doHttpPost(String uri, Map<String, Object> getParams) {
         CloseableHttpResponse response = null;
         try {
@@ -98,7 +99,7 @@ public class HttpClientUtil {
                 for (Map.Entry<String, Object> param : getParams.entrySet()) {
                     list.add(new BasicNameValuePair(param.getKey(), StrUtil.toString(param.getValue())));
                 }
-                HttpEntity httpEntity = new UrlEncodedFormEntity(list, "utf-8");
+                HttpEntity httpEntity = new UrlEncodedFormEntity(list, StandardCharsets.UTF_8);
                 httpPost.setEntity(httpEntity);
             }
             response = httpClient.execute(httpPost);
@@ -106,7 +107,7 @@ public class HttpClientUtil {
             if (HttpStatus.SC_OK == statusCode) {
                 HttpEntity entity = response.getEntity();
                 if (null != entity) {
-                    String resStr = EntityUtils.toString(entity, "utf-8");
+                    String resStr = EntityUtils.toString(entity, StandardCharsets.UTF_8);
                     return JSON.parseObject(resStr);
                 }
             }

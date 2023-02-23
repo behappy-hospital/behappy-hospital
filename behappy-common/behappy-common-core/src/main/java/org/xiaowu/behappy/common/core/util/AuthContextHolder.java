@@ -14,15 +14,13 @@ public class AuthContextHolder {
         //从header获取token
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
         //jwt从token获取userid
-        Long userId = JwtHelper.getUserId(token);
-        return userId;
+        return JwtHelper.getUserId(token);
     }
     //获取当前用户名称
     public static String getUserName(HttpServletRequest request) {
         //从header获取token
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
         //jwt从token获取userid
-        String userName = JwtHelper.getUserName(token);
-        return userName;
+        return JwtHelper.getUserName(token);
     }
 }

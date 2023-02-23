@@ -4,6 +4,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+/**
+ * @author 94391
+ */
 @Data
 @ApiModel(description="会员搜索对象")
 public class UserInfoQueryVo {

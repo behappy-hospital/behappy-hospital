@@ -81,5 +81,4 @@ public class OrderApiController {
         Map<String, Object> countMap = orderService.getCountMap(orderCountQueryVo);
         return Result.ok(countMap);
     }
-
 }

@@ -8,6 +8,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>behappy-user</artifactId>
+    <description>用户模块</description>
     <dependencies>
         <dependency>
             <groupId>org.xiaowu</groupId>
@@ -28,7 +29,11 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-
+        <!--配置中心客户端-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.github.wang-xiaowu</groupId>
             <artifactId>behappy-redis</artifactId>

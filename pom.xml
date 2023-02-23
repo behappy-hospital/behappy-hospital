@@ -37,7 +37,6 @@
         <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
         <commons-codec.version>1.15</commons-codec.version>
         <xxl-job.version>2.3.1</xxl-job.version>
-        <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
         <druid-spring-boot-starter.version>1.2.9</druid-spring-boot-starter.version>
     </properties>
     <modules>
@@ -53,7 +52,6 @@
         <module>behappy-user</module>
         <module>behappy-manager</module>
         <module>behappy-monitor</module>
-        <module>behappy-xxl-admin</module>
         <module>behappy-executor-task</module>
     </modules>
     <dependencyManagement>
@@ -124,12 +122,6 @@
                 <groupId>com.xuxueli</groupId>
                 <artifactId>xxl-job-core</artifactId>
                 <version>${xxl-job.version}</version>
-            </dependency>
-            <!-- mybatis-starter：mybatis + mybatis-spring + hikari（default） -->
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis-spring-boot-starter.version}</version>
             </dependency>
             <!-- commons-codec -->
             <dependency>
@@ -326,29 +318,15 @@
 
     <build>
         <finalName>${project.name}</finalName>
+        <!--https://juejin.cn/post/6844904185557680142, 配置filters会去寻找`src/main/resources/behappy.properties`中的对应的属性值给resources中的资源文件进行使用-->
+        <!--<filters>
+            <filter>src/main/resources/behappy.properties</filter>
+        </filters>-->
         <resources>
-            <!--开启过滤, 但排除fonts文件,.p12文件-->
+            <!--<exclude>指定的文件不会编译也不会打入war包。<nonFilteredFileExtension>指定的文件不会编译，但会打入war包-->
             <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
+                <directory>src/main/resources</directory>
                 <filtering>true</filtering>
-                <excludes>
-                    <exclude>${project.basedir}/src/main/resources/**.p12</exclude>
-                    <exclude>${project.basedir}/src/main/resources/**.jks</exclude>
-                    <exclude>${project.basedir}/src/main/resources/**.woff</exclude>
-                    <exclude>${project.basedir}/src/main/resources/**.woff2</exclude>
-                    <exclude>${project.basedir}/src/main/resources/**.ttf</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-                <filtering>false</filtering>
-                <includes>
-                    <include>${project.basedir}/src/main/resources/**.p12</include>
-                    <include>${project.basedir}/src/main/resources/**.jks</include>
-                    <include>${project.basedir}/src/main/resources/**.woff</include>
-                    <include>${project.basedir}/src/main/resources/**.woff2</include>
-                    <include>${project.basedir}/src/main/resources/**.ttf</include>
-                </includes>
             </resource>
         </resources>
         <pluginManagement>
@@ -372,14 +350,18 @@
                     </executions>
                 </plugin>
                 <plugin>
+                    <!-- 该插件将阻止二进制文件过滤，默认为以下文件扩展名添加排除配置:jpg, jpeg, gif, bmp 以及 png, 可通过nonFilteredFileExtension进行拓展 -->
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <configuration>
                         <encoding>UTF-8</encoding>
-                        <!-- 过滤不需要转码后缀为pkcs12、jks的证书文件 -->
                         <nonFilteredFileExtensions>
                             <nonFilteredFileExtension>p12</nonFilteredFileExtension>
-                            <nonFilteredFileExtension>jks</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>woff</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>eot</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>svg</nonFilteredFileExtension>
                         </nonFilteredFileExtensions>
                     </configuration>
                 </plugin>

@@ -1,5 +1,6 @@
 package org.xiaowu.behappy.common.core.swagger;
 
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
@@ -9,7 +10,9 @@ import org.springframework.boot.actuate.endpoint.web.*;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -39,40 +42,38 @@ import java.util.List;
  * UI：http://localhost:8088/swagger-ui/index.html
  * @author xiaowu
  */
+@Data
+@ConditionalOnExpression("#{'dev'.equals('${spring.profiles.active:}')}")
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @Configuration
+@ConfigurationProperties(prefix = "spring.application")
 public class Swagger3Config {
 
     /**
      * host需要配置成网关的地址
      */
-    @Value("${swagger.host:localhost:8088}")
-    private String host;
+    private String gatewayHost;
 
     /**
      * 项目应用名
      */
-    @Value("${spring.application.name}")
-    private String applicationName;
+    private String name;
 
 
     /**
      * 是否开启swagger，生产环境一般关闭，所以这里定义一个变量
      */
-    @Value("${swagger.enable:true}")
-    private Boolean enable;
+    private Boolean swaggerEnable = true;
 
     /**
      * 项目版本信息
      */
-    @Value("${swagger.application.version:1.0.0}")
-    private String applicationVersion;
+    private String version;
 
     /**
      * 项目描述信息
      */
-    @Value("${swagger.application.description:尚医通(改)}")
-    private String applicationDescription;
+    private String description;
 
     /**
      * 解决swagger在springboot2.6.x下不可用的问题
@@ -104,10 +105,10 @@ public class Swagger3Config {
     @Bean
     public Docket apiConfig() {
         return new Docket(DocumentationType.OAS_30)
-                .groupName(applicationName)
+                .groupName(name)
                 .apiInfo(apiInfo())
-                .host(host)
-                .enable(enable)
+                .host(gatewayHost)
+                .enable(swaggerEnable)
                 .globalRequestParameters(globalRequestParameters())
                 .select()
                 //.apis() 控制哪些接口暴露给swagger，
@@ -125,9 +126,9 @@ public class Swagger3Config {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title(applicationName)
-                .description(applicationDescription)
-                .version(applicationVersion)
+                .title(name)
+                .description(description)
+                .version(version)
                 .contact(new Contact("小五", "https://wang-xiaowu.github.io/", "a943915349@gmail.com"))
                 .build();
     }

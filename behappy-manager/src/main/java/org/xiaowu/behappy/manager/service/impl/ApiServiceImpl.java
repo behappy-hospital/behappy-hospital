@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.xiaowu.behappy.common.core.constants.CommonConstants;
 import org.xiaowu.behappy.common.core.exception.HospitalException;
 import org.xiaowu.behappy.common.core.util.HttpRequestHelper;
 import org.xiaowu.behappy.manager.entity.HospitalSet;
@@ -26,6 +27,7 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -337,7 +339,7 @@ public class ApiServiceImpl implements ApiService {
         Scanner scanner = null;
         StringBuilder buffer = new StringBuilder();
         try {
-            scanner = new Scanner(file, "utf-8");
+            scanner = new Scanner(file, CommonConstants.UTF8);
             while (scanner.hasNextLine()) {
                 buffer.append(scanner.nextLine());
             }
