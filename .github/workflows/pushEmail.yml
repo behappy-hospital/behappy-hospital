@@ -24,7 +24,7 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: PushEmail Report (${{env.REPORT_DATE}})
-          body: Build job of completed successfully!
+          body: file://result.html
           to: a943915349@gmail.com
           from: GitHub Actions
           content_type: text/html
