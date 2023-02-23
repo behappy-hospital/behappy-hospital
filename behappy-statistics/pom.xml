@@ -33,6 +33,11 @@
             <groupId>org.xiaowu</groupId>
             <artifactId>behappy-api-order</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.xiaowu</groupId>
+            <artifactId>behappy-api-statistics</artifactId>
+        </dependency>
+
 
 
     </dependencies>

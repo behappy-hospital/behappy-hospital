@@ -279,6 +279,16 @@
             </dependency>
             <dependency>
                 <groupId>org.xiaowu</groupId>
+                <artifactId>behappy-api-oss</artifactId>
+                <version>${behappy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xiaowu</groupId>
+                <artifactId>behappy-api-statistics</artifactId>
+                <version>${behappy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xiaowu</groupId>
                 <artifactId>behappy-api-common</artifactId>
                 <version>${behappy.version}</version>
             </dependency>
