@@ -12,11 +12,11 @@ jobs:
     steps:
       - name: 'Checkout codes'
         uses: actions/checkout@v1
-      - name: 'Get pushEmail'
-        run: bash ./pushEmail.sh Dalian
       - name: 'Get Date'
         run: echo "REPORT_DATE=$(TZ=':Asia/Shanghai' date '+%Y-%m-%d %T')" >> $GITHUB_ENV
-      - name: 'Send mail'
+      - name: 'Get Body - Dalian'
+        run: bash ./pushEmail.sh Dalian
+      - name: 'Send mail to myself'
         uses: dawidd6/action-send-mail@master
         with:
           server_address: smtp.163.com
@@ -26,5 +26,19 @@ jobs:
           subject: PushEmail Report (${{env.REPORT_DATE}})
           body: file://result.html
           to: a943915349@gmail.com
+          from: GitHub Actions
+          content_type: text/html
+      - name: 'Get Body - Shanghai'
+        run: bash ./pushEmail.sh Shanghai
+      - name: 'Send mail to Ashore'
+        uses: dawidd6/action-send-mail@master
+        with:
+          server_address: smtp.163.com
+          server_port: 25
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: PushEmail Report (${{env.REPORT_DATE}})
+          body: file://result.html
+          to: 2542864582@qq.com
           from: GitHub Actions
           content_type: text/html
