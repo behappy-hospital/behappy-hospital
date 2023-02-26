@@ -2,7 +2,7 @@
 
 > 所有文档/sql在doc目录下
 
-请在[此issue](https://github.com/behappy-hospital/behappy-hospital/issues/7)中留下你的邮箱和所在城市，我会在项目有变动的时候推送消息给您
+请在[此issue](https://github.com/behappy-hospital/behappy-hospital/issues/7)中留下你的邮箱，我会在项目有变动的时候推送消息给您
 
 ### 介绍
 
@@ -25,6 +25,7 @@
 - [x] sentinel业务整合
 - [ ] seata业务整合 - 0%
 - [ ] druid-springboot3 - 0%
+- [ ] canal-同步binlog保障缓存数据库数据一致性 - 0%
 
 ### 技术栈
 
