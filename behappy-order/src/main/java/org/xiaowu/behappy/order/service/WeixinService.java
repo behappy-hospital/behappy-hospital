@@ -157,7 +157,7 @@ public class WeixinService {
             //3、返回第三方的数据
             String xml = client.getContent();
             Map<String, String> resultMap = WXPayUtil.xmlToMap(xml);
-            if (null != resultMap && WXPayConstants.SUCCESS.equalsIgnoreCase(resultMap.get("result_code"))) {
+            if (WXPayConstants.SUCCESS.equalsIgnoreCase(resultMap.get("result_code"))) {
                 refundInfo.setCallbackTime(new Date());
                 refundInfo.setTradeNo(resultMap.get("refund_id"));
                 refundInfo.setRefundStatus(RefundStatusEnum.REFUND.getStatus());

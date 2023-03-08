@@ -1,4 +1,4 @@
-package org.xiaowu.behappy.hosp.config;
+package org.xiaowu.behappy.hosp.receiver;
 
 import com.rabbitmq.client.Channel;
 import lombok.AllArgsConstructor;

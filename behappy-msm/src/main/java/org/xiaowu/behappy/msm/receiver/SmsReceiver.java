@@ -1,4 +1,4 @@
-package org.xiaowu.behappy.msm.config;
+package org.xiaowu.behappy.msm.receiver;
 
 import com.rabbitmq.client.Channel;
 import lombok.RequiredArgsConstructor;

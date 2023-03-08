@@ -51,4 +51,6 @@ public interface CommonConstants {
      */
     String SIZE = "size";
 
+    String CACHE_PREFIX = "BEHAPPY:";
+
 }
