@@ -11,14 +11,14 @@ alibaba,cloud,springboot,最佳实践版本:https://github.com/alibaba/spring-cl
 > Nodejs: 10.24.1
 
 
-| 依赖                 | 版本           |
-| -------------------- | -------------- |
+| 依赖                 | 版本             |
+| -------------------- |----------------|
 | Spring Boot          | 3.0.3          |
 | Spring Cloud         | 2022.0.1       |
 | Spring Cloud Alibaba | 2022.0.0.0-RC1 |
 | Mybatis Plus         | 3.5.3.1        |
 | Spring Doc Open Api  | 2.0.2          |
-| Behappy-Redis        | 3.0.4          |
+| Behappy-Redis        | 3.0.3          |
 | Behappy-Canal        | 3.0.2          |
 | Wxpay-Sdk            | 0.0.3          |
 | Hutool               | 5.8.11         |
