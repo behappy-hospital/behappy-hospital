@@ -28,8 +28,8 @@ jobs:
           to: a943915349@gmail.com
           from: GitHub Actions
           content_type: text/html
-      - name: 'Get Body - Shanghai'
-        run: bash ./pushEmail.sh Shanghai
+      - name: 'Get Body - Beijing'
+        run: bash ./pushEmail.sh Beijing
       - name: 'Send mail to Ashore'
         uses: dawidd6/action-send-mail@master
         with:
