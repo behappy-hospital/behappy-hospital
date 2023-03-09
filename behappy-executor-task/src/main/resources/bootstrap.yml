@@ -15,9 +15,9 @@ spring:
         file-extension: yml
         shared-configs:
           - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
-        namespace: 01edc809-a01c-4420-8355-6d5ca5dbd48a
+        namespace: 1c3bfebf-a571-44d6-9b75-70fd124cbcf7
       username: nacos
       password: nacos
       discovery:
-        namespace: 01edc809-a01c-4420-8355-6d5ca5dbd48a
+        namespace: 1c3bfebf-a571-44d6-9b75-70fd124cbcf7
 
