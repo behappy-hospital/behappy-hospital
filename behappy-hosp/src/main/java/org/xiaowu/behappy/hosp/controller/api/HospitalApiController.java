@@ -47,7 +47,7 @@ public class HospitalApiController {
             @PathVariable Integer page,
             @PathVariable Integer limit,
             HospitalQueryVo hospitalQueryVo) {
-        //显示上线的医院
+        //todo 显示上线的医院
         //hospitalQueryVo.setStatus(1);
         Page<Hospital> pageModel = hospitalService.listPage(page, limit, hospitalQueryVo);
         return Result.ok(pageModel);

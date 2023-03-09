@@ -3,6 +3,7 @@ package org.xiaowu.behappy.cmn.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -10,6 +11,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
+import org.springframework.aop.config.AopConfigUtils;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -33,8 +36,7 @@ import static org.xiaowu.behappy.api.cmn.constants.CmnConstant.DICT_CACHE;
  */
 @Service
 public class DictService extends ServiceImpl<DictMapper, Dict> implements IService<Dict> {
-
-    @Cacheable(cacheNames = DICT_CACHE,key = "#id")
+    @Cacheable(value = DICT_CACHE, key = "#id")
     public List<Dict> findChildData(Long id) {
         LambdaQueryWrapper<Dict> dictLambdaQueryWrapper = new LambdaQueryWrapper<>();
         dictLambdaQueryWrapper.eq(Dict::getParentId,id);
@@ -45,6 +47,7 @@ public class DictService extends ServiceImpl<DictMapper, Dict> implements IServi
         }
         return dictList;
     }
+
 
     @SneakyThrows
     public void exportData(HttpServletResponse response) {

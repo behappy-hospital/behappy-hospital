@@ -183,7 +183,7 @@ public class HospitalSetController {
         HospitalSet hospitalSet = hospitalSetService.getById(id);
         String signKey = hospitalSet.getSignKey();
         String hoscode = hospitalSet.getHoscode();
-        // 发送短信
+        // todo 发送短信
         return Result.ok();
     }
 }
