@@ -105,7 +105,7 @@ PasswordAuthentication yes
 ```
 
 - 修改完成后`:wq`保存，然后执行`service sshd restart`，重启ssh
-- 最后执行`reboot`重启（我这里换成xshell登录）
+- 最后执行`reboot`重启（我这里换成xshell登录，账户密码:root@vagrant）
 
 * 关闭防火墙
 
