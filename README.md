@@ -221,11 +221,11 @@ canal-client参考：https://github.com/behappy-project/behappy-canal
 
 ### 其次配置rabbitMQ，添加queue和exchange以及vhost等
 
-> 创建一个vhost命名为`canal`
+> 创建一个命名为`canal`的vhost
 >
-> 创建一个queue在`canal` 的vhost下
+> 创建一个命名为`instance`的queue在`canal` 的vhost下
 >
-> 创建一个binding命名为`instance`绑定`amq.direct` exchange下的queue `instance`
+> 创建一个命名为`instance`的binding，绑定`amq.direct` exchange下的queue `instance`
 
 ![image-20230308140633838](README/image-20230308140633838.png)
 
