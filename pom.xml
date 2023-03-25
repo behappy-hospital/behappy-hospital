@@ -15,7 +15,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <!-- alibaba,cloud,springboot,最佳实践版本:https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E-->
-        <spring-boot.version>3.0.3</spring-boot.version>
+        <spring-boot.version>3.0.5</spring-boot.version>
         <spring-cloud.version>2022.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2022.0.0.0-RC1</spring-cloud-alibaba.version>
         <spring-boot-admin.version>3.0.0</spring-boot-admin.version>
@@ -28,7 +28,7 @@
         <aliyun-java-sdk.version>4.6.0</aliyun-java-sdk.version>
         <aliyun-dysmsapi-sdk.version>2.2.1</aliyun-dysmsapi-sdk.version>
         <behappy-redis.version>3.0.3</behappy-redis.version>
-        <behappy-canal.version>3.0.1</behappy-canal.version>
+        <behappy-canal.version>3.0.2</behappy-canal.version>
         <wx-pay.version>0.0.3</wx-pay.version>
         <hutool.version>5.8.11</hutool.version>
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
@@ -231,6 +231,11 @@
             <dependency>
                 <groupId>org.xiaowu</groupId>
                 <artifactId>behappy-common-mongo</artifactId>
+                <version>${behappy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xiaowu</groupId>
+                <artifactId>behappy-common-seata</artifactId>
                 <version>${behappy.version}</version>
             </dependency>
             <dependency>
