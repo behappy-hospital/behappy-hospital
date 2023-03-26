@@ -10,11 +10,11 @@ alibaba,cloud,springboot,最佳实践版本:https://github.com/alibaba/spring-cl
 >
 > Nodejs: 10.24.1
 
-| 依赖                 | 版本       |
-| -------------------- | ---------- |
-| Spring Boot          | 2.6.11     |
-| Spring Cloud         | 2021.0.4   |
-| Spring Cloud Alibaba | 2021.0.4.0 |
+| 依赖                 | 版本         |
+| -------------------- |------------|
+| Spring Boot          | 2.7.10     |
+| Spring Cloud         | 2021.0.5   |
+| Spring Cloud Alibaba | 2021.0.5.0 |
 | Mybatis Plus         | 3.5.2      |
 | Swagger              | 3.0.0      |
 | behappy redis        | 0.0.4      |

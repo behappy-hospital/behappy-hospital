@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.xiaowu.behappy.common.core.result.Result;
 
+import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
@@ -58,6 +59,9 @@ public class ServletExceptionHandler {
     }
 
     private static void extractedErrPrint(Exception ex) {
+        if (Objects.nonNull(ex.getCause())) {
+            log.error("全局异常捕获", ex.getCause());
+        }
         if (ex.getStackTrace().length>0) {
             StackTraceElement stackTraceElement = ex.getStackTrace()[0];
             log.error(
