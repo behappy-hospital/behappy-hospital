@@ -4,17 +4,16 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.xiaowu</groupId>
-        <artifactId>behappy-api</artifactId>
+        <artifactId>behappy-common</artifactId>
         <version>RELEASE-3.0.1</version>
     </parent>
-    <artifactId>behappy-api-common</artifactId>
+    <artifactId>behappy-common-seata</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.xiaowu</groupId>
-            <artifactId>behappy-common-core</artifactId>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
         </dependency>
     </dependencies>
-
 
 </project>

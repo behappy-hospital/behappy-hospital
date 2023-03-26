@@ -22,3 +22,58 @@ INSERT INTO `nacos_config`.`config_info`(`id`, `data_id`, `group_id`, `content`,
 INSERT INTO `nacos_config`.`config_info`(`id`, `data_id`, `group_id`, `content`, `md5`, `gmt_create`, `gmt_modified`, `src_user`, `src_ip`, `app_name`, `tenant_id`, `c_desc`, `c_use`, `effect`, `type`, `c_schema`) VALUES (34, 'behappy-hosp-flow-rules', 'DEFAULT_GROUP', '[]', 'd751713988987e9331980363e24189ce', '2023-03-06 21:09:00', '2023-03-06 21:09:00', NULL, '192.168.56.1', '', '4e8525e0-335b-46c1-b61e-1a46c5f0a147', NULL, NULL, NULL, 'text', NULL);
 INSERT INTO `nacos_config`.`config_info`(`id`, `data_id`, `group_id`, `content`, `md5`, `gmt_create`, `gmt_modified`, `src_user`, `src_ip`, `app_name`, `tenant_id`, `c_desc`, `c_use`, `effect`, `type`, `c_schema`) VALUES (35, 'behappy-gateway-system-rules', 'DEFAULT_GROUP', '[{\"id\":1,\"app\":\"behappy-gateway\",\"ip\":\"192.168.56.1\",\"port\":8720,\"highestSystemLoad\":-1.0,\"avgRt\":-1,\"maxThread\":-1,\"qps\":1.0,\"highestCpuUsage\":-1.0,\"gmtCreate\":1677056177359,\"gmtModified\":1677056177359}]', '8f94dc85c6ba814a7f3d5cc1a5ffdfd1', '2023-03-06 21:09:00', '2023-03-06 21:09:00', NULL, '192.168.56.1', '', '4e8525e0-335b-46c1-b61e-1a46c5f0a147', NULL, NULL, NULL, 'text', NULL);
 INSERT INTO `nacos_config`.`config_info`(`id`, `data_id`, `group_id`, `content`, `md5`, `gmt_create`, `gmt_modified`, `src_user`, `src_ip`, `app_name`, `tenant_id`, `c_desc`, `c_use`, `effect`, `type`, `c_schema`) VALUES (36, 'behappy-order-flow-rules', 'DEFAULT_GROUP', '[{\"id\":1,\"app\":\"behappy-order\",\"ip\":\"192.168.56.1\",\"port\":8722,\"limitApp\":\"default\",\"resource\":\"/api/order/orderInfo/auth/submitOrder/{scheduleId}/{patientId}\",\"grade\":1,\"count\":1.0,\"strategy\":1,\"refResource\":\"/api/order/weixin/createNative/{orderId}\",\"controlBehavior\":0,\"warmUpPeriodSec\":null,\"maxQueueingTimeMs\":null,\"clusterMode\":false,\"clusterConfig\":{\"flowId\":null,\"thresholdType\":0,\"fallbackToLocalWhenFail\":true,\"strategy\":0,\"sampleCount\":10,\"windowIntervalMs\":1000,\"resourceTimeout\":2000,\"resourceTimeoutStrategy\":0,\"acquireRefuseStrategy\":0,\"clientOfflineTime\":2000},\"gmtCreate\":1677057708969,\"gmtModified\":1677057708969}]', 'cfa62dd20b22ddcb4d4679fc95a752fe', '2023-03-06 21:09:00', '2023-03-06 21:09:00', NULL, '192.168.56.1', '', '4e8525e0-335b-46c1-b61e-1a46c5f0a147', NULL, NULL, NULL, 'text', NULL);
+
+INSERT INTO nacos_config.tenant_info (id, kp, tenant_id, tenant_name, tenant_desc, create_source, gmt_create, gmt_modified) VALUES (3, '1', '2f060af4-6ceb-460a-acb8-0acf6715d20e', 'seata', 'seata', 'nacos', 1679802515216, 1679802515216);
+INSERT INTO nacos_config.config_info (id, data_id, group_id, content, md5, gmt_create, gmt_modified, src_user, src_ip, app_name, tenant_id, c_desc, c_use, effect, type, c_schema) VALUES (37, 'seataServer.properties', 'DEFAULT_GROUP', 'store.mode=db
+#-----db-----
+store.db.datasource=druid
+store.db.dbType=mysql
+# 需要根据mysql的版本调整driverClassName
+# mysql8及以上版本对应的driver：com.mysql.cj.jdbc.Driver
+# mysql8以下版本的driver：com.mysql.jdbc.Driver
+store.db.driverClassName=com.mysql.cj.jdbc.Driver
+store.db.url=jdbc:mysql://192.168.56.100:3306/seata?useUnicode=true&characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false
+store.db.user=root
+store.db.password=root
+# 数据库初始连接数
+store.db.minConn=1
+# 数据库最大连接数
+store.db.maxConn=20
+# 获取连接时最大等待时间 默认5000，单位毫秒
+store.db.maxWait=5000
+# 全局事务表名 默认global_table
+store.db.globalTable=global_table
+# 分支事务表名 默认branch_table
+store.db.branchTable=branch_table
+# 全局锁表名 默认lock_table
+store.db.lockTable=lock_table
+# 查询全局事务一次的最大条数 默认100
+store.db.queryLimit=100
+
+# undo保留天数 默认7天,log_status=1（附录3）和未正常清理的undo
+server.undo.logSaveDays=7
+# undo清理线程间隔时间 默认86400000，单位毫秒
+server.undo.logDeletePeriod=86400000
+# 二阶段提交重试超时时长 单位ms,s,m,h,d,对应毫秒,秒,分,小时,天,默认毫秒。默认值-1表示无限重试
+# 公式: timeout>=now-globalTransactionBeginTime,true表示超时则不再重试
+# 注: 达到超时时间后将不会做任何重试,有数据不一致风险,除非业务自行可校准数据,否者慎用
+server.maxCommitRetryTimeout=-1
+# 二阶段回滚重试超时时长
+server.maxRollbackRetryTimeout=-1
+# 二阶段提交未完成状态全局事务重试提交线程间隔时间 默认1000，单位毫秒
+server.recovery.committingRetryPeriod=1000
+# 二阶段异步提交状态重试提交线程间隔时间 默认1000，单位毫秒
+server.recovery.asynCommittingRetryPeriod=1000
+# 二阶段回滚状态重试回滚线程间隔时间  默认1000，单位毫秒
+server.recovery.rollbackingRetryPeriod=1000
+# 超时状态检测重试线程间隔时间 默认1000，单位毫秒，检测出超时将全局事务置入回滚会话管理器
+server.recovery.timeoutRetryPeriod=1000
+
+# 客户端与服务端传输方式
+transport.serialization=seata
+transport.compressor=none
+# 关闭metrics功能，提高性能
+metrics.enabled=false
+metrics.registryType=compact
+metrics.exporterList=prometheus
+metrics.exporterPrometheusPort=9898', '6eb9db2772193d4325f32e1b17b196cb', '2023-03-25 22:54:49', '2023-03-25 23:18:11', 'nacos', '192.168.56.1', 'SEATA', '2f060af4-6ceb-460a-acb8-0acf6715d20e', '', '', '', 'properties', '');

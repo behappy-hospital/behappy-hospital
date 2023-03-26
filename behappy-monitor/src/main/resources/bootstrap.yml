@@ -7,14 +7,14 @@ spring:
     name: @project.artifactId@
   cloud:
     nacos:
-      server-addr: 192.168.56.100:8848
+      server-addr: ${NACOS_SERVER:192.168.56.100:8848}
       config:
         file-extension: yml
         shared-configs:
           - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
         namespace: 1c3bfebf-a571-44d6-9b75-70fd124cbcf7
-      username: nacos
-      password: nacos
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
       discovery:
         namespace: 1c3bfebf-a571-44d6-9b75-70fd124cbcf7
 

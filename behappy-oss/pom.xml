@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.xiaowu</groupId>
         <artifactId>behappy-hospital</artifactId>
-        <version>3.0.0</version>
+        <version>RELEASE-3.0.1</version>
     </parent>
     <artifactId>behappy-oss</artifactId>
     <description>oss模块</description>

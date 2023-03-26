@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.xiaowu</groupId>
         <artifactId>behappy-hospital</artifactId>
-        <version>3.0.0</version>
+        <version>RELEASE-3.0.1</version>
     </parent>
     <artifactId>behappy-common</artifactId>
     <packaging>pom</packaging>
@@ -15,6 +15,7 @@
         <module>behappy-common-mongo</module>
         <module>behappy-common-rmq</module>
         <module>behappy-common-sentinel</module>
+        <module>behappy-common-seata</module>
     </modules>
 
 </project>

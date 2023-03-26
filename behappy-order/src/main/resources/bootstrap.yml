@@ -7,10 +7,9 @@ spring:
     name: @project.artifactId@
     version: @project.version@
     description: @project.description@
-    gateway-host: http://localhost:8088
   cloud:
     nacos:
-      server-addr: 192.168.56.100:8848
+      server-addr: ${NACOS_SERVER:192.168.56.100:8848}
       config:
         file-extension: yml
         shared-configs:
@@ -19,12 +18,32 @@ spring:
           - sentinel-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
           - datasource-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
         namespace: 1c3bfebf-a571-44d6-9b75-70fd124cbcf7
-      username: nacos
-      password: nacos
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
       discovery:
         namespace: 1c3bfebf-a571-44d6-9b75-70fd124cbcf7
+seata:
+  registry: # TC服务注册中心的配置，微服务根据这些信息去注册中心获取tc服务地址
+    # 参考tc服务自己的registry.conf中的配置
+    type: nacos
+    nacos: # tc
+      server-addr: ${NACOS_SERVER:192.168.56.100:8848}
+      namespace: 2f060af4-6ceb-460a-acb8-0acf6715d20e
+      group: DEFAULT_GROUP
+      application: seata-server # tc服务在nacos中的服务名称
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+  tx-service-group: seata-demo # 事务组，根据这个获取tc服务的cluster名称
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${NACOS_SERVER:192.168.56.100:8848}
+      namespace: 2f060af4-6ceb-460a-acb8-0acf6715d20e
+      group: DEFAULT_GROUP
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+      data-id: client.properties
 # 线程池线程名字自定义
 thread:
   pool:
     name-prefix: @project.artifactId@
-
