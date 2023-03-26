@@ -11,7 +11,6 @@ import java.io.IOException;
 /**
  * @author xiaowu
  */
-@Component
 public class ImgJsonSerializer extends JsonSerializer<String> {
 
     @Override
