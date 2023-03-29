@@ -3,6 +3,7 @@ package org.xiaowu.behappy.order.service;
 import com.alibaba.fastjson2.JSONObject;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
+import io.seata.rm.tcc.api.LocalTCC;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,9 +45,9 @@ public class WeixinService {
     /**
      * 根据订单号下单，生成支付链接
      */
-    public Map createNative(Long orderId) {
+    public Map<String, Object> createNative(Long orderId) {
         try {
-            Map payMap = (Map) redisTemplate.opsForValue().get(orderId.toString());
+            Map<String, Object> payMap = (Map<String, Object>) redisTemplate.opsForValue().get(orderId.toString());
             if (null != payMap) {
                 return payMap;
             }
@@ -55,7 +56,7 @@ public class WeixinService {
             // 保存交易记录
             paymentService.savePaymentInfo(order, PaymentTypeEnum.WEIXIN.getStatus());
             //1、设置参数
-            Map<String, String> paramMap = new HashMap();
+            Map<String, String> paramMap = new HashMap<>();
             paramMap.put("appid", wxConfigProperties.getAppId());
             paramMap.put("mch_id", wxConfigProperties.getPartner());
             paramMap.put("nonce_str", WXPayUtil.generateNonceStr());
@@ -82,7 +83,7 @@ public class WeixinService {
             Map<String, String> resultMap = WXPayUtil.xmlToMap(xml);
             log.error("微信支付码返回信息: {}", resultMap.get("return_msg"));
             //4、封装返回结果集
-            Map map = new HashMap<>();
+            Map<String, Object> map = new HashMap<>();
             map.put("orderId", orderId);
             map.put("totalFee", order.getAmount());
             map.put("resultCode", resultMap.get("result_code"));

@@ -1,7 +1,48 @@
 use nacos_config;
-INSERT INTO nacos_config.tenant_info (id, kp, tenant_id, tenant_name, tenant_desc, create_source, gmt_create, gmt_modified) VALUES (1, '1', '1c3bfebf-a571-44d6-9b75-70fd124cbcf7', 'biz-dev', '业务NS', 'nacos', 1678155681204, 1678155681204);
+INSERT INTO nacos_config.tenant_info (id, kp, tenant_id, tenant_name, tenant_desc, create_source, gmt_create, gmt_modified) VALUES (1, '1', '1c3bfebf-a571-44d6-9b75-70fd124cbcf7', 'biz', '业务NS', 'nacos', 1678155681204, 1678155681204);
 INSERT INTO nacos_config.tenant_info (id, kp, tenant_id, tenant_name, tenant_desc, create_source, gmt_create, gmt_modified) VALUES (2, '1', '4e8525e0-335b-46c1-b61e-1a46c5f0a147', 'sentinel', 'sentinel-dashboard-rules', 'nacos', 1678158529277, 1678158529277);
-INSERT INTO `nacos_config`.`config_info`(`id`, `data_id`, `group_id`, `content`, `md5`, `gmt_create`, `gmt_modified`, `src_user`, `src_ip`, `app_name`, `tenant_id`, `c_desc`, `c_use`, `effect`, `type`, `c_schema`) VALUES (16, 'application-dev.yml', 'DEFAULT_GROUP', 'behappy:\n  aliyun:\n    access-key-id: \n    access-key-secret: \n  mongo:\n    host: 192.168.56.100:27017\n    username: root\n    password: root\n    db:\n      order: yygh_hosp\n      hosp: yygh_hosp\n  rabbitmq:\n    host: 192.168.56.100\n    port: 5672\n    virtual-host: /\n    username: root\n    password: root\n  xxl-admin:\n    addresses: http://192.168.56.100:8080/xxl-job-admin\n  mysql:\n    password: root\n    username: root\n    host: 192.168.56.100:3306\n    db:\n      cmn: yygh_cmn\n      user: yygh_user\n      hosp: yygh_hosp\n      manager: yygh_manager\n      order: yygh_order\nmanagement:\n  endpoints:\n    web:\n      exposure:\n        include: \"*\"\n  endpoint:\n    health:\n      show-details: ALWAYS', '1fccfece925674f2cc0f0008d3a1795b', '2023-03-06 20:28:44', '2023-03-08 00:46:50', 'nacos', '192.168.56.1', 'ALL', '1c3bfebf-a571-44d6-9b75-70fd124cbcf7', '所有模块的共享配置', '', '', 'yaml', '');
+INSERT INTO nacos_config.config_info (id, data_id, group_id, content, md5, gmt_create, gmt_modified, src_user, src_ip, app_name, tenant_id, c_desc, c_use, effect, type, c_schema) VALUES (16, 'application-dev.yml', 'DEFAULT_GROUP', 'behappy:
+  aliyun:
+    access-key-id:
+    access-key-secret:
+  mongo:
+    host: 192.168.56.100:27017
+    username: root
+    password: root
+    db:
+      order: yygh_hosp
+      hosp: yygh_hosp
+  rabbitmq:
+    host: 192.168.56.100
+    port: 5672
+    virtual-host: /
+    username: root
+    password: root
+  xxl-admin:
+    addresses: http://192.168.56.100:8080/xxl-job-admin
+  mysql:
+    password: root
+    username: root
+    host: 192.168.56.100:3306
+    db:
+      cmn: yygh_cmn
+      user: yygh_user
+      hosp: yygh_hosp
+      manager: yygh_manager
+      order: yygh_order
+      seata: seata
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+spring:
+  application:
+    # 此处填写网关地址，会在spring doc中使用
+    gateway-host: http://localhost:8088', 'e970952c52a7b4cdb9b7fffab9a43743', '2023-03-06 20:28:44', '2023-03-26 02:47:24', 'nacos', '192.168.56.1', 'ALL', '1c3bfebf-a571-44d6-9b75-70fd124cbcf7', '所有模块的共享配置', '', '', 'yaml', '');
 INSERT INTO `nacos_config`.`config_info`(`id`, `data_id`, `group_id`, `content`, `md5`, `gmt_create`, `gmt_modified`, `src_user`, `src_ip`, `app_name`, `tenant_id`, `c_desc`, `c_use`, `effect`, `type`, `c_schema`) VALUES (17, 'redis-dev.yml', 'DEFAULT_GROUP', 'spring:\n  redis:\n    redisson:\n      config: |-\n        # 例: 单节点设置\n        singleServerConfig:\n          # （节点地址）redis://-非ssl,rediss://-ssl\n          address: redis://192.168.56.100:6379\n          database: 0\n          password: null\n          # 如果当前连接池里的连接数量超过了`最小空闲连接数`，而同时有连接空闲时间超过了该数值，那么这些连接将会自动被关闭，并从连接池里去掉。时间单位是毫秒。\n          idleConnectionTimeout: 10000\n          # 同节点建立连接时的等待超时。时间单位是毫秒。\n          connectTimeout: 10000\n          # 等待节点回复命令的时间。该时间从命令发送成功时开始计时。\n          timeout: 3000\n          # 如果尝试达到 retryAttempts（命令失败重试次数） 仍然不能将命令发送至某个指定的节点时，将抛出错误。如果尝试在此限制之内发送成功，则开始启用 timeout（命令等待超时） 计时。\n          retryAttempts: 3\n          # 在某个节点执行相同或不同命令时，连续 失败 failedAttempts（执行失败最大次数） 时，该节点将被从可用节点列表里清除，直到 reconnectionTimeout（重新连接时间间隔） 超时以后再次尝试。\n          retryInterval: 1500\n          # 在Redis节点里显示的客户端名称。\n          clientName: null\n          # 发布和订阅连接的最小空闲连接数 默认1\n          subscriptionConnectionMinimumIdleSize: 1\n          # 发布和订阅连接池大小 默认50\n          subscriptionConnectionPoolSize: 50\n          # 单个连接最大订阅数量 默认5\n          subscriptionsPerConnection: 5\n          # 最小空闲连接数 默认32，现在暂时不需要那么多的线程\n          connectionMinimumIdleSize: 4\n          # 连接池大小,在启用该功能以后，Redisson将会监测DNS的变化情况。\n          connectionPoolSize: 64\n          # 监测DNS的变化情况的时间间隔。\n          dnsMonitoringInterval: 5000\n        # 这个线程池数量被所有RTopic对象监听器，RRemoteService调用者和RExecutorService任务共同共享。\n        threads: 0\n        # 这个线程池数量是在一个Redisson实例内，被其创建的所有分布式数据类型和服务，以及底层客户端所一同共享的线程池里保存的线程数量。\n        nettyThreads: 0\n        # (如果不配置则默认为Kryo5Codec方式)，当前支持JsonJacksonCodec和Kryo5Codec序列化方式\n        codec: !<org.redisson.codec.JsonJacksonCodec> {}\n        transportMode: NIO', 'c292a24ca2a04d189dfcf3bb2281fb64', '2023-03-06 20:28:44', '2023-03-08 01:39:33', 'nacos', '192.168.56.1', 'Redis', '1c3bfebf-a571-44d6-9b75-70fd124cbcf7', 'Redis共享配置', '', '', 'yaml', '');
 INSERT INTO `nacos_config`.`config_info`(`id`, `data_id`, `group_id`, `content`, `md5`, `gmt_create`, `gmt_modified`, `src_user`, `src_ip`, `app_name`, `tenant_id`, `c_desc`, `c_use`, `effect`, `type`, `c_schema`) VALUES (18, 'behappy-cmn-dev.yml', 'DEFAULT_GROUP', 'spring:\n  datasource:\n    password: ${behappy.mysql.password:root}\n    username: ${behappy.mysql.username:root}\n    url: jdbc:mysql://${behappy.mysql.host:192.168.56.100:3306}/${behappy.mysql.db.cmn:yygh_cmn}?allowMultiQueries=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true\nbehappy:\n  redis:\n    cache-manager:\n      configs:\n        - key: DICT_CACHE\n          ttl: 86400', '77c9dec7fdc5f400c536b2143241a964', '2023-03-06 20:28:44', '2023-03-08 02:05:17', 'nacos', '192.168.56.1', 'behappy-cmn', '1c3bfebf-a571-44d6-9b75-70fd124cbcf7', '', '', '', 'yaml', '');
 INSERT INTO `nacos_config`.`config_info`(`id`, `data_id`, `group_id`, `content`, `md5`, `gmt_create`, `gmt_modified`, `src_user`, `src_ip`, `app_name`, `tenant_id`, `c_desc`, `c_use`, `effect`, `type`, `c_schema`) VALUES (19, 'behappy-manager-dev.yml', 'DEFAULT_GROUP', 'spring:\r\n  thymeleaf:\r\n    mode: LEGACYHTML5\r\n    #编码 可不用配置\r\n    encoding: UTF-8\r\n    #开发配置为false,避免修改模板还要重启服务器\r\n    cache: false\r\n    #配置模板路径，默认是templates，可以不用配置\r\n    prefix: classpath:/templates/\r\n  datasource:\r\n    type: com.alibaba.druid.pool.DruidDataSource\r\n    password: ${behappy.mysql.password:root}\r\n    username: ${behappy.mysql.username:root}\r\n    url: jdbc:mysql://${behappy.mysql.host:192.168.56.100:3306}/${behappy.mysql.db.manage:yygh_manage}?allowMultiQueries=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true\r\n  jackson:\r\n    date-format: yyyy-MM-dd HH:mm:ss\r\n    time-zone: GMT+8', '5654ad6bc661895e3ba55b99ade1c6a7', '2023-03-06 20:28:44', '2023-03-06 20:28:44', NULL, '192.168.56.1', 'behappy-manager', '1c3bfebf-a571-44d6-9b75-70fd124cbcf7', '', NULL, NULL, 'yaml', NULL);
