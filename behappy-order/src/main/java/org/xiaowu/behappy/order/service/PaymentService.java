@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.xiaowu.behappy.api.common.vo.SignInfoVo;
 import org.xiaowu.behappy.api.hosp.feign.HospitalFeign;
 import org.xiaowu.behappy.api.order.enums.OrderStatusEnum;
@@ -65,6 +66,7 @@ public class PaymentService extends ServiceImpl<PaymentInfoMapper, PaymentInfo> 
         baseMapper.insert(paymentInfo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void paySuccess(String outTradeNo, Integer paymentType, Map<String, String> paramMap) {
         PaymentInfo paymentInfo = this.getPaymentInfo(outTradeNo, paymentType);
         if (null == paymentInfo) {
