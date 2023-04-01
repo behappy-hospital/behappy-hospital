@@ -9,7 +9,7 @@
     <description>尚硅谷-尚医通(改-springboot3.0)</description>
     <packaging>pom</packaging>
     <properties>
-        <behappy.version>RELEASE-3.0.1</behappy.version>
+        <behappy.version>RELEASE-3.0.2</behappy.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
