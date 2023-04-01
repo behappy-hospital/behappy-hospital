@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.xiaowu</groupId>
         <artifactId>behappy-hospital</artifactId>
-        <version>RELEASE-3.0.1</version>
+        <version>RELEASE-3.0.2</version>
     </parent>
     <artifactId>behappy-msm</artifactId>
     <description>短信模块</description>

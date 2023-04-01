@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.xiaowu</groupId>
     <artifactId>behappy-hospital</artifactId>
-    <version>RELEASE-3.0.1</version>
+    <version>RELEASE-3.0.2</version>
     <name>behappy-hospital</name>
     <description>尚硅谷-尚医通(改-springboot3.0)</description>
     <packaging>pom</packaging>
     <properties>
-        <behappy.version>RELEASE-3.0.1</behappy.version>
+        <behappy.version>RELEASE-3.0.2</behappy.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
@@ -322,6 +322,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <!--指标-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -376,6 +382,12 @@
                         <layers>
                             <enabled>true</enabled>
                         </layers>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
                     </configuration>
                     <executions>
                         <execution>
