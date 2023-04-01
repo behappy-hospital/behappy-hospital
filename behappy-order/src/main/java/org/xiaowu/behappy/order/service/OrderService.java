@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.xiaowu.behappy.api.common.vo.MsmVo;
 import org.xiaowu.behappy.api.common.vo.SignInfoVo;
 import org.xiaowu.behappy.api.hosp.feign.HospitalFeign;
@@ -55,7 +56,13 @@ public class OrderService {
 
     private final AliSmsProperties aliSmsProperties;
 
-    //保存订单
+    /**
+     * 保存订单
+     * @param scheduleId
+     * @param patientId
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
     public Long saveOrder(String scheduleId, Long patientId) {
         Result<PatientVo> patientResult = patientFeign.getPatient(patientId);
         PatientVo patient = responseConvert.convert(patientResult, new TypeReference<PatientVo>() {
@@ -69,6 +76,9 @@ public class OrderService {
         if (null == scheduleOrderVo) {
             throw new HospitalException(ResultCodeEnum.PARAM_ERROR);
         }
+        if (scheduleOrderVo.getAvailableNumber() <= 0) {
+            throw new HospitalException(ResultCodeEnum.NUMBER_NO);
+        }
         //当前时间不可以预约
         if (new DateTime(scheduleOrderVo.getStartTime()).isAfterNow()
                 || new DateTime(scheduleOrderVo.getEndTime()).isBeforeNow()) {
@@ -77,15 +87,9 @@ public class OrderService {
         Result<SignInfoVo> signInfoVoResult = hospitalFeign.getSignInfoVo(scheduleOrderVo.getHoscode());
         SignInfoVo signInfoVo = responseConvert.convert(signInfoVoResult, new TypeReference<SignInfoVo>() {
         });
-        if (null == scheduleOrderVo) {
-            throw new HospitalException(ResultCodeEnum.PARAM_ERROR);
-        }
-        if (scheduleOrderVo.getAvailableNumber() <= 0) {
-            throw new HospitalException(ResultCodeEnum.NUMBER_NO);
-        }
         OrderInfo orderInfo = new OrderInfo();
         BeanUtils.copyProperties(scheduleOrderVo, orderInfo);
-        String outTradeNo = System.currentTimeMillis() + "" + new Random().nextInt(100);
+        String outTradeNo = System.currentTimeMillis() + String.valueOf(new Random().nextInt(100));
         orderInfo.setOutTradeNo(outTradeNo);
         orderInfo.setScheduleId(scheduleId);
         orderInfo.setUserId(patient.getUserId());
@@ -152,18 +156,13 @@ public class OrderService {
             MsmVo msmVo = new MsmVo();
             msmVo.setPhone(orderInfo.getPatientPhone());
             msmVo.setTemplateCode(aliSmsProperties.getTemplateCode());
-            String reserveDate =
-                    new DateTime(orderInfo.getReserveDate()).toString("yyyy-MM-dd")
-                            + (orderInfo.getReserveTime() == 0 ? "上午" : "下午");
+            String reserveDate = new DateTime(orderInfo.getReserveDate()).toString("yyyy-MM-dd") + (orderInfo.getReserveTime() == 0 ? "上午" : "下午");
             Map<String, Object> param = new HashMap<String, Object>() {{
                 put("title", orderInfo.getHosname() + "|" + orderInfo.getDepname() + "|" + orderInfo.getTitle());
-                put("amount", orderInfo.getAmount());
                 put("reserveDate", reserveDate);
                 put("name", orderInfo.getPatientName());
-                put("quitTime", new DateTime(orderInfo.getQuitTime()).toString("yyyy-MM-dd HH:mm"));
             }};
             msmVo.setParam(param);
-
             orderMqVo.setMsmVo(msmVo);
             rabbitTemplate.convertAndSend(MqConst.EXCHANGE_DIRECT_ORDER, MqConst.ROUTING_ORDER, orderMqVo);
 
@@ -173,6 +172,7 @@ public class OrderService {
         return orderInfo.getId();
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Boolean cancelOrder(Long orderId) {
         OrderInfo orderInfo = orderInfoService.getById(orderId);
         // todo,当前时间在退号时间之后，不能取消预约
@@ -216,11 +216,15 @@ public class OrderService {
             MsmVo msmVo = new MsmVo();
             msmVo.setPhone(orderInfo.getPatientPhone());
             msmVo.setTemplateCode(aliSmsProperties.getTemplateCode());
-            String reserveDate = new DateTime(orderInfo.getReserveDate()).toString("yyyy-MM-dd") + (orderInfo.getReserveTime() == 0 ? "上午" : "下午");
+            String reserveDate =
+                    new DateTime(orderInfo.getReserveDate()).toString("yyyy-MM-dd")
+                            + (orderInfo.getReserveTime() == 0 ? "上午" : "下午");
             Map<String, Object> param = new HashMap<String, Object>() {{
                 put("title", orderInfo.getHosname() + "|" + orderInfo.getDepname() + "|" + orderInfo.getTitle());
+                put("amount", orderInfo.getAmount());
                 put("reserveDate", reserveDate);
                 put("name", orderInfo.getPatientName());
+                put("quitTime", new DateTime(orderInfo.getQuitTime()).toString("yyyy-MM-dd HH:mm"));
             }};
             msmVo.setParam(param);
             orderMqVo.setMsmVo(msmVo);
