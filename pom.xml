@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.xiaowu</groupId>
     <artifactId>behappy-hospital</artifactId>
-    <version>RELEASE-3.0.1</version>
+    <version>RELEASE-3.0.2</version>
     <name>behappy-hospital</name>
     <description>尚硅谷-尚医通(改-springboot3.0)</description>
     <packaging>pom</packaging>
