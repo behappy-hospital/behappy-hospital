@@ -155,7 +155,7 @@ curl -L https://github.com/docker/compose/releases/download/v2.16.0/docker-compo
 - clone `behappy-docker-application` 项目
 
 ```bash
-cd ~ && git clone https://github.com/behappy-hospital/behappy-docker-application
+cd ~ && git clone https://github.com/behappy-project/behappy-docker-application.git
 ```
 
 - 先创建mysql，并初始化一些表结构和数据
