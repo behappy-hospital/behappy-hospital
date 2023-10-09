@@ -38,7 +38,7 @@
         <aspectjweaver.version>1.9.19</aspectjweaver.version>
         <commons-codec.version>1.15</commons-codec.version>
         <xxl-job.version>2.3.1</xxl-job.version>
-        <druid-spring-boot-starter.version>1.2.15</druid-spring-boot-starter.version>
+        <druid-spring-boot-starter.version>1.2.20</druid-spring-boot-starter.version>
     </properties>
     <modules>
         <module>behappy-api</module>
@@ -137,10 +137,10 @@
                 <artifactId>joda-time</artifactId>
                 <version>${joda.time.version}</version>
             </dependency>
-            <!--druid 数据源连接池-->
+            <!--druid 数据源连接池 https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-3-starter -->
             <dependency>
                 <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
+                <artifactId>druid-spring-boot-3-starter</artifactId>
                 <version>${druid-spring-boot-starter.version}</version>
             </dependency>
             <!--easy excel-->
