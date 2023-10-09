@@ -6,11 +6,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.CompressionCodecs;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.util.Base64Utils;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Date;
 
 /**
@@ -68,7 +68,7 @@ public class JwtHelper {
      * @return SecretKey
      */
     private static SecretKey generalKey() {
-        byte[] encodedKey = Base64Utils.decode(TOKEN_SIGN_KEY.getBytes(StandardCharsets.UTF_8));
+        byte[] encodedKey = Base64.getDecoder().decode(TOKEN_SIGN_KEY.getBytes(StandardCharsets.UTF_8));
         return new SecretKeySpec(encodedKey, 0, encodedKey.length, SignatureAlgorithm.HS256.getJcaName());
     }
 
