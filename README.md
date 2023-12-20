@@ -174,7 +174,7 @@ docker-compose -f redis/docker-compose.yml up -d && docker-compose -f mongo/dock
 
 # Nacos配置 (数据我已添加完，下面是演示)
 
-> 共享配置信息被我放在了`application-dev.yml`中，可以自行查看且修改
+> 共享配置信息被我放在了`Data Id`为`application-dev.yml`的配置中，可以自行查看且修改
 
 ![](README/nacos-config.png)
 ![](README/nacos-config2.png)
