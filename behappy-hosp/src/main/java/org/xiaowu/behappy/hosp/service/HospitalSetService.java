@@ -40,7 +40,7 @@ public class HospitalSetService extends ServiceImpl<HospitalSetMapper, HospitalS
         return signInfoVo;
     }
 
-    @Cacheable(cacheNames = HospConstant.HOSP_CACHE, key = "#hoscode")
+    // @Cacheable(cacheNames = HospConstant.HOSP_CACHE, key = "#hoscode")
     public HospitalSet getHospitalSet(String hoscode) {
         LambdaQueryWrapper<HospitalSet> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(HospitalSet::getHoscode,hoscode);
@@ -48,12 +48,12 @@ public class HospitalSetService extends ServiceImpl<HospitalSetMapper, HospitalS
     }
 
 
-    @CachePut(cacheNames = HospConstant.HOSP_CACHE, key = "#hospitalSet.hoscode")
+    /*@CachePut(cacheNames = HospConstant.HOSP_CACHE, key = "#hospitalSet.hoscode")
     public HospitalSet saveHospitalSet(HospitalSet hospitalSet) {
         return hospitalSet;
     }
 
     @CacheEvict(cacheNames = HospConstant.HOSP_CACHE, key = "#hoscode")
     public void delHospitalSet(String hoscode) {
-    }
+    }*/
 }

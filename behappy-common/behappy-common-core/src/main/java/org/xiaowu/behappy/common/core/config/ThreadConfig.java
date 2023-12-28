@@ -4,12 +4,12 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -41,8 +41,8 @@ public class ThreadConfig implements AsyncConfigurer {
         };
     }
 
-    @Override
-    public Executor getAsyncExecutor() {
+    @Bean(destroyMethod = "shutdown")
+    public ThreadPoolTaskExecutor executor(){
         return getThreadPoolTaskExecutor();
     }
 
@@ -59,9 +59,10 @@ public class ThreadConfig implements AsyncConfigurer {
         taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         // 任务结束再shutdown
         taskExecutor.setWaitForTasksToCompleteOnShutdown(true);
+        // 最多等待多长时间再shutdown
+        taskExecutor.setAwaitTerminationSeconds(awaitTerminationSeconds);
         // 线程最大空闲时间
         taskExecutor.setKeepAliveSeconds(keepAliveTime);
-        taskExecutor.setAwaitTerminationSeconds(awaitTerminationSeconds);
         taskExecutor.setThreadNamePrefix(namePrefix.concat("-"));
         // 交给spring托管的会自动初始化，因为实现了InitializingBean接口
         taskExecutor.initialize();
